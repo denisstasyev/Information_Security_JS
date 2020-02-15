@@ -1,5 +1,7 @@
 # Information_Security_JS
 
+> [Security JS Project](https://denisstasyev.github.io/Information_Security_JS/)
+
 Client part of Encryption system for the Information Security course by Vladimirov at MIPT
 
 > This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
