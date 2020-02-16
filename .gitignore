@@ -2,7 +2,7 @@
 .vscode
 
 # environment
-react-app-env.d.ts
+src/react-app-env.d.ts
 
 # dependencies
 /node_modules
