@@ -1,25 +1,18 @@
 import * as React from 'react';
-// import { Message } from "./store/chat/types";
+import { Link } from 'react-router-dom';
 
-// interface ChatHistoryProps {
-//   messages: Message[];
-// }
-
-// const ChatHistory: React.SFC<ChatHistoryProps> = ({ messages }) => {
-//   return (
-//     <div className="chat-history">
-//       {messages.map(message => (
-//         <div className="message-item" key={message.timestamp}>
-//           <h3>From: {message.user}</h3>
-//           <p>{message.message}</p>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default ChatHistory;
+import { Header } from 'components/Header';
+import { homepage } from 'config';
 
 export default function() {
-	return <div>Receive</div>;
+	return (
+		<>
+			<Header />
+			<div>
+				<h2>Receive</h2>
+				<div>Soooooooon</div>
+				<Link to={homepage + '/send'}>Go to Send</Link>
+			</div>
+		</>
+	);
 }

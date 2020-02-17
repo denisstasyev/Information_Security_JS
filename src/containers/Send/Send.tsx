@@ -1,25 +1,64 @@
 import * as React from 'react';
-// import { Message } from "./store/chat/types";
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-// interface ChatHistoryProps {
-//   messages: Message[];
-// }
+import { AppState } from 'store';
+import { SendState } from 'store/send/types';
+import { setMethod, setText, send } from 'store/send/actions';
 
-// const ChatHistory: React.SFC<ChatHistoryProps> = ({ messages }) => {
-//   return (
-//     <div className="chat-history">
-//       {messages.map(message => (
-//         <div className="message-item" key={message.timestamp}>
-//           <h3>From: {message.user}</h3>
-//           <p>{message.message}</p>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
+import { Header } from 'components/Header';
+import { methods, homepage } from 'config';
 
-// export default ChatHistory;
-
-export default function() {
-	return <div>Send</div>;
+interface SendProps extends SendState {
+	setMethod: typeof setMethod;
+	setText: typeof setText;
+	send: typeof send;
 }
+
+const Send: React.SFC<SendProps> = props => {
+	const onChangeMethod = (event: any) => {
+		event.preventDefault();
+		props.setMethod(event.target.value);
+	};
+
+	const onChangeText = (event: any) => {
+		event.preventDefault();
+		props.setText(event.target.value);
+	};
+
+	const onSubmit = (event: any) => {
+		event.preventDefault();
+		props.send(props.method, props.text);
+	};
+
+	return (
+		<>
+			<Header />
+			<div>
+				<h2>Send</h2>
+				<select value={props.method} onChange={onChangeMethod}>
+					{methods.map((method, index) => (
+						<option value={method} key={index}>
+							{method}
+						</option>
+					))}
+				</select>
+				<input
+					value={props.text}
+					type="text"
+					placeholder="Enter text to send"
+					onChange={onChangeText}
+				/>
+				<button onClick={onSubmit}>Send</button>
+				<Link to={homepage + '/receive'}>Go to Receive</Link>
+			</div>
+		</>
+	);
+};
+
+const mapStateToProps = (state: AppState) => ({
+	method: state.sendReducer.method,
+	text: state.sendReducer.text,
+});
+
+export default connect(mapStateToProps, { setMethod, setText, send })(Send);

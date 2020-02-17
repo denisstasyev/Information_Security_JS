@@ -5,6 +5,7 @@ export interface SendState {
 
 export const SET_SEND_METHOD = 'SET_SEND_METHOD';
 export const SET_SEND_TEXT = 'SET_SEND_TEXT';
+export const RESET_SEND = 'RESET_SEND';
 
 interface SetMethodAction {
 	type: typeof SET_SEND_METHOD;
@@ -16,4 +17,8 @@ interface SetTextAction {
 	text: string;
 }
 
-export type SendActionTypes = SetMethodAction | SetTextAction;
+interface ResetAction {
+	type: typeof RESET_SEND;
+}
+
+export type SendActionTypes = SetMethodAction | SetTextAction | ResetAction;
