@@ -15,6 +15,8 @@ export default function(state = initialState, action: types.CipherActionTypes): 
 		case types.SET_CIPHER_METHOD:
 			state.method = action.method;
 			state.cipherKey = '';
+			state.cipherText = '';
+			state.cipherCode = [];
 			return Object.assign({}, state);
 		case types.SET_CIPHER_KEY:
 			state.cipherKey = action.cipherKey;
@@ -25,6 +27,7 @@ export default function(state = initialState, action: types.CipherActionTypes): 
 		case types.SET_CIPHER_CIPHERDATA:
 			state.cipherCode = action.cipherCode;
 			state.cipherText = action.cipherText;
+			state.error = { name: '', message: '' };
 			return Object.assign({}, state);
 		case types.OCCUR_CIPHER_ERROR:
 			state.error = action.error;

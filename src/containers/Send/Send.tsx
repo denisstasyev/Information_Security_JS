@@ -38,15 +38,6 @@ const Send: React.SFC<CipherStateProps> = props => {
 		props.encryptData(props.method, props.text, props.cipherKey);
 	};
 
-	let errorMsg = <div></div>;
-	if (props.error.name) {
-		errorMsg = <div>{props.error.message}</div>;
-	}
-
-	// let cipherDataJson = {
-
-	// }
-
 	return (
 		<>
 			<Header />
@@ -73,8 +64,16 @@ const Send: React.SFC<CipherStateProps> = props => {
 				/>
 				<button onClick={onSubmit}>Encrypt</button>
 				<output>{props.cipherText}</output>
-				<output>{props.cipherText}</output>
-				{errorMsg}
+				{props.cipherText && (
+					<output>
+						{JSON.stringify({
+							cipher_algorithm: props.method,
+							encrypted_data: props.cipherText,
+						})}
+					</output>
+				)}
+
+				{props.error.name && <div>{props.error.message}</div>}
 			</div>
 		</>
 	);
