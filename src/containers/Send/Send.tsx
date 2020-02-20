@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import styles from './send.module.scss';
+
 import { AppState } from 'store';
 import { SendState } from 'store/send/types';
 import { setMethod, setText, send } from 'store/send/actions';

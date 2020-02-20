@@ -1,0 +1,29 @@
+$x0: 0px;
+$x025: 1px;
+$x05: 2px;
+$x1: 4px;
+$x2: 8px;
+$x3: 12px;
+$x4: 16px;
+$x5: 20px;
+$x6: 24px;
+$x8: 32px;
+$x10: 40px;
+$x12: 48px;
+$x15: 60px;
+$x20: 80px;
+
+$color-main: #33f;
+$color-background: #fff;
+$color-inactive: #bbb;
+
+$color-text-light: #fff;
+$color-text-dark: #222;
+$color-text-inactive: #222;
+
+$fade-gradient-white: 270deg, $color-background 0%, rgba($color-background, 0) 100%;
+$fade-gradient-white-rotated: 90deg, $color-background 0%, rgba($color-background, 0) 100%;
+
+$depth1: 0px 4px 24px rgba(0, 0, 0, 0.04);
+
+$max-width-tablet: 800px;
