@@ -17,7 +17,7 @@ interface CipherStateProps extends CipherState {
 	encryptData: typeof encryptData;
 }
 
-const Send: React.SFC<CipherStateProps> = props => {
+const EncryptForm: React.SFC<CipherStateProps> = props => {
 	const onChangeMethod = (event: any) => {
 		event.preventDefault();
 		props.setMethod(event.target.value);
@@ -42,7 +42,7 @@ const Send: React.SFC<CipherStateProps> = props => {
 		<>
 			<Header />
 			<div>
-				<h2>Send</h2>
+				<h2>Encrypt</h2>
 				<select value={props.method} onChange={onChangeMethod}>
 					{methods.map((method, index) => (
 						<option value={method} key={index}>
@@ -64,6 +64,16 @@ const Send: React.SFC<CipherStateProps> = props => {
 				/>
 				<button onClick={onSubmit}>Encrypt</button>
 				<output>{props.cipherText}</output>
+				{props.cipherText && (
+					<output>
+						{JSON.stringify({
+							cipher_algorithm: props.method,
+							encrypted_data: props.cipherText,
+						})}
+					</output>
+				)}
+
+				{props.error.name && <div>{props.error.message}</div>}
 			</div>
 		</>
 	);
@@ -71,10 +81,11 @@ const Send: React.SFC<CipherStateProps> = props => {
 
 const mapStateToProps = (state: AppState) => ({
 	method: state.encryptReducer.method,
+	error: state.encryptReducer.error,
 	text: state.encryptReducer.text,
 	cipherKey: state.encryptReducer.cipherKey,
 	cipherCode: state.encryptReducer.cipherCode,
 	cipherText: state.encryptReducer.cipherText,
 });
 
-export default connect(mapStateToProps, { setMethod, setText, setKey, encryptData })(Send);
+export default connect(mapStateToProps, { setMethod, setText, setKey, encryptData })(EncryptForm);
