@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { AppState } from 'store';
 import { SendState } from 'store/send/types';
 import { setMethod, setText, send } from 'store/send/actions';
 
 import { Header } from 'components/Header';
-import { methods, homepage } from 'config';
+import { methods } from 'config';
 
 interface SendProps extends SendState {
 	setMethod: typeof setMethod;
@@ -50,7 +49,6 @@ const Send: React.SFC<SendProps> = props => {
 					onChange={onChangeText}
 				/>
 				<button onClick={onSubmit}>Send</button>
-				<Link to={homepage + '/receive'}>Go to Receive</Link>
 			</div>
 		</>
 	);

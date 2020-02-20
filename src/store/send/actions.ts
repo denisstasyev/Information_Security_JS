@@ -1,6 +1,6 @@
 import { SET_SEND_METHOD, SET_SEND_TEXT, RESET_SEND } from './types';
 import { methods } from 'config';
-import { tsesar } from 'utils/encryption';
+import { tsesar } from 'methods/encryption';
 
 export function setMethod(method: string) {
 	return {
