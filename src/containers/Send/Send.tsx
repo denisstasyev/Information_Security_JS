@@ -42,7 +42,7 @@ const EncryptForm: React.SFC<CipherStateProps> = props => {
 		<>
 			<Header />
 			<div>
-				<h2>Send</h2>
+				<h2>Encrypt</h2>
 				<select value={props.method} onChange={onChangeMethod}>
 					{methods.map((method, index) => (
 						<option value={method} key={index}>

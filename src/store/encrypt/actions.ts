@@ -1,6 +1,6 @@
 import * as types from './types';
 import { methods } from 'config';
-import { encryptTsesar, CipherData } from 'methods/encryption';
+import * as encrypt from 'methods/encryption';
 
 export function setMethod(method: string) {
 	return {
@@ -24,22 +24,35 @@ export function setText(text: string) {
 }
 
 export function encryptData(method: string, text: string, cipherKey: string) {
-	let cipher: CipherData = { cipherCode: [], cipherText: '' };
+	let cipher: encrypt.CipherData = { cipherCode: [], cipherText: '' };
 
-	// Чекать все методы
 	if (method === methods[0]) {
 		const cipherKeyInt = Number.parseInt(cipherKey);
 		if (!isNaN(cipherKeyInt)) {
-			cipher = encryptTsesar(text, cipherKeyInt);
+			cipher = encrypt.encryptTsesar(text, cipherKeyInt);
 		} else {
 			return {
 				type: types.OCCUR_CIPHER_ERROR,
 				error: {
-					name: 'ERROR_KEY_VALUE',
+					name: 'ERROR_KEY_VALUE_NOT_INTEGER',
 					message: 'Incorrect key value: please enter the integer value',
 				},
 			};
 		}
+	} else if (method === methods[1]) {
+		if (cipherKey.length === 1) {
+			cipher = encrypt.encryptMonoAlphabeticCode(text, cipherKey);
+		} else {
+			return {
+				type: types.OCCUR_CIPHER_ERROR,
+				error: {
+					name: 'ERROR_KEY_VALUE_NOT_SINGLE_CHAR',
+					message: 'Incorrect key value: please enter the  value',
+				},
+			};
+		}
+	} else if (method === methods[2]) {
+		cipher = encrypt.encryptPolyAlphabeticCode(text, cipherKey);
 	}
 
 	// console.log(`А вот тут будет отправка на бекенд наших данных: ${cipher.cipherText}`);
