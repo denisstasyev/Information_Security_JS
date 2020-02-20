@@ -3,6 +3,18 @@ export interface CipherData {
 	cipherText: string;
 }
 
+function outputData(text: string, key: string, cipherCode: number[], cipherText: string): void {
+	if (process.env.NODE_ENV !== 'production') {
+		console.log(
+			'Вычисление шифра Цезаря\n',
+			`Текст: ${text}\n`,
+			`Ключ: ${key}\n`,
+			`Коды шифротекста: ${cipherCode}\n`,
+			`Шифротекст: ${cipherText}`,
+		);
+	}
+}
+
 export function encryptTsesar(text: string, key: number): CipherData {
 	let cipherCode: number[] = [];
 	let cipherText: string = '';
@@ -14,16 +26,6 @@ export function encryptTsesar(text: string, key: number): CipherData {
 		cipherText += String.fromCharCode(symbolCode);
 	}
 
-	console.log(
-		'Вычисление шифра Цезаря',
-		'\nТекст: ',
-		text,
-		'\nКлюч: ',
-		key,
-		'\nКоды шифротекста: ',
-		cipherCode,
-		'\nШифротекст: ',
-		cipherText,
-	);
+	outputData(text, key.toString(), cipherCode, cipherText);
 	return { cipherCode, cipherText };
 }

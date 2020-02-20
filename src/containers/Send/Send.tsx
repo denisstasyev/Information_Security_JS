@@ -17,7 +17,7 @@ interface CipherStateProps extends CipherState {
 	encryptData: typeof encryptData;
 }
 
-const Send: React.SFC<CipherStateProps> = props => {
+const EncryptForm: React.SFC<CipherStateProps> = props => {
 	const onChangeMethod = (event: any) => {
 		event.preventDefault();
 		props.setMethod(event.target.value);
@@ -88,4 +88,4 @@ const mapStateToProps = (state: AppState) => ({
 	cipherText: state.encryptReducer.cipherText,
 });
 
-export default connect(mapStateToProps, { setMethod, setText, setKey, encryptData })(Send);
+export default connect(mapStateToProps, { setMethod, setText, setKey, encryptData })(EncryptForm);

@@ -45,7 +45,6 @@ export function encryptData(method: string, text: string, cipherKey: string) {
 	// console.log(`А вот тут будет отправка на бекенд наших данных: ${cipher.cipherText}`);
 	return {
 		type: types.SET_CIPHER_CIPHERDATA,
-		error: { name: '', message: '' },
 		cipherCode: cipher.cipherCode,
 		cipherText: cipher.cipherText,
 	};
