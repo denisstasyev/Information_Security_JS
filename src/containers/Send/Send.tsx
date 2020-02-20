@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import styles from './send.module.scss';
+// import styles from './send.module.scss';
 
 import { AppState } from 'store';
 import { CipherState } from 'store/encrypt/types';
