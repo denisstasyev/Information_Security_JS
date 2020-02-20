@@ -23,14 +23,6 @@ export function setText(text: string) {
 	};
 }
 
-export function setCipherData(cipherCode: number[], cipherText: string) {
-	return {
-		type: types.SET_CIPHER_CIPHERDATA,
-		cipherCode,
-		cipherText,
-	};
-}
-
 export function encryptData(method: string, text: string, cipherKey: string) {
 	let cipher: CipherData = { cipherCode: [], cipherText: '' };
 
@@ -39,12 +31,21 @@ export function encryptData(method: string, text: string, cipherKey: string) {
 		const cipherKeyInt = Number.parseInt(cipherKey);
 		if (!isNaN(cipherKeyInt)) {
 			cipher = encryptTsesar(text, cipherKeyInt);
+		} else {
+			return {
+				type: types.OCCUR_CIPHER_ERROR,
+				error: {
+					name: 'ERROR_KEY_VALUE',
+					message: 'Incorrect key value: please enter the integer value',
+				},
+			};
 		}
 	}
 
 	// console.log(`А вот тут будет отправка на бекенд наших данных: ${cipher.cipherText}`);
 	return {
 		type: types.SET_CIPHER_CIPHERDATA,
+		error: { name: '', message: '' },
 		cipherCode: cipher.cipherCode,
 		cipherText: cipher.cipherText,
 	};

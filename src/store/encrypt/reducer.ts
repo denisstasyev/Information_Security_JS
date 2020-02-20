@@ -3,6 +3,7 @@ import { methods } from 'config';
 
 const initialState: types.CipherState = {
 	method: methods[0],
+	error: { name: '', message: '' },
 	cipherKey: '',
 	text: '',
 	cipherCode: [],
@@ -13,6 +14,7 @@ export default function(state = initialState, action: types.CipherActionTypes): 
 	switch (action.type) {
 		case types.SET_CIPHER_METHOD:
 			state.method = action.method;
+			state.cipherKey = '';
 			return Object.assign({}, state);
 		case types.SET_CIPHER_KEY:
 			state.cipherKey = action.cipherKey;
@@ -24,9 +26,14 @@ export default function(state = initialState, action: types.CipherActionTypes): 
 			state.cipherCode = action.cipherCode;
 			state.cipherText = action.cipherText;
 			return Object.assign({}, state);
+		case types.OCCUR_CIPHER_ERROR:
+			state.error = action.error;
+			state.cipherKey = '';
+			return Object.assign({}, state);
 		case types.RESET_CIPHER:
 			state.method = methods[0];
 			state.text = '';
+			state.cipherKey = '';
 			return Object.assign({}, state);
 		default:
 			return state;

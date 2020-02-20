@@ -1,5 +1,6 @@
 export interface CipherState {
 	method: string;
+	error: Error;
 	cipherKey: string;
 	text: string;
 	cipherCode: number[];
@@ -11,10 +12,16 @@ export const SET_CIPHER_KEY = 'SET_CIPHER_KEY';
 export const SET_CIPHER_TEXT = 'SET_CIPHER_TEXT';
 export const SET_CIPHER_CIPHERDATA = 'SET_CIPHER_CIPHERDATA';
 export const RESET_CIPHER = 'RESET_CIPHER';
+export const OCCUR_CIPHER_ERROR = 'OCCUR_CIPHER_ERROR';
 
 interface SetMethodAction {
 	type: typeof SET_CIPHER_METHOD;
 	method: string;
+}
+
+interface OccurErrorAction {
+	type: typeof OCCUR_CIPHER_ERROR;
+	error: Error;
 }
 
 interface SetKeyAction {
@@ -42,4 +49,5 @@ export type CipherActionTypes =
 	| SetKeyAction
 	| SetTextAction
 	| SetCipherDataAction
-	| ResetAction;
+	| ResetAction
+	| OccurErrorAction;
