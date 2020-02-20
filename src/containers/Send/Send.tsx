@@ -2,19 +2,20 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { AppState } from 'store';
-import { SendState } from 'store/send/types';
-import { setMethod, setText, send } from 'store/send/actions';
+import { CipherState } from 'store/encrypt/types';
+import { setMethod, setText, setKey, encryptData } from 'store/encrypt/actions';
 
 import { Header } from 'components/Header';
 import { methods } from 'config';
 
-interface SendProps extends SendState {
+interface CipherStateProps extends CipherState {
 	setMethod: typeof setMethod;
 	setText: typeof setText;
-	send: typeof send;
+	setKey: typeof setKey;
+	encryptData: typeof encryptData;
 }
 
-const Send: React.SFC<SendProps> = props => {
+const Send: React.SFC<CipherStateProps> = props => {
 	const onChangeMethod = (event: any) => {
 		event.preventDefault();
 		props.setMethod(event.target.value);
@@ -25,9 +26,14 @@ const Send: React.SFC<SendProps> = props => {
 		props.setText(event.target.value);
 	};
 
+	const onChangeKey = (event: any) => {
+		event.preventDefault();
+		props.setKey(event.target.value);
+	};
+
 	const onSubmit = (event: any) => {
 		event.preventDefault();
-		props.send(props.method, props.text);
+		props.encryptData(props.method, props.text, props.cipherKey);
 	};
 
 	return (
@@ -43,20 +49,30 @@ const Send: React.SFC<SendProps> = props => {
 					))}
 				</select>
 				<input
+					value={props.cipherKey}
+					type="text"
+					placeholder="Enter key"
+					onChange={onChangeKey}
+				/>
+				<input
 					value={props.text}
 					type="text"
-					placeholder="Enter text to send"
+					placeholder="Enter text to encrypt"
 					onChange={onChangeText}
 				/>
-				<button onClick={onSubmit}>Send</button>
+				<button onClick={onSubmit}>Encrypt</button>
+				<output>{props.cipherText}</output>
 			</div>
 		</>
 	);
 };
 
 const mapStateToProps = (state: AppState) => ({
-	method: state.sendReducer.method,
-	text: state.sendReducer.text,
+	method: state.encryptReducer.method,
+	text: state.encryptReducer.text,
+	cipherKey: state.encryptReducer.cipherKey,
+	cipherCode: state.encryptReducer.cipherCode,
+	cipherText: state.encryptReducer.cipherText,
 });
 
-export default connect(mapStateToProps, { setMethod, setText, send })(Send);
+export default connect(mapStateToProps, { setMethod, setText, setKey, encryptData })(Send);
