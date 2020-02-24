@@ -1,23 +1,22 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { Send } from 'containers/Send';
-import { Receive } from 'containers/Receive';
+import { Home } from 'containers/Home';
+import { Encrypt } from 'containers/Encrypt';
+import { Decrypt } from 'containers/Decrypt';
 
 import { homepage } from 'config';
 
 const App = () => {
-	return (
-		<BrowserRouter>
-			<Switch>
-				<Route exact path={homepage}>
-					<Redirect to={homepage + '/send'} />
-				</Route>
-				<Route path={homepage + '/send'} component={Send} />
-				<Route path={homepage + '/receive'} component={Receive} />
-			</Switch>
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact path={homepage} component={Home} />
+        <Route path={homepage + '/encrypt'} component={Encrypt} />
+        <Route path={homepage + '/decrypt'} component={Decrypt} />
+      </Switch>
+    </BrowserRouter>
+  );
 };
 
 export default App;

@@ -1,34 +1,49 @@
 import * as types from './types';
-import { methods } from 'config';
+import { encryptionMethods } from '../../methods'; //TODO: fix bug with absolut imports with Typescript
 
-const initialState: types.CipherState = {
-	method: methods[0],
-	cipherKey: '',
-	text: '',
-	cipherCode: [],
-	cipherText: '',
+const initialState: types.EncryptState = {
+  method: encryptionMethods[0],
+  encryptionKey: '',
+  plainText: '',
+  errorMessage: '',
+  encryptedData: { code: [], text: '' },
 };
 
-export default function(state = initialState, action: types.CipherActionTypes): types.CipherState {
-	switch (action.type) {
-		case types.SET_CIPHER_METHOD:
-			state.method = action.method;
-			return Object.assign({}, state);
-		case types.SET_CIPHER_KEY:
-			state.cipherKey = action.cipherKey;
-			return Object.assign({}, state);
-		case types.SET_CIPHER_TEXT:
-			state.text = action.text;
-			return Object.assign({}, state);
-		case types.SET_CIPHER_CIPHERDATA:
-			state.cipherCode = action.cipherCode;
-			state.cipherText = action.cipherText;
-			return Object.assign({}, state);
-		case types.RESET_CIPHER:
-			state.method = methods[0];
-			state.text = '';
-			return Object.assign({}, state);
-		default:
-			return state;
-	}
+export default function(
+  state = initialState,
+  action: types.EncryptActionTypes,
+): types.EncryptState {
+  switch (action.type) {
+    case types.ENCRYPT_SET_METHOD:
+      state.method = action.method;
+      state.errorMessage = '';
+      state.encryptedData = { code: [], text: '' };
+      return Object.assign({}, state);
+
+    case types.ENCRYPT_SET_ENCRYPTION_KEY:
+      state.encryptionKey = action.encryptionKey;
+      state.encryptedData = { code: [], text: '' };
+      return Object.assign({}, state);
+
+    case types.ENCRYPT_SET_PLAIN_TEXT:
+      state.plainText = action.plainText;
+      state.encryptedData = { code: [], text: '' };
+      return Object.assign({}, state);
+
+    case types.ENCRYPT_SET_ERROR_MESSAGE:
+      state.errorMessage = action.errorMessage;
+      return Object.assign({}, state);
+
+    case types.ENCRYPT_SET_ENCRYPTED_DATA:
+      state.encryptedData = action.encryptedData;
+      state.errorMessage = '';
+      return Object.assign({}, state);
+
+    case types.ENCRYPT_RESET_ENCRYPTION_KEY:
+      state.encryptionKey = '';
+      return Object.assign({}, state);
+
+    default:
+      return state;
+  }
 }
