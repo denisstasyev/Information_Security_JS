@@ -9,7 +9,7 @@ import { homepage } from 'config';
 
 const links = [
 	{ title: 'Зашифровать', href: '/encrypt', isActive: true },
-	{ title: 'Расшифровать', href: '/receive', isActive: false },
+	{ title: 'Расшифровать', href: '/decrypt', isActive: true },
 	{ title: 'Хешировать', href: '/', isActive: false },
 ];
 
@@ -21,7 +21,7 @@ export default function() {
 			</h1>
 			<div className={styles['header-links']}>
 				{links.map((link, index) => (
-					<div key={index}>
+					<div className={styles['link']} key={index}>
 						<Tag link={link} />
 					</div>
 				))}

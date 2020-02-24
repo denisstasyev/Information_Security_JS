@@ -1,6 +1,13 @@
 import { EncryptedData } from 'store';
 import { UNICODE_RING_SIZE } from 'methods/encryption';
 
+/**
+ * Character by character shift by constant value
+ *
+ * @param  {string} text
+ * @param  {number} key
+ * @returns EncryptedData
+ */
 export function encryptCesar(text: string, key: number): EncryptedData {
 	let encryptedData: EncryptedData = { code: [], text: '' };
 	let symbolCode: number;
@@ -14,6 +21,13 @@ export function encryptCesar(text: string, key: number): EncryptedData {
 	return encryptedData;
 }
 
+/**
+ * Decryption
+ *
+ * @param  {string} text
+ * @param  {number} key
+ * @returns EncryptedData
+ */
 export function decryptCesar(text: string, key: number): EncryptedData {
 	const plainData: EncryptedData = encryptCesar(text, UNICODE_RING_SIZE - key);
 	return plainData;

@@ -31,6 +31,8 @@ $header-height: $x20;
 
 	height: $header-height;
 	width: 100%;
+
+	border-bottom: solid $x025 $color-inactive;
 }
 
 .header-title {
@@ -66,6 +68,10 @@ $header-height: $x20;
 	}
 }
 
+.link {
+	margin-right: $x2;
+}
+
 @media screen and (max-width: $max-width-tablet) {
 	.header {
 		flex-direction: column;
@@ -96,5 +102,9 @@ $header-height: $x20;
 		&:last-child {
 			margin-right: 0;
 		}
+	}
+
+	.link {
+		margin: $x1;
 	}
 }

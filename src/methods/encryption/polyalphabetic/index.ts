@@ -1,6 +1,13 @@
 import { EncryptedData } from 'store';
 import { UNICODE_RING_SIZE } from 'methods/encryption';
 
+/**
+ * Symbolic cyclic shift of plain text by each key symbol char code
+ *
+ * @param  {string} text
+ * @param  {string} key
+ * @returns EncryptedData
+ */
 export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedData {
 	let encryptedData: EncryptedData = { code: [], text: '' };
 	let symbolCode: number;
@@ -15,6 +22,13 @@ export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedD
 	return encryptedData;
 }
 
+/**
+ * Decryption
+ *
+ * @param  {string} text
+ * @param  {string} key
+ * @returns EncryptedData
+ */
 export function decryptPolyAlphabeticCode(text: string, key: string): EncryptedData {
 	let keyReverse: string = '';
 

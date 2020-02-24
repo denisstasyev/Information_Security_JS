@@ -3,7 +3,6 @@
 .header-link {
 	border-radius: $x2;
 	padding: $x1;
-	margin-right: $x2;
 
 	box-shadow: $depth1;
 }
@@ -24,10 +23,4 @@
 	color: $color-text-inactive;
 
 	composes: header-link;
-}
-
-@media screen and (max-width: $max-width-tablet) {
-	.header-link {
-		margin: $x1;
-	}
 }

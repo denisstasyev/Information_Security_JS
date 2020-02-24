@@ -3,11 +3,11 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 import encryptReducer from './encrypt/reducer';
-// import receiveReducer from './receive/reducer';
+import decryptReducer from './decrypt/reducer';
 
 const rootReducer = combineReducers({
 	encryptReducer,
-	// receiveReducer,
+	decryptReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

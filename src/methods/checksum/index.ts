@@ -6,3 +6,6 @@ export function getCRC8(text: string): string {
 	// crc8()
 	return 'lol';
 }
+
+// import crc32 from 'crc/crc32';
+// crc32('hello').toString(16);

@@ -3,6 +3,14 @@ import { UNICODE_RING_SIZE } from 'methods/encryption';
 
 import { encryptCesar } from '../../../methods/encryption/caesar';
 
+/**
+ * Calculate integer number from string by char codes and then
+ * use Caesar method (character by character shift by constant value)
+ *
+ * @param  {string} text
+ * @param  {number} key
+ * @returns EncryptedData
+ */
 export function encryptMonoAlphabeticCode(text: string, key: string): EncryptedData {
 	let keyInt: number = 0;
 
@@ -14,6 +22,13 @@ export function encryptMonoAlphabeticCode(text: string, key: string): EncryptedD
 	return encryptedData;
 }
 
+/**
+ * Decryption
+ *
+ * @param  {string} text
+ * @param  {string} key
+ * @returns EncryptedData
+ */
 export function decryptMonoAlphabeticCode(text: string, key: string): EncryptedData {
 	let keyReverse: string = '';
 

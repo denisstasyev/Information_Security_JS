@@ -3,23 +3,21 @@ import { connect } from 'react-redux';
 
 import { Header } from 'components/Header';
 
-import { CIPHER_ALGORITHM, ENCRYPTED_DATA } from 'config';
-
 import { AppState, Method } from 'store';
-import { EncryptState } from 'store/encrypt/types';
-import { setMethod, setKey, setText, setError, encryptData } from 'store/encrypt/actions';
+import { DecryptState } from 'store/decrypt/types';
+import { setMethod, setKey, setText, setError, decryptData } from 'store/decrypt/actions';
 
 import { encryptionMethods, encryptionTypes } from '../../methods'; //TODO: fix bug with absolut imports with Typescript
 
-interface EncryptStateProps extends EncryptState {
+interface DecryptStateProps extends DecryptState {
 	setMethod: typeof setMethod;
 	setText: typeof setText;
 	setKey: typeof setKey;
 	setError: typeof setError;
-	encryptData: typeof encryptData;
+	decryptData: typeof decryptData;
 }
 
-const Encrypt: React.SFC<EncryptStateProps> = props => {
+const Decrypt: React.SFC<DecryptStateProps> = props => {
 	const onChangeMethod = (event: any) => {
 		event.preventDefault();
 		const method: Method =
@@ -29,7 +27,7 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
 
 		if (
 			event.target.value === encryptionTypes.caesar &&
-			props.encryptionKey !== parseInt(props.encryptionKey).toString()
+			props.decryptionKey !== parseInt(props.decryptionKey).toString()
 		) {
 			props.setKey('');
 		}
@@ -64,27 +62,22 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
 
 	const onSubmit = (event: any) => {
 		event.preventDefault();
-		if (props.encryptionKey === '') {
-			props.setError('Введите ключ шифрования!');
+		if (props.decryptionKey === '') {
+			props.setError('Введите ключ расшифрования!');
 			return;
 		}
-		if (props.plainText === '') {
-			props.setError('Введите текст, который необходимо зашифровать!');
+		if (props.encryptedText === '') {
+			props.setError('Введите текст, который необходимо расшифровать!');
 			return;
 		}
-		props.encryptData(props.method, props.plainText, props.encryptionKey);
-	};
-
-	const getJSON = (methodName: string, decryptedText: string) => {
-		let json = { [CIPHER_ALGORITHM]: methodName, [ENCRYPTED_DATA]: decryptedText };
-		return JSON.stringify(json, undefined, 2);
+		props.decryptData(props.method, props.encryptedText, props.decryptionKey);
 	};
 
 	return (
 		<>
 			<Header />
-			<h2>Шифрование</h2>
-			<div>1) Выберите метод для шифрования:</div>
+			<h2>Расшифрование (легально)</h2>
+			<div>1) Выберите метод для расшифрования:</div>
 			<select value={props.method.type} onChange={onChangeMethod}>
 				{encryptionMethods.map((method, index) => (
 					<option value={method.type} key={index}>
@@ -94,32 +87,28 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
 			</select>
 			<div>2) Введите ключ:</div>
 			<input
-				value={props.encryptionKey}
+				value={props.decryptionKey}
 				type="text"
 				placeholder="Ваш ключ"
 				onChange={onChangeKey}
 			/>
-			<div>3) Введите открытый текст, который хотите зашифровать:</div>
+			<div>3) Введите закрытый (зашифрованный) текст, который хотите расшифровать:</div>
 			<input
-				value={props.plainText}
+				value={props.encryptedText}
 				type="text"
 				placeholder="Ваш открытый текст"
 				onChange={onChangeText}
 			/>
-			<button onClick={onSubmit}>Зашифровать!</button>
+			<button onClick={onSubmit}>Расшифровать!</button>
 
 			{props.errorMessage ? (
 				<div>Ошибка! {props.errorMessage}</div>
 			) : (
-				props.encryptedData.text && (
+				props.decryptedData.text && (
 					<>
 						<h3>Ваш результат</h3>
-						<div>1) Закрытый текст:</div>
-						<output>{props.encryptedData.text}</output>
-						<div>2) JSON для отправки на сервер для расшифрования:</div>
-						<output>
-							<pre>{getJSON(props.method.name, props.encryptedData.text)}</pre>
-						</output>
+						<div>1) Открытый текст:</div>
+						<output>{props.decryptedData.text}</output>
 					</>
 				)
 			)}
@@ -128,13 +117,13 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
 };
 
 const mapStateToProps = (state: AppState) => ({
-	method: state.encryptReducer.method,
-	encryptionKey: state.encryptReducer.encryptionKey,
-	plainText: state.encryptReducer.plainText,
-	errorMessage: state.encryptReducer.errorMessage,
-	encryptedData: state.encryptReducer.encryptedData,
+	method: state.decryptReducer.method,
+	decryptionKey: state.decryptReducer.decryptionKey,
+	encryptedText: state.decryptReducer.encryptedText,
+	errorMessage: state.decryptReducer.errorMessage,
+	decryptedData: state.decryptReducer.decryptedData,
 });
 
-export default connect(mapStateToProps, { setMethod, setText, setKey, setError, encryptData })(
-	Encrypt,
+export default connect(mapStateToProps, { setMethod, setText, setKey, setError, decryptData })(
+	Decrypt,
 );

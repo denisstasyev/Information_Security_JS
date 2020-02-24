@@ -1,4 +1,4 @@
-export const UNICODE_RING_SIZE = 1114112;
+export const UNICODE_RING_SIZE = 1114112; // Total number of Unicode symbols
 export const UNICODE_RING_SIZE_SQUARE = 1114112 ** 2;
 export const UNICODE_RING_SIZE_SQUARE_LENGTH = UNICODE_RING_SIZE_SQUARE.toString().length;
 
@@ -17,8 +17,8 @@ export function outputData(
 			`${encriptionStr} по методу - ${method}\n`,
 			`Текст: ${text}\n`,
 			`Ключ: ${key}\n`,
-			`Коды шифротекста: ${cipherCode}\n`,
-			`Шифротекст: ${cipherText}`,
+			`Коды ${encryptionBool ? 'шифротекста' : 'открытого текста'}: ${cipherCode}\n`,
+			`${encryptionBool ? 'Шифротекст' : 'Открытый текст'}: ${cipherText}`,
 		);
 	}
 }
