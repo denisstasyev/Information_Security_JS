@@ -66,32 +66,6 @@ $header-height: $x20;
 	}
 }
 
-.header-link {
-	border-radius: $x2;
-	padding: $x1;
-	margin-right: $x2;
-
-	box-shadow: $depth1;
-}
-
-.header-link-active {
-	background-color: $color-main;
-	color: $color-text-light;
-
-	composes: header-link;
-
-	&:hover {
-		filter: brightness(80%);
-	}
-}
-
-.header-link-inactive {
-	background-color: $color-inactive;
-	color: $color-text-inactive;
-
-	composes: header-link;
-}
-
 @media screen and (max-width: $max-width-tablet) {
 	.header {
 		flex-direction: column;
@@ -122,9 +96,5 @@ $header-height: $x20;
 		&:last-child {
 			margin-right: 0;
 		}
-	}
-
-	.header-link {
-		margin: $x1;
 	}
 }

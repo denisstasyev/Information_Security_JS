@@ -1,58 +1,54 @@
-interface Error {
-	name: string;
-	message: string;
+import { Method, EncryptedData } from 'store';
+
+export interface EncryptState {
+	method: Method;
+	encryptionKey: string;
+	plainText: string;
+	errorMessage: string;
+	encryptedData: EncryptedData;
 }
 
-export interface CipherState {
-	method: string;
-	error: Error;
-	cipherKey: string;
-	text: string;
-	cipherCode: number[];
-	cipherText: string;
-}
+export const ENCRYPT_SET_METHOD = 'ENCRYPT_SET_METHOD';
+export const ENCRYPT_SET_ENCRYPTION_KEY = 'ENCRYPT_SET_ENCRYPTION_KEY';
+export const ENCRYPT_SET_PLAIN_TEXT = 'ENCRYPT_SET_PLAIN_TEXT';
+export const ENCRYPT_SET_ERROR_MESSAGE = 'ENCRYPT_SET_ERROR_MESSAGE';
+export const ENCRYPT_SET_ENCRYPTED_DATA = 'ENCRYPT_SET_ENCRYPTED_DATA';
 
-export const SET_CIPHER_METHOD = 'SET_CIPHER_METHOD';
-export const SET_CIPHER_KEY = 'SET_CIPHER_KEY';
-export const SET_CIPHER_TEXT = 'SET_CIPHER_TEXT';
-export const SET_CIPHER_CIPHERDATA = 'SET_CIPHER_CIPHERDATA';
-export const SET_CIPHER_ERROR = 'SET_CIPHER_ERROR';
-export const RESET_CIPHER = 'RESET_CIPHER';
+export const ENCRYPT_RESET_ENCRYPTION_KEY = 'ENCRYPT_RESET_ENCRYPTION_KEY';
 
 interface SetMethodAction {
-	type: typeof SET_CIPHER_METHOD;
-	method: string;
+	type: typeof ENCRYPT_SET_METHOD;
+	method: Method;
 }
 
-interface SetKeyAction {
-	type: typeof SET_CIPHER_KEY;
-	cipherKey: string;
+interface SetEncryptionKeyAction {
+	type: typeof ENCRYPT_SET_ENCRYPTION_KEY;
+	encryptionKey: string;
 }
 
-interface SetTextAction {
-	type: typeof SET_CIPHER_TEXT;
-	text: string;
+interface SetPlainTextAction {
+	type: typeof ENCRYPT_SET_PLAIN_TEXT;
+	plainText: string;
 }
 
-interface SetCipherDataAction {
-	type: typeof SET_CIPHER_CIPHERDATA;
-	cipherCode: number[];
-	cipherText: string;
+interface SetErrorMessageAction {
+	type: typeof ENCRYPT_SET_ERROR_MESSAGE;
+	errorMessage: string;
 }
 
-interface SetErrorAction {
-	type: typeof SET_CIPHER_ERROR;
-	error: Error;
+interface SetEncryptedDataAction {
+	type: typeof ENCRYPT_SET_ENCRYPTED_DATA;
+	encryptedData: EncryptedData;
 }
 
-interface ResetAction {
-	type: typeof RESET_CIPHER;
+interface ResetEncryptionKeyAction {
+	type: typeof ENCRYPT_RESET_ENCRYPTION_KEY;
 }
 
-export type CipherActionTypes =
+export type EncryptActionTypes =
 	| SetMethodAction
-	| SetKeyAction
-	| SetTextAction
-	| SetCipherDataAction
-	| SetErrorAction
-	| ResetAction;
+	| SetEncryptionKeyAction
+	| SetPlainTextAction
+	| SetErrorMessageAction
+	| SetEncryptedDataAction
+	| ResetEncryptionKeyAction;
