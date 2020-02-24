@@ -90,3 +90,20 @@ export function decryptPolyAlphabeticCode(text: string, key: string): CipherData
 
 	return clearData;
 }
+
+export function encryptBigram(text: string, key: string): CipherData {
+	let cipherData: CipherData = { code: [], text: '' };
+
+	if (text.length % 2 !== 0) {
+		text += ' ';
+	}
+
+	// for (let iter = 0; iter < text.length; iter++) {
+	// 	symbolCode =
+	// 		(text.charCodeAt(iter) + key.charCodeAt(iter % key.length)) % UNICODE_RING_SIZE;
+	// 	cipherData.code.push(symbolCode);
+	// 	cipherData.text += String.fromCharCode(symbolCode);
+	// }
+
+	return cipherData;
+}

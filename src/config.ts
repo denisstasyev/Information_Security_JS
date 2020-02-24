@@ -4,4 +4,5 @@ export const methodsEncrypt = {
 	caesar: 'Цезарь',
 	monoalphabetic: 'Моноалфавитный шифр',
 	polyalphabetic: 'Полиалфавитный шифр',
+	bigram: 'Биграммный шифр',
 };
