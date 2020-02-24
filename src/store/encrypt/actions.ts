@@ -43,6 +43,8 @@ export function encryptData(method: string, text: string, cipherKey: string) {
 		cipher = encrypt.encryptMonoAlphabeticCode(text, cipherKey);
 	} else if (method === methodsEncrypt['polyalphabetic']) {
 		cipher = encrypt.encryptPolyAlphabeticCode(text, cipherKey);
+	} else if (method === methodsEncrypt['bigram']) {
+		cipher = encrypt.encryptBigram(text, cipherKey);
 	}
 
 	encrypt.outputData(method, text, cipherKey, cipher.code, cipher.text, true);
