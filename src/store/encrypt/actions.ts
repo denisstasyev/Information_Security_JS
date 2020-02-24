@@ -40,17 +40,7 @@ export function encryptData(method: string, text: string, cipherKey: string) {
 			};
 		}
 	} else if (method === methodsEncrypt['monoalphabetic']) {
-		if (cipherKey.length === 1) {
-			cipher = encrypt.encryptMonoAlphabeticCode(text, cipherKey);
-		} else {
-			return {
-				type: types.OCCUR_CIPHER_ERROR,
-				error: {
-					name: 'ERROR_KEY_VALUE_NOT_SINGLE_CHAR',
-					message: 'Incorrect key value: please enter the  value',
-				},
-			};
-		}
+		cipher = encrypt.encryptMonoAlphabeticCode(text, cipherKey);
 	} else if (method === methodsEncrypt['polyalphabetic']) {
 		cipher = encrypt.encryptPolyAlphabeticCode(text, cipherKey);
 	}

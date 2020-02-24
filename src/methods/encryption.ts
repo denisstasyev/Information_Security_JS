@@ -14,10 +14,13 @@ function outputData(
 	key: string,
 	cipherCode: number[],
 	cipherText: string,
+	encryptionBool: boolean,
 ): void {
+	const encriptionStr: string = encryptionBool ? 'Шифрование' : 'Расшифрование';
+
 	if (process.env.NODE_ENV !== 'production') {
 		console.log(
-			`Шифрование по методу - ${method}\n`,
+			`${encriptionStr} по методу - ${method}\n`,
 			`Текст: ${text}\n`,
 			`Ключ: ${key}\n`,
 			`Коды шифротекста: ${cipherCode}\n`,
@@ -33,12 +36,12 @@ export function encryptCesar(text: string, key: number): CipherData {
 	let symbolCode: number;
 
 	for (let iter = 0; iter < text.length; iter++) {
-		symbolCode = (text[iter].charCodeAt(0) + key) % UNICODE_RING_SIZE;
+		symbolCode = (text.charCodeAt(iter) + key) % UNICODE_RING_SIZE;
 		cipherData.cipherCode.push(symbolCode);
 		cipherData.cipherText += String.fromCharCode(symbolCode);
 	}
 
-	outputData('Цезарь', text, key.toString(), cipherData.cipherCode, cipherData.cipherText);
+	outputData('Цезарь', text, key.toString(), cipherData.cipherCode, cipherData.cipherText, true);
 	return cipherData;
 }
 
@@ -49,22 +52,33 @@ export function decryptCesar(text: string, key: number): ClearData {
 	clearData.clearCode = data.cipherCode;
 	clearData.clearText = data.cipherText;
 
-	// outputData('Цезарь', text, key.toString(), cipherData.cipherCode, cipherData.cipherText);
+	outputData('Цезарь', text, key.toString(), clearData.clearCode, clearData.clearText, false);
 	return clearData;
 }
 
 export function encryptMonoAlphabeticCode(text: string, key: string): CipherData {
 	let cipherData: CipherData = { cipherCode: [], cipherText: '' };
-	const keyInt: number = key.charCodeAt(0);
+	let keyInt: number = 0;
 	let symbolCode: number;
 
+	for (let iter = 0; iter < key.length; iter++) {
+		keyInt += key.charCodeAt(iter);
+	}
+
 	for (let iter = 0; iter < text.length; iter++) {
-		symbolCode = (text[iter].charCodeAt(0) + keyInt) % UNICODE_RING_SIZE;
+		symbolCode = (text.charCodeAt(iter) + keyInt) % UNICODE_RING_SIZE;
 		cipherData.cipherCode.push(symbolCode);
 		cipherData.cipherText += String.fromCharCode(symbolCode);
 	}
 
-	outputData('Моноалфавитный шифр', text, key, cipherData.cipherCode, cipherData.cipherText);
+	outputData(
+		'Моноалфавитный шифр',
+		text,
+		key,
+		cipherData.cipherCode,
+		cipherData.cipherText,
+		true,
+	);
 	return cipherData;
 }
 
@@ -74,7 +88,7 @@ export function encryptPolyAlphabeticCode(text: string, key: string): CipherData
 
 	for (let iter = 0; iter < text.length; iter++) {
 		symbolCode =
-			(text[iter].charCodeAt(0) + key.charCodeAt(iter % key.length)) % UNICODE_RING_SIZE;
+			(text.charCodeAt(iter) + key.charCodeAt(iter % key.length)) % UNICODE_RING_SIZE;
 		cipherData.cipherCode.push(symbolCode);
 		cipherData.cipherText += String.fromCharCode(symbolCode);
 	}
@@ -85,6 +99,7 @@ export function encryptPolyAlphabeticCode(text: string, key: string): CipherData
 		key.toString(),
 		cipherData.cipherCode,
 		cipherData.cipherText,
+		true,
 	);
 	return cipherData;
 }
