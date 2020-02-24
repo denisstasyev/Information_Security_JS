@@ -1,0 +1,26 @@
+@import 'styles/_mods.scss';
+
+.header-link {
+  border-radius: $x2;
+  padding: $x1;
+
+  box-shadow: $depth1;
+}
+
+.header-link-active {
+  background-color: $color-main;
+  color: $color-text-light;
+
+  composes: header-link;
+
+  // &:hover {
+  //   filter: brightness(80%);
+  // }
+}
+
+.header-link-inactive {
+  background-color: $color-inactive;
+  color: $color-text-inactive;
+
+  composes: header-link;
+}
