@@ -1,8 +1,8 @@
 import * as types from './types';
-import { methods } from 'config';
+import { methodsEncrypt } from 'config';
 
 const initialState: types.CipherState = {
-	method: methods[0],
+	method: methodsEncrypt['caesar'],
 	error: { name: '', message: '' },
 	cipherKey: '',
 	text: '',
@@ -34,7 +34,7 @@ export default function(state = initialState, action: types.CipherActionTypes): 
 			state.cipherKey = '';
 			return Object.assign({}, state);
 		case types.RESET_CIPHER:
-			state.method = methods[0];
+			state.method = methodsEncrypt['caesar'];
 			state.text = '';
 			state.cipherKey = '';
 			return Object.assign({}, state);

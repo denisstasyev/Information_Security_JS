@@ -8,7 +8,7 @@ import { CipherState } from 'store/encrypt/types';
 import { setMethod, setText, setKey, encryptData } from 'store/encrypt/actions';
 
 import { Header } from 'components/Header';
-import { methods } from 'config';
+import { methodsEncrypt } from 'config';
 
 interface CipherStateProps extends CipherState {
 	setMethod: typeof setMethod;
@@ -44,9 +44,9 @@ const EncryptForm: React.SFC<CipherStateProps> = props => {
 			<div>
 				<h2>Encrypt</h2>
 				<select value={props.method} onChange={onChangeMethod}>
-					{methods.map((method, index) => (
-						<option value={method} key={index}>
-							{method}
+					{Object.entries(methodsEncrypt).map(([key, value], index) => (
+						<option value={value} key={key}>
+							{value}
 						</option>
 					))}
 				</select>
