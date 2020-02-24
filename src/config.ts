@@ -1,3 +1,7 @@
 export const homepage = '/Information_Security_JS';
 
-export const methods = ['Цезарь', 'Моноалфавитный шифр', 'Полиалфавитный шифр'];
+export const methodsEncrypt = {
+	caesar: 'Цезарь',
+	monoalphabetic: 'Моноалфавитный шифр',
+	polyalphabetic: 'Полиалфавитный шифр',
+};

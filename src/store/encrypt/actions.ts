@@ -1,5 +1,5 @@
 import * as types from './types';
-import { methods } from 'config';
+import { methodsEncrypt } from 'config';
 import * as encrypt from 'methods/encryption';
 
 export function setMethod(method: string) {
@@ -26,10 +26,10 @@ export function setText(text: string) {
 export function encryptData(method: string, text: string, cipherKey: string) {
 	let cipher: encrypt.CipherData = { cipherCode: [], cipherText: '' };
 
-	if (method === methods[0]) {
+	if (method === methodsEncrypt['caesar']) {
 		const cipherKeyInt = Number.parseInt(cipherKey);
 		if (!isNaN(cipherKeyInt)) {
-			cipher = encrypt.encryptTsesar(text, cipherKeyInt);
+			cipher = encrypt.encryptCesar(text, cipherKeyInt);
 		} else {
 			return {
 				type: types.OCCUR_CIPHER_ERROR,
@@ -39,7 +39,7 @@ export function encryptData(method: string, text: string, cipherKey: string) {
 				},
 			};
 		}
-	} else if (method === methods[1]) {
+	} else if (method === methodsEncrypt['monoalphabetic']) {
 		if (cipherKey.length === 1) {
 			cipher = encrypt.encryptMonoAlphabeticCode(text, cipherKey);
 		} else {
@@ -51,7 +51,7 @@ export function encryptData(method: string, text: string, cipherKey: string) {
 				},
 			};
 		}
-	} else if (method === methods[2]) {
+	} else if (method === methodsEncrypt['polyalphabetic']) {
 		cipher = encrypt.encryptPolyAlphabeticCode(text, cipherKey);
 	}
 
