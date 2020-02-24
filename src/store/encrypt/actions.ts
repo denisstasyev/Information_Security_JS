@@ -24,7 +24,7 @@ export function setText(text: string) {
 }
 
 export function encryptData(method: string, text: string, cipherKey: string) {
-	let cipher: encrypt.CipherData = { cipherCode: [], cipherText: '' };
+	let cipher: encrypt.CipherData = { code: [], text: '' };
 
 	if (method === methodsEncrypt['caesar']) {
 		const cipherKeyInt = Number.parseInt(cipherKey);
@@ -45,10 +45,12 @@ export function encryptData(method: string, text: string, cipherKey: string) {
 		cipher = encrypt.encryptPolyAlphabeticCode(text, cipherKey);
 	}
 
+	encrypt.outputData(method, text, cipherKey, cipher.code, cipher.text, true);
+
 	// console.log(`А вот тут будет отправка на бекенд наших данных: ${cipher.cipherText}`);
 	return {
 		type: types.SET_CIPHER_CIPHERDATA,
-		cipherCode: cipher.cipherCode,
-		cipherText: cipher.cipherText,
+		cipherCode: cipher.code,
+		cipherText: cipher.text,
 	};
 }
