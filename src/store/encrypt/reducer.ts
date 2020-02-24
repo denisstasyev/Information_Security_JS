@@ -29,7 +29,7 @@ export default function(state = initialState, action: types.CipherActionTypes): 
 			state.cipherText = action.cipherText;
 			state.error = { name: '', message: '' };
 			return Object.assign({}, state);
-		case types.OCCUR_CIPHER_ERROR:
+		case types.SET_CIPHER_ERROR:
 			state.error = action.error;
 			state.cipherKey = '';
 			return Object.assign({}, state);

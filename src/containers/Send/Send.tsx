@@ -42,38 +42,46 @@ const EncryptForm: React.SFC<CipherStateProps> = props => {
 		<>
 			<Header />
 			<div>
-				<h2>Encrypt</h2>
+				<h2>Режим шифрования</h2>
+				<div>1) Выберите метод для шифрования:</div>
 				<select value={props.method} onChange={onChangeMethod}>
-					{Object.entries(methodsEncrypt).map(([key, value], index) => (
-						<option value={value} key={key}>
+					{Object.values(methodsEncrypt).map((value, index) => (
+						<option value={value} key={index}>
 							{value}
 						</option>
 					))}
 				</select>
+				<div>2) Введите ключ:</div>
 				<input
 					value={props.cipherKey}
 					type="text"
-					placeholder="Enter key"
+					placeholder="Ваш ключ"
 					onChange={onChangeKey}
 				/>
+				<div>3) Введите открытый текст, который хотите зашифровать:</div>
 				<input
 					value={props.text}
 					type="text"
-					placeholder="Enter text to encrypt"
+					placeholder="Ваш открытый текст"
 					onChange={onChangeText}
 				/>
-				<button onClick={onSubmit}>Encrypt</button>
-				<output>{props.cipherText}</output>
-				{props.cipherText && (
-					<output>
-						{JSON.stringify({
-							cipher_algorithm: props.method,
-							encrypted_data: props.cipherText,
-						})}
-					</output>
-				)}
+				<button onClick={onSubmit}>Зашифровать!</button>
 
-				{props.error.name && <div>{props.error.message}</div>}
+				{props.error.name && <div>Ошибка: {props.error.message}</div>}
+				{props.cipherText && (
+					<>
+						<h3>Ваш результат</h3>
+						<div>1) Закрытый текст:</div>
+						<output>{props.cipherText}</output>
+						<div>2) JSON для отправки на сервер для расшифрования:</div>
+						<output>
+							{JSON.stringify({
+								cipher_algorithm: props.method,
+								encrypted_data: props.cipherText,
+							})}
+						</output>
+					</>
+				)}
 			</div>
 		</>
 	);

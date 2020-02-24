@@ -27,17 +27,17 @@ export function encryptData(method: string, text: string, cipherKey: string) {
 	let cipher: encrypt.CipherData = { code: [], text: '' };
 
 	if (method === methodsEncrypt['caesar']) {
-		const cipherKeyInt = Number.parseInt(cipherKey);
-		if (!isNaN(cipherKeyInt)) {
-			cipher = encrypt.encryptCesar(text, cipherKeyInt);
-		} else {
+		const cipherKeyInt = parseInt(cipherKey);
+		if (isNaN(cipherKeyInt)) {
 			return {
-				type: types.OCCUR_CIPHER_ERROR,
+				type: types.SET_CIPHER_ERROR,
 				error: {
 					name: 'ERROR_KEY_VALUE_NOT_INTEGER',
 					message: 'Incorrect key value: please enter the integer value',
 				},
 			};
+		} else {
+			cipher = encrypt.encryptCesar(text, cipherKeyInt);
 		}
 	} else if (method === methodsEncrypt['monoalphabetic']) {
 		cipher = encrypt.encryptMonoAlphabeticCode(text, cipherKey);

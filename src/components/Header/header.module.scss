@@ -2,27 +2,27 @@
 
 $header-height: $x20;
 
-@keyframes slide-in {
-	0% {
-		transform: scale(0);
-	}
-	100% {
-		transform: scale(1);
-	}
-}
+// @keyframes slide-in {
+// 	0% {
+// 		transform: scale(0);
+// 	}
+// 	100% {
+// 		transform: scale(1);
+// 	}
+// }
 
-@-webkit-keyframes slide-in {
-	0% {
-		-webkit-transform: scale(0);
-	}
-	100% {
-		-webkit-transform: scale(1);
-	}
-}
+// @-webkit-keyframes slide-in {
+// 	0% {
+// 		-webkit-transform: scale(0);
+// 	}
+// 	100% {
+// 		-webkit-transform: scale(1);
+// 	}
+// }
 
 .header {
-	animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.84) 0.5s forwards;
-	-webkit-animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.84) 0.5s forwards;
+	// animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.84) 0.5s forwards;
+	// -webkit-animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.84) 0.5s forwards;
 
 	display: inline-flex;
 	justify-content: space-between;
@@ -39,7 +39,7 @@ $header-height: $x20;
 
 	margin: 0 $x4;
 
-	overflow-x: hidden;
+	overflow: hidden;
 	white-space: nowrap;
 
 	position: relative;
