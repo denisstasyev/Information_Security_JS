@@ -1,5 +1,5 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE, emojiUnicode } from 'methods/encryption';
+import { UNICODE_RING_SIZE, getUnicodeCode } from 'methods/encryption';
 
 import { encryptCesar } from '../../../methods/encryption/caesar';
 
@@ -15,7 +15,7 @@ export function encryptMonoAlphabeticCode(text: string, key: string): EncryptedD
   let keyInt: number = 0;
 
   for (let char of key) {
-    keyInt += emojiUnicode(char) % UNICODE_RING_SIZE;
+    keyInt += getUnicodeCode(char) % UNICODE_RING_SIZE;
   }
   let encryptedData: EncryptedData = encryptCesar(text, keyInt);
 
@@ -33,7 +33,7 @@ export function decryptMonoAlphabeticCode(text: string, key: string): EncryptedD
   let keyReverseCodes: number[] = [];
 
   for (let char of key) {
-    keyReverseCodes.push(UNICODE_RING_SIZE - emojiUnicode(char));
+    keyReverseCodes.push(UNICODE_RING_SIZE - getUnicodeCode(char));
   }
   const keyReverse: string = String.fromCodePoint(...keyReverseCodes);
 

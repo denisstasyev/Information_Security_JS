@@ -1,5 +1,5 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE, emojiUnicode } from 'methods/encryption';
+import { UNICODE_RING_SIZE, getUnicodeCode } from 'methods/encryption';
 
 /**
  * Character by character shift by constant value
@@ -13,7 +13,7 @@ export function encryptCesar(text: string, key: number): EncryptedData {
   let symbolCode: number;
 
   for (let char of text) {
-    symbolCode = (emojiUnicode(char) + key) % UNICODE_RING_SIZE;
+    symbolCode = (getUnicodeCode(char) + key) % UNICODE_RING_SIZE;
     encryptedData.code.push(symbolCode);
   }
 

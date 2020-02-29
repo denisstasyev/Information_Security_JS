@@ -48,7 +48,7 @@ export function outputData(
  * @param  {string} emoji
  * @returns number
  */
-export function emojiUnicode(emoji: string): number {
+export function getUnicodeCode(emoji: string): number {
   let comp;
 
   if (emoji.length === 1) {
