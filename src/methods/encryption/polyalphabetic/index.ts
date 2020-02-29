@@ -1,5 +1,5 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE } from 'methods/encryption';
+import { UNICODE_RING_SIZE, emojiUnicode } from 'methods/encryption';
 
 /**
  * Symbolic cyclic shift of plain text by each key symbol char code
@@ -11,6 +11,12 @@ import { UNICODE_RING_SIZE } from 'methods/encryption';
 export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedData {
   let encryptedData: EncryptedData = { code: [], text: '' };
   let symbolCode: number;
+
+  // text.split('').forEach((char, index) => {
+  //   symbolCode = (emojiUnicode(char) + emojiUnicode(key[index % key.length])) % UNICODE_RING_SIZE;
+  //   encryptedData.code.push(symbolCode);
+  // });
+  // encryptedData.text = String.fromCodePoint(...encryptedData.code);
 
   for (let iter = 0; iter < text.length; iter++) {
     symbolCode = (text.charCodeAt(iter) + key.charCodeAt(iter % key.length)) % UNICODE_RING_SIZE;
@@ -29,6 +35,13 @@ export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedD
  * @returns EncryptedData
  */
 export function decryptPolyAlphabeticCode(text: string, key: string): EncryptedData {
+  // let keyReverseCodes: number[] = [];
+
+  // for (let char of key) {
+  //   keyReverseCodes.push(UNICODE_RING_SIZE - emojiUnicode(char));
+  // }
+  // const keyReverse: string = String.fromCodePoint(...keyReverseCodes);
+
   let keyReverse: string = '';
 
   for (let iter = 0; iter < key.length; iter++) {

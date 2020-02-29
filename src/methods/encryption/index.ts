@@ -59,6 +59,5 @@ export function emojiUnicode(emoji: string): number {
       comp = emoji.charCodeAt(0);
     }
   }
-
   return isNaN(comp) ? 0 : comp; // Extra check
 }
