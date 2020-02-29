@@ -7,7 +7,12 @@ import { Tag } from 'components/Tag';
 export default function() {
   return (
     <>
-      <h2>Добро пожаловать на наш сайт!</h2>
+      <h2>Добро пожаловать на наш сайт &#128515;!</h2>
+      <div className={styles['news']}>
+        Теперь у нас вы можете использовать Emoji в качестве ключей шифрования &#128522;!
+      </div>
+      <br />
+      <br />
       <div className={styles['text']}>
         Сейчас вы можете
         <div className={styles['tag']}>

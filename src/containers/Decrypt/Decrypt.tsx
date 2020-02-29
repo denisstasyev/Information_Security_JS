@@ -127,7 +127,7 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
 
   return (
     <>
-      <h2>Расшифрование (легально)</h2>
+      <h2>Расшифрование</h2>
       <div>0) Выберите режим расшифрования:</div>
       <button onClick={() => setIsJSONMode(!isJSONMode)}>
         {isJSONMode ? 'Перейти в обычный режим' : 'Перейти в режим расшифрования JSON'}
