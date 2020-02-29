@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { Header } from 'components/Header';
 
-import { CIPHER_ALGORITHM, ENCRYPTED_DATA } from 'config';
+import { CIPHER_ALGORITHM, ENCRYPTED_DATA_CODES, ENCRYPTED_DATA } from 'config';
 
 import { AppState, Method } from 'store';
 import { EncryptState } from 'store/encrypt/types';
@@ -74,8 +74,12 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
     props.encryptData(props.method, props.plainText, props.encryptionKey);
   };
 
-  const getJSON = (methodName: string, decryptedText: string) => {
-    let json = { [CIPHER_ALGORITHM]: methodName, [ENCRYPTED_DATA]: decryptedText };
+  const getJSON = (methodName: string, encryptedCode: number[], encryptedText: string) => {
+    let json = {
+      [CIPHER_ALGORITHM]: methodName,
+      [ENCRYPTED_DATA_CODES]: encryptedCode,
+      [ENCRYPTED_DATA]: encryptedText,
+    };
     return JSON.stringify(json, undefined, 2);
   };
 
@@ -117,7 +121,9 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
             <output>{props.encryptedData.text}</output>
             <div>2) JSON для отправки на сервер для расшифрования:</div>
             <output>
-              <pre>{getJSON(props.method.name, props.encryptedData.text)}</pre>
+              <pre>
+                {getJSON(props.method.name, props.encryptedData.code, props.encryptedData.text)}
+              </pre>
             </output>
           </>
         )

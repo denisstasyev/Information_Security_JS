@@ -1,5 +1,5 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE } from 'methods/encryption';
+import { UNICODE_RING_SIZE, getUnicodeCode } from 'methods/encryption';
 
 /**
  * Symbolic cyclic shift of plain text by each key symbol char code
@@ -12,11 +12,15 @@ export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedD
   let encryptedData: EncryptedData = { code: [], text: '' };
   let symbolCode: number;
 
-  for (let iter = 0; iter < text.length; iter++) {
-    symbolCode = (text.charCodeAt(iter) + key.charCodeAt(iter % key.length)) % UNICODE_RING_SIZE;
+  const keyCodes = Array.from(key);
+  Array.from(text).forEach((char, index) => {
+    symbolCode =
+      (getUnicodeCode(char) + getUnicodeCode(keyCodes[index % keyCodes.length])) %
+      UNICODE_RING_SIZE;
     encryptedData.code.push(symbolCode);
-    encryptedData.text += String.fromCharCode(symbolCode);
-  }
+  });
+
+  encryptedData.text = String.fromCodePoint(...encryptedData.code);
 
   return encryptedData;
 }
@@ -29,11 +33,13 @@ export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedD
  * @returns EncryptedData
  */
 export function decryptPolyAlphabeticCode(text: string, key: string): EncryptedData {
-  let keyReverse: string = '';
+  let keyReverseCodes: number[] = [];
 
-  for (let iter = 0; iter < key.length; iter++) {
-    keyReverse += String.fromCharCode(UNICODE_RING_SIZE - key.charCodeAt(iter));
+  for (let char of key) {
+    keyReverseCodes.push(UNICODE_RING_SIZE - getUnicodeCode(char));
   }
+  const keyReverse: string = String.fromCodePoint(...keyReverseCodes);
+
   const plainData: EncryptedData = encryptPolyAlphabeticCode(text, keyReverse);
 
   return plainData;
