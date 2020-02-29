@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { Header } from 'components/Header';
+import { Content } from 'components/Content';
 
 import { CIPHER_ALGORITHM, ENCRYPTED_DATA_CODES, ENCRYPTED_DATA } from 'config';
 
@@ -86,48 +87,50 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
   return (
     <>
       <Header />
-      <h2>Шифрование</h2>
-      <div>1) Выберите метод для шифрования:</div>
-      <select value={props.method.type} onChange={onChangeMethod}>
-        {encryptionMethods.map((method, index) => (
-          <option value={method.type} key={index}>
-            {method.name}
-          </option>
-        ))}
-      </select>
-      <div>2) Введите ключ:</div>
-      <input
-        value={props.encryptionKey}
-        type="text"
-        placeholder="Ваш ключ"
-        onChange={onChangeKey}
-      />
-      <div>3) Введите открытый текст, который хотите зашифровать:</div>
-      <input
-        value={props.plainText}
-        type="text"
-        placeholder="Ваш открытый текст"
-        onChange={onChangeText}
-      />
-      <button onClick={onSubmit}>Зашифровать!</button>
+      <Content>
+        <h2>Шифрование</h2>
+        <div>1) Выберите метод для шифрования:</div>
+        <select value={props.method.type} onChange={onChangeMethod}>
+          {encryptionMethods.map((method, index) => (
+            <option value={method.type} key={index}>
+              {method.name}
+            </option>
+          ))}
+        </select>
+        <div>2) Введите ключ:</div>
+        <input
+          value={props.encryptionKey}
+          type="text"
+          placeholder="Ваш ключ"
+          onChange={onChangeKey}
+        />
+        <div>3) Введите открытый текст, который хотите зашифровать:</div>
+        <input
+          value={props.plainText}
+          type="text"
+          placeholder="Ваш открытый текст"
+          onChange={onChangeText}
+        />
+        <button onClick={onSubmit}>Зашифровать!</button>
 
-      {props.errorMessage ? (
-        <div>Ошибка! {props.errorMessage}</div>
-      ) : (
-        props.encryptedData.text && (
-          <>
-            <h3>Ваш результат</h3>
-            <div>1) Закрытый текст:</div>
-            <output>{props.encryptedData.text}</output>
-            <div>2) JSON для отправки на сервер для расшифрования:</div>
-            <output>
-              <pre>
-                {getJSON(props.method.name, props.encryptedData.code, props.encryptedData.text)}
-              </pre>
-            </output>
-          </>
-        )
-      )}
+        {props.errorMessage ? (
+          <div>Ошибка! {props.errorMessage}</div>
+        ) : (
+          props.encryptedData.text && (
+            <>
+              <h3>Ваш результат</h3>
+              <div>1) Закрытый текст:</div>
+              <output>{props.encryptedData.text}</output>
+              <div>2) JSON для отправки на сервер для расшифрования:</div>
+              <output>
+                <pre>
+                  {getJSON(props.method.name, props.encryptedData.code, props.encryptedData.text)}
+                </pre>
+              </output>
+            </>
+          )
+        )}
+      </Content>
     </>
   );
 };
