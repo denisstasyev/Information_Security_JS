@@ -1,5 +1,5 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE } from 'methods/encryption';
+import { UNICODE_RING_SIZE, getUnicodeCode } from 'methods/encryption';
 
 /**
  * Symbolic cyclic shift of plain text by each key symbol char code
@@ -12,17 +12,19 @@ export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedD
   let encryptedData: EncryptedData = { code: [], text: '' };
   let symbolCode: number;
 
-  // text.split('').forEach((char, index) => {
-  //   symbolCode = (getUnicodeCode(char) + getUnicodeCode(key[index % key.length])) % UNICODE_RING_SIZE;
-  //   encryptedData.code.push(symbolCode);
-  // });
-  // encryptedData.text = String.fromCodePoint(...encryptedData.code);
-
-  for (let iter = 0; iter < text.length; iter++) {
-    symbolCode = (text.charCodeAt(iter) + key.charCodeAt(iter % key.length)) % UNICODE_RING_SIZE;
+  text.split('').forEach((char, index) => {
+    symbolCode =
+      (getUnicodeCode(char) + getUnicodeCode(key[index % key.split('').length])) %
+      UNICODE_RING_SIZE;
     encryptedData.code.push(symbolCode);
-    encryptedData.text += String.fromCharCode(symbolCode);
-  }
+  });
+  encryptedData.text = String.fromCodePoint(...encryptedData.code);
+
+  // for (let iter = 0; iter < text.length; iter++) {
+  //   symbolCode = (text.charCodeAt(iter) + key.charCodeAt(iter % key.length)) % UNICODE_RING_SIZE;
+  //   encryptedData.code.push(symbolCode);
+  //   encryptedData.text += String.fromCharCode(symbolCode);
+  // }
 
   return encryptedData;
 }
@@ -35,18 +37,18 @@ export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedD
  * @returns EncryptedData
  */
 export function decryptPolyAlphabeticCode(text: string, key: string): EncryptedData {
-  // let keyReverseCodes: number[] = [];
+  let keyReverseCodes: number[] = [];
 
-  // for (let char of key) {
-  //   keyReverseCodes.push(UNICODE_RING_SIZE - getUnicodeCode(char));
-  // }
-  // const keyReverse: string = String.fromCodePoint(...keyReverseCodes);
-
-  let keyReverse: string = '';
-
-  for (let iter = 0; iter < key.length; iter++) {
-    keyReverse += String.fromCharCode(UNICODE_RING_SIZE - key.charCodeAt(iter));
+  for (let char of key) {
+    keyReverseCodes.push(UNICODE_RING_SIZE - getUnicodeCode(char));
   }
+  const keyReverse: string = String.fromCodePoint(...keyReverseCodes);
+
+  // let keyReverse: string = '';
+
+  // for (let iter = 0; iter < key.length; iter++) {
+  //   keyReverse += String.fromCharCode(UNICODE_RING_SIZE - key.charCodeAt(iter));
+  // }
   const plainData: EncryptedData = encryptPolyAlphabeticCode(text, keyReverse);
 
   return plainData;
