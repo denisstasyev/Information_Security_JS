@@ -1,0 +1,11 @@
+@import 'styles/_mods.scss';
+
+.content {
+  margin: 0 $margin-context-big;
+}
+
+@media screen and (max-width: $max-width-tablet) {
+  .content {
+    margin: 0 $margin-context-small;
+  }
+}
