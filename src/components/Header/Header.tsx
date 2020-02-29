@@ -10,7 +10,8 @@ import { homepage } from 'config';
 const links = [
   { title: 'Зашифровать', href: '/encrypt', isActive: true },
   { title: 'Расшифровать', href: '/decrypt', isActive: true },
-  { title: 'Хешировать', href: '/', isActive: false },
+  { title: 'Проверить целостность', href: '/checksum', isActive: true },
+  { title: 'Хешировать', href: '/hash', isActive: false },
 ];
 
 export default function() {
