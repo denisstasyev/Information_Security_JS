@@ -14,10 +14,6 @@ export function encryptCesar(text: string, key: number): EncryptedData {
 
   for (let char of text) {
     symbolCode = (emojiUnicode(char) + key) % UNICODE_RING_SIZE;
-    if (isNaN(symbolCode)) {
-      // Extra check
-      symbolCode = 0;
-    }
     encryptedData.code.push(symbolCode);
   }
 

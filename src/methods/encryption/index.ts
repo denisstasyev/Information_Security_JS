@@ -50,6 +50,7 @@ export function outputData(
  */
 export function emojiUnicode(emoji: string): number {
   let comp;
+
   if (emoji.length === 1) {
     comp = emoji.charCodeAt(0);
   } else {
@@ -58,5 +59,6 @@ export function emojiUnicode(emoji: string): number {
       comp = emoji.charCodeAt(0);
     }
   }
-  return comp;
+
+  return isNaN(comp) ? 0 : comp; // Extra check
 }
