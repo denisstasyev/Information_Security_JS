@@ -3,7 +3,7 @@ import { UNICODE_RING_SIZE } from 'libmethods/encryption';
 import { getUnicodeCode } from 'libmethods';
 
 /**
- * A caesar encryption:
+ * A Caesar encryption:
  *  character by character shift by constant value
  *
  * Algorithm of encryption:
@@ -30,7 +30,7 @@ export function encryptCesar(text: string, key: number): EncryptedData {
 }
 
 /**
- * A caesar decryption
+ * A Caesar decryption
  *
  * @param text Input string for decryption
  * @param key  Key for decryption
