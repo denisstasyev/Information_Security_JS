@@ -1,12 +1,12 @@
 import { Method, EncryptedData } from 'store';
 import * as types from './types';
 
-import { encryptionTypes } from '../../methods'; //TODO: fix bug with absolut imports with Typescript
-import { outputData } from '../../methods/encryption';
-import { encryptCesar } from '../../methods/encryption/caesar';
-import { encryptMonoAlphabeticCode } from '../../methods/encryption/monoalphabetic';
-import { encryptPolyAlphabeticCode } from '../../methods/encryption/polyalphabetic';
-import { encryptBigram } from '../../methods/encryption/bigram';
+import { encryptionTypes } from 'libmethods';
+import { outputData } from 'libmethods/encryption';
+import { encryptCesar } from 'libmethods/encryption/caesar';
+import { encryptMonoAlphabeticCode } from 'libmethods/encryption/monoalphabetic';
+import { encryptPolyAlphabeticCode } from 'libmethods/encryption/polyalphabetic';
+import { encryptBigram } from 'libmethods/encryption/bigram';
 
 export function setMethod(method: Method) {
   return {

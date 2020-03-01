@@ -1,5 +1,5 @@
 import * as types from './types';
-import { encryptionMethods } from '../../methods'; //TODO: fix bug with absolut imports with Typescript
+import { encryptionMethods } from 'libmethods';
 
 const initialState: types.DecryptState = {
   method: encryptionMethods[0],

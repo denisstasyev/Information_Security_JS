@@ -1,13 +1,13 @@
 import * as React from 'react';
 
-import { checksumMethods } from '../../methods'; //TODO: fix bug with absolut imports with Typescript
-import { countChecksum } from '../../methods/checksum';
+import { checksumMethods } from 'libmethods';
+import { countChecksum, TypesCheckSum } from 'libmethods/checksum';
 
 export default function() {
   const [method, setMethod] = React.useState(checksumMethods[0]);
   const [text, setText] = React.useState('');
   const [error, setError] = React.useState('');
-  const [checksum, setChecksum] = React.useState('');
+  const [checksum, setChecksum] = React.useState<TypesCheckSum | undefined>();
 
   const onSubmit = (event: any) => {
     event.preventDefault();
@@ -55,8 +55,23 @@ export default function() {
         checksum && (
           <>
             <h3>Ваш результат</h3>
-            <div>1) Контрольная сумма:</div>
-            <output>{checksum}</output>
+            <div>1) Контрольные суммы:</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Алгоритм</th>
+                  <th>Результат</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(checksum).map(([key, value]) => (
+                  <tr key={key}>
+                    <td>{key}</td>
+                    <td>{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </>
         )
       )}

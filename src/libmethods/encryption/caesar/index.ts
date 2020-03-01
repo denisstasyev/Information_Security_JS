@@ -1,12 +1,19 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE, getUnicodeCode } from 'methods/encryption';
+import { UNICODE_RING_SIZE } from 'libmethods/encryption';
+import { getUnicodeCode } from 'libmethods';
 
 /**
- * Character by character shift by constant value
+ * A Caesar encryption:
+ *  character by character shift by constant value
  *
- * @param  {string} text
- * @param  {number} key
- * @returns EncryptedData
+ * Algorithm of encryption:
+ *  for every character in input string:
+ *   code = UnicodeCode(character)
+ *   cipher_code = code + key
+ *
+ * @param text Input string for encryption
+ * @param key  Key for encryption
+ * @returns    Cipher data
  */
 export function encryptCesar(text: string, key: number): EncryptedData {
   let encryptedData: EncryptedData = { code: [], text: '' };
@@ -23,11 +30,11 @@ export function encryptCesar(text: string, key: number): EncryptedData {
 }
 
 /**
- * Decryption
+ * A Caesar decryption
  *
- * @param  {string} text
- * @param  {number} key
- * @returns EncryptedData
+ * @param text Input string for decryption
+ * @param key  Key for decryption
+ * @returns    Clear data
  */
 export function decryptCesar(text: string, key: number): EncryptedData {
   const plainData: EncryptedData = encryptCesar(text, UNICODE_RING_SIZE - key);
