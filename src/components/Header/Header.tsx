@@ -6,10 +6,10 @@ import styles from './header.module.scss';
 import { Tag } from 'components/Tag';
 
 const links = [
-  { title: 'Зашифровать', href: '/encrypt', isActive: true },
-  { title: 'Расшифровать', href: '/decrypt', isActive: true },
-  { title: 'Проверить целостность', href: '/checksum', isActive: true },
-  { title: 'Хешировать', href: '/hash', isActive: false },
+  { title: 'Зашифровать', href: '/encrypt/', isActive: true },
+  { title: 'Расшифровать', href: '/decrypt/', isActive: true },
+  { title: 'Посчитать контрольную сумму', href: '/checksum/', isActive: true },
+  { title: 'Хешировать', href: '/hash/', isActive: false },
 ];
 
 export default function() {

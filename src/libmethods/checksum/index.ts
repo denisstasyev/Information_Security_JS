@@ -8,11 +8,12 @@ import { getCRC32 } from 'libmethods/checksum/crc32';
 import { getFletcher } from 'libmethods/checksum/fletcher';
 
 export interface TypesCheckSum {
-  [index: string]: number;
+  name: string;
+  value: number;
 }
 
-export function countChecksum(method: Method, text: string): TypesCheckSum {
-  let checksum: TypesCheckSum;
+export function countChecksum(method: Method, text: string): TypesCheckSum[] {
+  let checksum: TypesCheckSum[];
 
   switch (method.type) {
     case checksumTypes.crc16:
@@ -28,7 +29,7 @@ export function countChecksum(method: Method, text: string): TypesCheckSum {
       checksum = getFletcher(text);
       break;
     default:
-      checksum = {};
+      checksum = [];
   }
 
   return checksum;

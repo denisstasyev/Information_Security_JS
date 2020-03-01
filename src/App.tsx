@@ -10,18 +10,16 @@ import { Decrypt } from 'containers/Decrypt';
 import { Checksum } from 'containers/Checksum';
 import { NotFound } from 'containers/NotFound';
 
-import { homepage } from 'config';
-
 const App = () => {
   return (
-    <BrowserRouter basename={homepage}>
+    <BrowserRouter basename={process.env.PUBLIC_URL || ''}>
       <Header />
       <Content>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/encrypt" component={Encrypt} />
-          <Route path="/decrypt" component={Decrypt} />
-          <Route path="/checksum" component={Checksum} />
+          <Route path="/encrypt/" component={Encrypt} />
+          <Route path="/decrypt/" component={Decrypt} />
+          <Route path="/checksum/" component={Checksum} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Content>
