@@ -1,4 +1,3 @@
-import { crc32 } from 'crc';
 import { TypesCheckSum } from 'libmethods/checksum';
 
 export function getCRC32(text: string): TypesCheckSum {

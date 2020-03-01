@@ -6,12 +6,12 @@ import { getCRC16 } from 'libmethods/checksum/crc16';
 import { getCRC24 } from 'libmethods/checksum/crc24';
 import { getCRC32 } from 'libmethods/checksum/crc32';
 
-export interface TypesCRC {
+export interface TypesCheckSum {
   [index: string]: number;
 }
 
-export function countChecksum(method: Method, text: string): TypesCRC {
-  let checksum: TypesCRC;
+export function countChecksum(method: Method, text: string): TypesCheckSum {
+  let checksum: TypesCheckSum;
 
   switch (method.type) {
     case checksumTypes.crc16:

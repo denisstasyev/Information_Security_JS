@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 import { checksumMethods } from 'libmethods';
-import { countChecksum, TypesCRC } from 'libmethods/checksum';
+import { countChecksum, TypesCheckSum } from 'libmethods/checksum';
 
 export default function() {
   const [method, setMethod] = React.useState(checksumMethods[0]);
   const [text, setText] = React.useState('');
   const [error, setError] = React.useState('');
-  const [checksum, setChecksum] = React.useState<TypesCRC | undefined>();
+  const [checksum, setChecksum] = React.useState<TypesCheckSum | undefined>();
 
   const onSubmit = (event: any) => {
     event.preventDefault();

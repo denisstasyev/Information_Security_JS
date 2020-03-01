@@ -1,5 +1,5 @@
 import { crc16, crc16ccitt, crc16kermit, crc16modbus, crc16xmodem } from 'crc';
-import { TypesCRC } from 'libmethods/checksum';
+import { TypesCheckSum } from 'libmethods/checksum';
 
 function getCRC16_ARC(text: string): number {
   return crc16(text);
@@ -21,7 +21,7 @@ function getCRC16_XMODEM(text: string): number {
   return crc16xmodem(text);
 }
 
-export function getCRC16(text: string): TypesCRC {
+export function getCRC16(text: string): TypesCheckSum {
   return {
     'CRC-16/ARC': getCRC16_ARC(text),
     'CRC-16/CCITT-FALSE': getCRC16_CCITT_FALSE(text),
