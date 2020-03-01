@@ -1,9 +1,6 @@
 # IDE's
 .vscode
 
-# environment
-src/react-app-env.d.ts
-
 # dependencies
 /node_modules
 /.pnp

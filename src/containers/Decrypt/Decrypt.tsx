@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import { Header } from 'components/Header';
-
 import { CIPHER_ALGORITHM, ENCRYPTED_DATA } from 'config';
 
 import { AppState, Method } from 'store';
@@ -21,7 +19,6 @@ interface DecryptStateProps extends DecryptState {
 
 const Decrypt: React.SFC<DecryptStateProps> = props => {
   const [isJSONMode, setIsJSONMode] = React.useState(false);
-  const [encryptedJSON, setEncryptedJSON] = React.useState('');
 
   const onChangeMethod = (event: any) => {
     event.preventDefault();
@@ -79,20 +76,13 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
 
   const onChangeJSON = (event: any) => {
     event.preventDefault();
-    setEncryptedJSON(event.target.value);
+    setPropsData(event.target.value);
   };
 
-  const onSubmitJSON = (event: any) => {
-    event.preventDefault();
-
-    if (props.decryptionKey === '') {
-      props.setError('Введите ключ расшифрования!');
-      return;
-    }
-
+  const setPropsData = (json: string) => {
     let objectJSON = {};
     try {
-      objectJSON = JSON.parse(encryptedJSON);
+      objectJSON = JSON.parse(json);
     } catch (e) {
       props.setError('JSON не валидный!');
     }
@@ -105,19 +95,30 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
       type: '',
     };
     props.setMethod(method);
-    if (props.method.name === '') {
-      props.setError(`Введите метод шифрования в JSON (свойство: ${CIPHER_ALGORITHM})!`);
-      return;
-    }
 
     const encryptedText =
       // @ts-ignore
       objectJSON[ENCRYPTED_DATA] === undefined ? '' : objectJSON[ENCRYPTED_DATA];
     props.setText(encryptedText);
+  };
+
+  const onSubmitJSON = (event: any) => {
+    event.preventDefault();
+
+    if (props.decryptionKey === '') {
+      props.setError('Введите ключ расшифрования!');
+      return;
+    }
+
+    if (props.method.name === '') {
+      props.setError(`Введите метод шифрования в JSON (свойство: ${CIPHER_ALGORITHM})!`);
+      return;
+    }
+
     if (props.encryptedText === '') {
       props.setError(
         `Введите текст в JSON, который необходимо расшифровать (свойство: ${ENCRYPTED_DATA})!`,
-      ); //TODO: fix bug
+      );
       return;
     }
 
@@ -126,8 +127,7 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
 
   return (
     <>
-      <Header />
-      <h2>Расшифрование (легально)</h2>
+      <h2>Расшифрование</h2>
       <div>0) Выберите режим расшифрования:</div>
       <button onClick={() => setIsJSONMode(!isJSONMode)}>
         {isJSONMode ? 'Перейти в обычный режим' : 'Перейти в режим расшифрования JSON'}
@@ -135,7 +135,7 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
       {isJSONMode ? (
         <>
           <div>1) Введите JSON, который хотите расшифровать:</div>
-          <textarea value={encryptedJSON} placeholder="Ваш JSON" onChange={onChangeJSON} />
+          <textarea rows={10} cols={50} placeholder="Ваш JSON" onChange={onChangeJSON} />
           <div>2) Введите ключ:</div>
           <input
             value={props.decryptionKey}

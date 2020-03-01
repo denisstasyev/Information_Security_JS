@@ -1,5 +1,5 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE } from 'methods/encryption';
+import { UNICODE_RING_SIZE, getUnicodeCode } from 'methods/encryption';
 
 import { encryptCesar } from '../../../methods/encryption/caesar';
 
@@ -14,8 +14,8 @@ import { encryptCesar } from '../../../methods/encryption/caesar';
 export function encryptMonoAlphabeticCode(text: string, key: string): EncryptedData {
   let keyInt: number = 0;
 
-  for (let iter = 0; iter < key.length; iter++) {
-    keyInt += key.charCodeAt(iter) % UNICODE_RING_SIZE;
+  for (let char of key) {
+    keyInt += getUnicodeCode(char) % UNICODE_RING_SIZE;
   }
   let encryptedData: EncryptedData = encryptCesar(text, keyInt);
 
@@ -30,11 +30,13 @@ export function encryptMonoAlphabeticCode(text: string, key: string): EncryptedD
  * @returns EncryptedData
  */
 export function decryptMonoAlphabeticCode(text: string, key: string): EncryptedData {
-  let keyReverse: string = '';
+  let keyReverseCodes: number[] = [];
 
-  for (let iter = 0; iter < key.length; iter++) {
-    keyReverse += String.fromCharCode(UNICODE_RING_SIZE - key.charCodeAt(iter));
+  for (let char of key) {
+    keyReverseCodes.push(UNICODE_RING_SIZE - getUnicodeCode(char));
   }
+  const keyReverse: string = String.fromCodePoint(...keyReverseCodes);
+
   const plainData: EncryptedData = encryptMonoAlphabeticCode(text, keyReverse);
 
   return plainData;
