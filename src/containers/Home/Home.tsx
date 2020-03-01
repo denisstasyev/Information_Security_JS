@@ -16,15 +16,15 @@ export default function() {
       <div className={styles['text']}>
         Сейчас вы можете
         <div className={styles['tag']}>
-          <Tag link={{ title: 'зашифровать', href: '/encrypt', isActive: true }} />
+          <Tag link={{ title: 'зашифровать', href: '/encrypt/', isActive: true }} />
         </div>
         и
         <div className={styles['tag']}>
-          <Tag link={{ title: 'расшифровать', href: '/decrypt', isActive: true }} />
+          <Tag link={{ title: 'расшифровать', href: '/decrypt/', isActive: true }} />
         </div>
         сообщение, а также
         <div className={styles['tag']}>
-          <Tag link={{ title: 'проверить его целостность', href: '/checksum', isActive: true }} />
+          <Tag link={{ title: 'проверить его целостность', href: '/checksum/', isActive: true }} />
         </div>
       </div>
       <br />
@@ -32,7 +32,7 @@ export default function() {
       <div className={styles['text']}>
         Скоро появится
         <div className={styles['tag']}>
-          <Tag link={{ title: 'хеширование', href: '/hash', isActive: false }} />
+          <Tag link={{ title: 'хеширование', href: '/hash/', isActive: false }} />
         </div>
       </div>
     </>
