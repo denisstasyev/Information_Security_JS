@@ -1,5 +1,5 @@
-import crc24 from 'crc/crc24';
+import { crc24 } from 'crc';
 
-export function getCRC24(text: string): string {
+export function getCRC24(text: string): number {
   return crc24(text);
 }

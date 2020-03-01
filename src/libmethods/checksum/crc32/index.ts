@@ -1,5 +1,5 @@
-import crc32 from 'crc/crc32';
+import { crc32 } from 'crc';
 
-export function getCRC32(text: string): string {
+export function getCRC32(text: string): number {
   return crc32(text);
 }
