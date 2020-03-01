@@ -1,5 +1,5 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE, getUnicodeCode } from 'methods/encryption';
+import { UNICODE_RING_SIZE, getUnicodeCode } from 'libmethods/encryption';
 
 /**
  * Character by character shift by constant value

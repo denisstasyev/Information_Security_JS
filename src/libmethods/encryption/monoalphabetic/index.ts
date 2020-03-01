@@ -1,7 +1,7 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE, getUnicodeCode } from 'methods/encryption';
+import { UNICODE_RING_SIZE, getUnicodeCode } from 'libmethods/encryption';
 
-import { encryptCesar } from '../../../methods/encryption/caesar';
+import { encryptCesar } from 'libmethods/encryption/caesar';
 
 /**
  * Calculate integer number from string by char codes and then

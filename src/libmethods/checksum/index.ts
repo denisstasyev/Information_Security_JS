@@ -1,10 +1,10 @@
 import { Method } from 'store';
 
-import { checksumTypes } from '../'; //TODO: fix bug with absolut imports with Typescript
+import { checksumTypes } from 'libmethods';
 
-import { getCRC16 } from 'methods/checksum/crc16';
-import { getCRC24 } from 'methods/checksum/crc24';
-import { getCRC32 } from 'methods/checksum/crc32';
+import { getCRC16 } from 'libmethods/checksum/crc16';
+import { getCRC24 } from 'libmethods/checksum/crc24';
+import { getCRC32 } from 'libmethods/checksum/crc32';
 
 export function countChecksum(method: Method, text: string): string {
   let checksum = '';

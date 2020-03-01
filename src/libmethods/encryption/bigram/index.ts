@@ -3,7 +3,7 @@ import {
   UNICODE_RING_SIZE,
   UNICODE_RING_SIZE_SQUARE,
   UNICODE_RING_SIZE_SQUARE_LENGTH,
-} from 'methods/encryption';
+} from 'libmethods/encryption';
 
 export function encryptBigram(text: string, key: string): EncryptedData {
   let encryptedData: EncryptedData = { code: [], text: '' };

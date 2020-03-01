@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { checksumMethods } from '../../methods'; //TODO: fix bug with absolut imports with Typescript
-import { countChecksum } from '../../methods/checksum';
+import { checksumMethods } from 'libmethods';
+import { countChecksum } from 'libmethods/checksum';
 
 export default function() {
   const [method, setMethod] = React.useState(checksumMethods[0]);
