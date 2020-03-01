@@ -19,10 +19,10 @@ export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedD
   let encryptedData: EncryptedData = { code: [], text: '' };
   let symbolCode: number;
 
-  const keyCodes = Array.from(key);
+  const keyArray = Array.from(key);
   Array.from(text).forEach((char, index) => {
     symbolCode =
-      (getUnicodeCode(char) + getUnicodeCode(keyCodes[index % keyCodes.length])) %
+      (getUnicodeCode(char) + getUnicodeCode(keyArray[index % keyArray.length])) %
       UNICODE_RING_SIZE;
     encryptedData.code.push(symbolCode);
   });
@@ -46,7 +46,6 @@ export function decryptPolyAlphabeticCode(text: string, key: string): EncryptedD
     keyReverseCodes.push(UNICODE_RING_SIZE - getUnicodeCode(char));
   }
   const keyReverse: string = String.fromCodePoint(...keyReverseCodes);
-
   const plainData: EncryptedData = encryptPolyAlphabeticCode(text, keyReverse);
 
   return plainData;

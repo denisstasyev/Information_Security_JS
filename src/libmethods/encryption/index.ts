@@ -5,13 +5,13 @@ export const UNICODE_RING_SIZE_SQUARE_LENGTH = UNICODE_RING_SIZE_SQUARE.toString
 /**
  * Console development output
  *
- * @param  {string} method
- * @param  {string} text
- * @param  {string} key
- * @param  {number[]} cipherCode
- * @param  {string} cipherText
- * @param  {boolean} encryptionBool
- * @returns void
+ * @param  method
+ * @param  text
+ * @param  key
+ * @param  cipherCode
+ * @param  cipherText
+ * @param  encryptionBool
+ * @returns
  */
 export function outputData(
   method: string,

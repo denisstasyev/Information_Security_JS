@@ -4,6 +4,7 @@ import {
   UNICODE_RING_SIZE_SQUARE,
   UNICODE_RING_SIZE_SQUARE_LENGTH,
 } from 'libmethods/encryption';
+import { getUnicodeCode } from 'libmethods';
 
 /**
  * A bigram encryption:
@@ -26,17 +27,20 @@ export function encryptBigram(text: string, key: string): EncryptedData {
   let keyInt: number = 0;
   let symbolCode: number;
 
-  for (let iter = 0; iter < key.length; iter++) {
-    keyInt += key.charCodeAt(iter) % UNICODE_RING_SIZE;
+  for (let char of key) {
+    keyInt += getUnicodeCode(char) % UNICODE_RING_SIZE;
   }
 
-  if (text.length % 2 !== 0) {
-    text += ' ';
+  const textArray = Array.from(text);
+  if (textArray.length % 2 !== 0) {
+    textArray.push(' ');
   }
 
-  for (let iter = 0; iter < text.length; iter += 2) {
+  for (let iter = 0; iter < textArray.length; iter += 2) {
     symbolCode =
-      (text.charCodeAt(iter) * UNICODE_RING_SIZE + text.charCodeAt(iter + 1) + keyInt) %
+      (getUnicodeCode(textArray[iter]) * UNICODE_RING_SIZE +
+        getUnicodeCode(textArray[iter + 1]) +
+        keyInt) %
       UNICODE_RING_SIZE_SQUARE;
     encryptedData.code.push(symbolCode);
     encryptedData.text += symbolCode.toString().padStart(UNICODE_RING_SIZE_SQUARE_LENGTH, '0');
@@ -60,8 +64,8 @@ export function decryptBigram(text: string, key: string): EncryptedData {
   let symbolCodeFirst: number;
   let symbolCodeSecond: number;
 
-  for (let iter = 0; iter < key.length; iter++) {
-    keyInt += key.charCodeAt(iter) % UNICODE_RING_SIZE;
+  for (let char of key) {
+    keyInt += getUnicodeCode(char) % UNICODE_RING_SIZE;
   }
 
   for (let iter = 0; iter < text.length; iter += UNICODE_RING_SIZE_SQUARE_LENGTH) {
@@ -71,8 +75,8 @@ export function decryptBigram(text: string, key: string): EncryptedData {
     symbolCodeSecond = symbolCode % UNICODE_RING_SIZE;
     symbolCodeFirst = (symbolCode - symbolCodeSecond) / UNICODE_RING_SIZE;
     plainData.code.push(symbolCodeFirst, symbolCodeSecond);
-    plainData.text += String.fromCharCode(symbolCodeFirst, symbolCodeSecond);
   }
+  plainData.text = String.fromCodePoint(...plainData.code);
 
   return plainData;
 }
