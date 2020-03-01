@@ -13,3 +13,17 @@ export const encryptionMethods: Method[] = [
   { type: encryptionTypes.polyalphabetic, name: 'Полиалфавитный шифр' },
   { type: encryptionTypes.bigram, name: 'Биграммный шифр' },
 ];
+
+export const checksumTypes = {
+  crc16: 'crc16',
+  crc24: 'crc24',
+  crc32: 'crc32',
+  fletcher: 'fletcher',
+};
+
+export const checksumMethods: Method[] = [
+  { type: checksumTypes.crc16, name: 'CRC16' },
+  { type: checksumTypes.crc24, name: 'CRC24' },
+  { type: checksumTypes.crc32, name: 'CRC32' },
+  { type: checksumTypes.fletcher, name: 'Флетчер' },
+];
