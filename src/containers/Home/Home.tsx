@@ -24,8 +24,11 @@ export default function() {
         </div>
         сообщение, а также
         <div className={styles['tag']}>
-          <Tag link={{ title: 'проверить его целостность', href: '/checksum/', isActive: true }} />
+          <Tag
+            link={{ title: 'посчитать контрольную сумму', href: '/checksum/', isActive: true }}
+          />
         </div>
+        для него
       </div>
       <br />
       <br />
