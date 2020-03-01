@@ -21,12 +21,12 @@ function getCRC16_XMODEM(text: string): number {
   return crc16xmodem(text);
 }
 
-export function getCRC16(text: string): TypesCheckSum {
-  return {
-    'CRC-16/ARC': getCRC16_ARC(text),
-    'CRC-16/CCITT-FALSE': getCRC16_CCITT_FALSE(text),
-    'CRC-16/KERMIT': getCRC16_KERMIT(text),
-    'CRC-16/MODBUS': getCRC16_MODBUS(text),
-    'CRC-16/XMODEM': getCRC16_XMODEM(text),
-  };
+export function getCRC16(text: string): TypesCheckSum[] {
+  return [
+    { name: 'CRC-16/ARC', value: getCRC16_ARC(text) },
+    { name: 'CRC-16/CCITT-FALSE', value: getCRC16_CCITT_FALSE(text) },
+    { name: 'CRC-16/KERMIT', value: getCRC16_KERMIT(text) },
+    { name: 'CRC-16/MODBUS', value: getCRC16_MODBUS(text) },
+    { name: 'CRC-16/XMODEM', value: getCRC16_XMODEM(text) },
+  ];
 }

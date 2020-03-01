@@ -7,7 +7,7 @@ export default function() {
   const [method, setMethod] = React.useState(checksumMethods[0]);
   const [text, setText] = React.useState('');
   const [error, setError] = React.useState('');
-  const [checksum, setChecksum] = React.useState<TypesCheckSum | undefined>();
+  const [checksum, setChecksum] = React.useState<TypesCheckSum[] | undefined>();
 
   const onSubmit = (event: any) => {
     event.preventDefault();
@@ -64,10 +64,10 @@ export default function() {
                 </tr>
               </thead>
               <tbody>
-                {Object.entries(checksum).map(([key, value]) => (
-                  <tr key={key}>
-                    <td>{key}</td>
-                    <td>{value}</td>
+                {checksum.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.name}</td>
+                    <td>{item.value}</td>
                   </tr>
                 ))}
               </tbody>
