@@ -57,16 +57,20 @@ export default function() {
             <h3>Ваш результат</h3>
             <div>1) Контрольные суммы:</div>
             <table>
-              <tr>
-                <th>Алгоритм</th>
-                <th>Результат</th>
-              </tr>
-              {Object.entries(checksum).map(([key, value]) => (
+              <thead>
                 <tr>
-                  <td>{key}</td>
-                  <td>{value}</td>
+                  <th>Алгоритм</th>
+                  <th>Результат</th>
                 </tr>
-              ))}
+              </thead>
+              <tbody>
+                {Object.entries(checksum).map(([key, value]) => (
+                  <tr key={key}>
+                    <td>{key}</td>
+                    <td>{value}</td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </>
         )

@@ -1,5 +1,6 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE, getUnicodeCode } from 'libmethods/encryption';
+import { UNICODE_RING_SIZE } from 'libmethods/encryption';
+import { getUnicodeCode } from 'libmethods';
 
 /**
  * Symbolic cyclic shift of plain text by each key symbol char code
