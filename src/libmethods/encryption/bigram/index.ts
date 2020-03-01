@@ -5,6 +5,21 @@ import {
   UNICODE_RING_SIZE_SQUARE_LENGTH,
 } from 'libmethods/encryption';
 
+/**
+ * A bigram cipher that encodes a pair of characters,
+ * so if the input string does not have an even number of characters,
+ * it is added to that at the end of the space.
+ *
+ * Encryption:
+ * for every two characters in input string:
+ *   code1 = UnicodeCode(character1)
+ *   code2 = UnicodeCode(character2)
+ *   cipher_code = code1 * UNICODE_RING_SIZE + code2 + key
+ *
+ * @param text Input string for encryption
+ * @param key  Key for encryption
+ * @returns    Cipher data
+ */
 export function encryptBigram(text: string, key: string): EncryptedData {
   let encryptedData: EncryptedData = { code: [], text: '' };
   let keyInt: number = 0;
@@ -29,6 +44,14 @@ export function encryptBigram(text: string, key: string): EncryptedData {
   return encryptedData;
 }
 
+/**
+ * Decryption part for bigram cipher,
+ * which actively uses leading zeros in the ciphertext
+ *
+ * @param text Input string for decryption
+ * @param key  Key for decryption
+ * @returns    Clear data
+ */
 export function decryptBigram(text: string, key: string): EncryptedData {
   const plainData: EncryptedData = { code: [], text: '' };
   let keyInt: number = 0;
