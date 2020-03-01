@@ -7,7 +7,7 @@ import { AppState, Method } from 'store';
 import { EncryptState } from 'store/encrypt/types';
 import { setMethod, setKey, setText, setError, encryptData } from 'store/encrypt/actions';
 
-import { encryptionMethods, encryptionTypes } from '../../methods'; //TODO: fix bug with absolut imports with Typescript
+import { encryptionMethods, encryptionTypes } from 'libmethods';
 
 interface EncryptStateProps extends EncryptState {
   setMethod: typeof setMethod;

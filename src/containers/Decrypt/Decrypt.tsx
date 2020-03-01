@@ -7,7 +7,7 @@ import { AppState, Method } from 'store';
 import { DecryptState } from 'store/decrypt/types';
 import { setMethod, setKey, setText, setError, decryptData } from 'store/decrypt/actions';
 
-import { encryptionMethods, encryptionTypes } from '../../methods'; //TODO: fix bug with absolut imports with Typescript
+import { encryptionMethods, encryptionTypes } from 'libmethods';
 
 interface DecryptStateProps extends DecryptState {
   setMethod: typeof setMethod;
