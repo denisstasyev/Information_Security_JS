@@ -5,8 +5,6 @@ import styles from './header.module.scss';
 
 import { Tag } from 'components/Tag';
 
-import { homepage } from 'config';
-
 const links = [
   { title: 'Зашифровать', href: '/encrypt', isActive: true },
   { title: 'Расшифровать', href: '/decrypt', isActive: true },
@@ -18,7 +16,7 @@ export default function() {
   return (
     <div className={styles['header']}>
       <h1 className={styles['header-title']}>
-        <Link to={homepage}>Спецпроект "Шифровальщик"</Link>
+        <Link to="/">Спецпроект "Шифровальщик"</Link>
       </h1>
       <div className={styles['header-links']}>
         {links.map((link, index) => (
