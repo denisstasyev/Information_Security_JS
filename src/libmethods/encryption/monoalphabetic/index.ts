@@ -4,12 +4,18 @@ import { getUnicodeCode } from 'libmethods';
 import { encryptCesar } from 'libmethods/encryption/caesar';
 
 /**
- * Calculate integer number from string by char codes and then
- * use Caesar method (character by character shift by constant value)
+ * A monoalphabetic encryption:
+ *  calculate integer number from string by char codes and then
+ *  use Caesar method (character by character shift by constant value)
  *
- * @param  {string} text
- * @param  {number} key
- * @returns EncryptedData
+ * Algorithm of encryption:
+ *  for every character in input string:
+ *   code = UnicodeCode(character)
+ *   cipher_code = code + UnicodeCode(key)
+ *
+ * @param text Input string for encryption
+ * @param key  Key for encryption
+ * @returns    Cipher data
  */
 export function encryptMonoAlphabeticCode(text: string, key: string): EncryptedData {
   let keyInt: number = 0;
@@ -23,11 +29,11 @@ export function encryptMonoAlphabeticCode(text: string, key: string): EncryptedD
 }
 
 /**
- * Decryption
+ * A monoalphabetic decryption
  *
- * @param  {string} text
- * @param  {string} key
- * @returns EncryptedData
+ * @param text Input string for decryption
+ * @param key  Key for decryption
+ * @returns    Clear data
  */
 export function decryptMonoAlphabeticCode(text: string, key: string): EncryptedData {
   let keyReverseCodes: number[] = [];

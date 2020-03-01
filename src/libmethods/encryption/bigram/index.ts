@@ -6,15 +6,16 @@ import {
 } from 'libmethods/encryption';
 
 /**
- * A bigram cipher that encodes a pair of characters,
- * so if the input string does not have an even number of characters,
- * it is added to that at the end of the space.
+ * A bigram encryption:
+ *  encodes a pair of characters,
+ *  so if the input string does not have an even number of characters,
+ *  it is added to that at the end of the space.
  *
- * Encryption:
- * for every two characters in input string:
+ * Algorithm of encryption:
+ *  for every two characters in input string:
  *   code1 = UnicodeCode(character1)
  *   code2 = UnicodeCode(character2)
- *   cipher_code = code1 * UNICODE_RING_SIZE + code2 + key
+ *   cipher_code = code1 * UNICODE_RING_SIZE + code2 + UnicodeCode(...key)
  *
  * @param text Input string for encryption
  * @param key  Key for encryption
@@ -45,8 +46,8 @@ export function encryptBigram(text: string, key: string): EncryptedData {
 }
 
 /**
- * Decryption part for bigram cipher,
- * which actively uses leading zeros in the ciphertext
+ * A bigram decryption:
+ *  actively uses leading zeros in the ciphertext
  *
  * @param text Input string for decryption
  * @param key  Key for decryption

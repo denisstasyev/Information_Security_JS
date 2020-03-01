@@ -3,11 +3,17 @@ import { UNICODE_RING_SIZE } from 'libmethods/encryption';
 import { getUnicodeCode } from 'libmethods';
 
 /**
- * Symbolic cyclic shift of plain text by each key symbol char code
+ * A polyalphabetic encryption:
+ *  symbolic cyclic shift of plain text by each key symbol char code
  *
- * @param  {string} text
- * @param  {string} key
- * @returns EncryptedData
+ * Algorithm of encryption:
+ *  for every character_str in input string & on the same position character_key in key string:
+ *   code = UnicodeCode(character_str)
+ *   cipher_code = code + UnicodeCode(character_key)
+ *
+ * @param text Input string for encryption
+ * @param key  Key for encryption
+ * @returns    Cipher data
  */
 export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedData {
   let encryptedData: EncryptedData = { code: [], text: '' };
@@ -27,11 +33,11 @@ export function encryptPolyAlphabeticCode(text: string, key: string): EncryptedD
 }
 
 /**
- * Decryption
+ * A polyalphabetic decryption
  *
- * @param  {string} text
- * @param  {string} key
- * @returns EncryptedData
+ * @param text Input string for decryption
+ * @param key  Key for decryption
+ * @returns    Clear data
  */
 export function decryptPolyAlphabeticCode(text: string, key: string): EncryptedData {
   let keyReverseCodes: number[] = [];
