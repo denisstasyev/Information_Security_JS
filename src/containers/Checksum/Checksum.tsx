@@ -41,9 +41,10 @@ export default function() {
         ))}
       </select>
       <div>2) Введите текст для которого требуется найти контрольную сумму:</div>
-      <input
+      <textarea
+        rows={10}
+        cols={50}
         value={text}
-        type="text"
         placeholder="Ваш текст"
         onChange={(event: any) => setText(event.target.value)}
       />
