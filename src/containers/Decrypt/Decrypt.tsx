@@ -153,7 +153,9 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
               <>
                 <h3>Ваш результат</h3>
                 <div>1) Открытый текст:</div>
-                <output>{props.decryptedData.text}</output>
+                <output>
+                  <pre>{props.decryptedData.text}</pre>
+                </output>
               </>
             )
           )}
@@ -176,10 +178,11 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
             onChange={onChangeKey}
           />
           <div>3) Введите закрытый (зашифрованный) текст, который хотите расшифровать:</div>
-          <input
+          <textarea
+            rows={10}
+            cols={50}
             value={props.encryptedText}
-            type="text"
-            placeholder="Ваш открытый текст"
+            placeholder="Ваш зашифрованный текст"
             onChange={onChangeText}
           />
           <button onClick={onSubmit}>Расшифровать!</button>
@@ -191,7 +194,9 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
               <>
                 <h3>Ваш результат</h3>
                 <div>1) Открытый текст:</div>
-                <output>{props.decryptedData.text}</output>
+                <output>
+                  <pre>{props.decryptedData.text}</pre>
+                </output>
               </>
             )
           )}

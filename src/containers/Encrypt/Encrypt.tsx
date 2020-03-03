@@ -100,9 +100,10 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
         onChange={onChangeKey}
       />
       <div>3) Введите открытый текст, который хотите зашифровать:</div>
-      <input
+      <textarea
+        rows={10}
+        cols={50}
         value={props.plainText}
-        type="text"
         placeholder="Ваш открытый текст"
         onChange={onChangeText}
       />
@@ -115,7 +116,9 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
           <>
             <h3>Ваш результат</h3>
             <div>1) Закрытый текст:</div>
-            <output>{props.encryptedData.text}</output>
+            <output>
+              <pre>{props.encryptedData.text}</pre>
+            </output>
             <div>2) JSON для отправки на сервер для расшифрования:</div>
             <output>
               <pre>
