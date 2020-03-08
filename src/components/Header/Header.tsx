@@ -16,8 +16,11 @@ export default function() {
   return (
     <div className={styles['header']}>
       <h1 className={styles['header-title']}>
-        <Link to="/">Спецпроект "Шифровальщик"</Link>
+        <Link className={styles['header-title__text']} to="/">
+          Спецпроект "Шифровальщик"
+        </Link>
       </h1>
+
       <div className={styles['header-links']}>
         {links.map((link, index) => (
           <div className={styles['link']} key={index}>

@@ -21,6 +21,10 @@ $header-height: $x20;
 }
 
 .header {
+  // position: fixed;
+  // top: 0;
+  background-color: $color-background;
+
   animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.24) 0.5s forwards;
   -webkit-animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.24) 0.5s forwards;
 
@@ -32,7 +36,8 @@ $header-height: $x20;
   height: $header-height;
   width: 100%;
 
-  border-bottom: solid $x025 $color-inactive;
+  border-bottom: $border-secondary;
+  box-shadow: $depth1;
 }
 
 .header-title {
@@ -45,6 +50,10 @@ $header-height: $x20;
   white-space: nowrap;
 
   position: relative;
+
+  &__text {
+    vertical-align: super;
+  }
 
   &:after {
     position: absolute;
@@ -89,6 +98,10 @@ $header-height: $x20;
     text-align: center;
 
     position: relative;
+
+    &__text {
+      vertical-align: baseline;
+    }
 
     &:after {
       display: none;

@@ -2,9 +2,13 @@
 
 .content {
   margin: 0 $margin-context-big;
+
+  &:last-child {
+    margin-bottom: $x4;
+  }
 }
 
-@media screen and (max-width: $max-width-tablet) {
+@media screen and (max-width: $max-width-phone) {
   .content {
     margin: 0 $margin-context-small;
   }

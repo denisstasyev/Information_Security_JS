@@ -1,0 +1,19 @@
+@import 'styles/_mods.scss';
+
+.alarm {
+  margin-top: $x2;
+  border-radius: $x2;
+  padding: $x2;
+}
+
+.alarm-news {
+  @extend .alarm;
+
+  background-color: lightgreen;
+}
+
+.alarm-error {
+  @extend .alarm;
+
+  background-color: lightpink;
+}
