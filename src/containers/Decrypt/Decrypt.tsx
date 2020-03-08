@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import { ContentBox } from 'components/ContentBox';
+import { Alarm } from 'components/Alarm';
+
 import { CIPHER_ALGORITHM, ENCRYPTED_DATA } from 'config';
 
 import { AppState, Method } from 'store';
@@ -127,80 +130,61 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
 
   return (
     <>
-      <h2>Расшифрование</h2>
-      <div>0) Выберите режим расшифрования:</div>
-      <button onClick={() => setIsJSONMode(!isJSONMode)}>
-        {isJSONMode ? 'Перейти в обычный режим' : 'Перейти в режим расшифрования JSON'}
-      </button>
-      {isJSONMode ? (
-        <>
-          <div>1) Введите JSON, который хотите расшифровать:</div>
-          <textarea rows={10} cols={50} placeholder="Ваш JSON" onChange={onChangeJSON} />
-          <div>2) Введите ключ:</div>
-          <input
-            value={props.decryptionKey}
-            type="text"
-            placeholder="Ваш ключ"
-            onChange={onChangeKey}
-          />
+      <ContentBox title="Расшифрование">
+        <span>0) Выберите режим расшифрования:</span>
+        <button onClick={() => setIsJSONMode(!isJSONMode)}>
+          {isJSONMode ? 'Перейти в обычный режим' : 'Расшифровать JSON'}
+        </button>
+        {isJSONMode ? (
+          <>
+            <span>1) Введите JSON, который хотите расшифровать:</span>
+            <textarea placeholder="Ваш JSON" onChange={onChangeJSON} />
+            <span>2) Введите ключ:</span>
+            <input
+              value={props.decryptionKey}
+              type="text"
+              placeholder="Ваш ключ"
+              onChange={onChangeKey}
+            />
+            {props.errorMessage && <Alarm type="error" text={`Ошибка! ${props.errorMessage}`} />}
+            <button onClick={onSubmitJSON}>Расшифровать!</button>
+          </>
+        ) : (
+          <>
+            <span>1) Выберите метод для расшифрования:</span>
+            <select value={props.method.type} onChange={onChangeMethod}>
+              {encryptionMethods.map((method, index) => (
+                <option value={method.type} key={index}>
+                  {method.name}
+                </option>
+              ))}
+            </select>
+            <span>2) Введите ключ:</span>
+            <input
+              value={props.decryptionKey}
+              type="text"
+              placeholder="Ваш ключ"
+              onChange={onChangeKey}
+            />
+            <span>3) Введите закрытый (зашифрованный) текст, который хотите расшифровать:</span>
+            <textarea
+              value={props.encryptedText}
+              placeholder="Ваш зашифрованный текст"
+              onChange={onChangeText}
+            />
+            {props.errorMessage && <Alarm type="error" text={`Ошибка! ${props.errorMessage}`} />}
+            <button onClick={onSubmit}>Расшифровать!</button>
+          </>
+        )}
+      </ContentBox>
 
-          <button onClick={onSubmitJSON}>Расшифровать!</button>
-
-          {props.errorMessage ? (
-            <div>Ошибка! {props.errorMessage}</div>
-          ) : (
-            props.decryptedData.text && (
-              <>
-                <h3>Ваш результат</h3>
-                <div>1) Открытый текст:</div>
-                <output>
-                  <pre>{props.decryptedData.text}</pre>
-                </output>
-              </>
-            )
-          )}
-        </>
-      ) : (
-        <>
-          <div>1) Выберите метод для расшифрования:</div>
-          <select value={props.method.type} onChange={onChangeMethod}>
-            {encryptionMethods.map((method, index) => (
-              <option value={method.type} key={index}>
-                {method.name}
-              </option>
-            ))}
-          </select>
-          <div>2) Введите ключ:</div>
-          <input
-            value={props.decryptionKey}
-            type="text"
-            placeholder="Ваш ключ"
-            onChange={onChangeKey}
-          />
-          <div>3) Введите закрытый (зашифрованный) текст, который хотите расшифровать:</div>
-          <textarea
-            rows={10}
-            cols={50}
-            value={props.encryptedText}
-            placeholder="Ваш зашифрованный текст"
-            onChange={onChangeText}
-          />
-          <button onClick={onSubmit}>Расшифровать!</button>
-
-          {props.errorMessage ? (
-            <div>Ошибка! {props.errorMessage}</div>
-          ) : (
-            props.decryptedData.text && (
-              <>
-                <h3>Ваш результат</h3>
-                <div>1) Открытый текст:</div>
-                <output>
-                  <pre>{props.decryptedData.text}</pre>
-                </output>
-              </>
-            )
-          )}
-        </>
+      {!props.errorMessage && props.decryptedData.text && (
+        <ContentBox title="Ваш результат">
+          <span>1) Открытый текст:</span>
+          <output>
+            <pre>{props.decryptedData.text}</pre>
+          </output>
+        </ContentBox>
       )}
     </>
   );

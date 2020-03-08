@@ -2,18 +2,19 @@ import * as React from 'react';
 
 import styles from './home.module.scss';
 
+import { ContentBox } from 'components/ContentBox';
+import { Alarm } from 'components/Alarm';
 import { Tag } from 'components/Tag';
 
 export default function() {
   return (
-    <>
-      <h2>Добро пожаловать на наш сайт &#128515;!</h2>
-      <div className={styles['news']}>
-        Теперь у нас вы можете использовать Emoji в качестве ключей шифрования &#128522;!
-      </div>
+    <ContentBox title={`Добро пожаловать на спецпроект "Шифровальщик"!`}>
+      <Alarm
+        type="news"
+        text="Теперь у нас вы можете использовать Emoji в качестве ключей шифрования &#128522;!"
+      />
       <br />
-      <br />
-      <div className={styles['text']}>
+      <span className={styles['text']}>
         Сейчас вы можете
         <div className={styles['tag']}>
           <Tag link={{ title: 'зашифровать', href: '/encrypt/', isActive: true }} />
@@ -28,16 +29,16 @@ export default function() {
             link={{ title: 'посчитать контрольную сумму', href: '/checksum/', isActive: true }}
           />
         </div>
-        для него
-      </div>
+        для него.
+      </span>
       <br />
-      <br />
-      <div className={styles['text']}>
+      <span className={styles['text']}>
         Скоро появится
         <div className={styles['tag']}>
           <Tag link={{ title: 'хеширование', href: '/hash/', isActive: false }} />
         </div>
-      </div>
-    </>
+        .
+      </span>
+    </ContentBox>
   );
 }

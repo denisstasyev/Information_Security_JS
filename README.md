@@ -1,4 +1,7 @@
-# Information_Security_JS
+<p align="center">
+  <img alt="Information_Security_JS logo" src="src/assets/logo.png" width="100px" />
+  <h1 align="center">Information_Security_JS</h1>
+</p>
 
 [![Build Status](https://travis-ci.com/denisstasyev/Information_Security_JS.svg?branch=master)](https://travis-ci.com/denisstasyev/Information_Security_JS)
 

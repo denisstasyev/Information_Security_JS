@@ -11,18 +11,23 @@ $header-height: $x20;
   }
 }
 
-@-webkit-keyframes slide-in {
-  0% {
-    -webkit-transform: translateY(-100%);
-  }
-  100% {
-    -webkit-transform: translateY(0%);
-  }
-}
+// @-webkit-keyframes slide-in {
+//   0% {
+//     -webkit-transform: translateY(-100%);
+//   }
+//   100% {
+//     -webkit-transform: translateY(0%);
+//   }
+// }
 
 .header {
-  animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.24) 0.5s forwards;
-  -webkit-animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.24) 0.5s forwards;
+  position: fixed;
+  top: 0;
+  background-color: $color-background;
+  z-index: $z-index-header;
+
+  animation: slide-in $animation 0.5s forwards;
+  // -webkit-animation: slide-in $animation 0.5s forwards;
 
   display: inline-flex;
   justify-content: space-between;
@@ -30,21 +35,24 @@ $header-height: $x20;
   align-content: stretch;
 
   height: $header-height;
-  width: 100%;
+  width: 100vw;
 
-  border-bottom: solid $x025 $color-inactive;
+  border-bottom: $border-secondary;
+  box-shadow: $depth1;
 }
 
 .header-title {
+  display: inline-flex;
+  align-items: center;
+
   flex-grow: 1;
   flex-shrink: 1;
 
   margin: 0 $x4;
 
-  overflow: hidden;
-  white-space: nowrap;
-
   position: relative;
+
+  overflow: hidden;
 
   &:after {
     position: absolute;
@@ -58,6 +66,19 @@ $header-height: $x20;
     background: linear-gradient($fade-gradient-white);
     content: '';
   }
+}
+
+.logo {
+  position: relative;
+  bottom: $x1;
+  height: $x8;
+}
+
+.text {
+  margin-left: $x3;
+  height: 52px;
+
+  white-space: nowrap;
 }
 
 .header-links {
@@ -81,10 +102,9 @@ $header-height: $x20;
   }
 
   .header-title {
-    margin: $x4 $x2 $x2;
+    margin: $x2;
 
     overflow-x: visible;
-    white-space: normal;
 
     text-align: center;
 
@@ -93,6 +113,16 @@ $header-height: $x20;
     &:after {
       display: none;
     }
+  }
+
+  .logo {
+    bottom: 0;
+  }
+
+  .text {
+    height: auto;
+
+    white-space: normal;
   }
 
   .header-links {
@@ -107,5 +137,24 @@ $header-height: $x20;
 
   .link {
     margin: $x1;
+  }
+}
+
+@media screen and (max-width: $max-width-phone) {
+  .header-title {
+    margin: $x3;
+  }
+
+  .logo {
+    position: relative;
+    height: $x8;
+  }
+
+  .text {
+    display: none;
+  }
+
+  .header-links {
+    display: none;
   }
 }
