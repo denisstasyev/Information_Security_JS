@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
+import { ContentBox } from 'components/ContentBox';
+import { Alarm } from 'components/Alarm';
+
 import { CIPHER_ALGORITHM, ENCRYPTED_DATA_CODES, ENCRYPTED_DATA } from 'config';
 
 import { AppState, Method } from 'store';
@@ -83,50 +86,45 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
 
   return (
     <>
-      <h2>Шифрование</h2>
-      <div>1) Выберите метод для шифрования:</div>
-      <select value={props.method.type} onChange={onChangeMethod}>
-        {encryptionMethods.map((method, index) => (
-          <option value={method.type} key={index}>
-            {method.name}
-          </option>
-        ))}
-      </select>
-      <div>2) Введите ключ:</div>
-      <input
-        value={props.encryptionKey}
-        type="text"
-        placeholder="Ваш ключ"
-        onChange={onChangeKey}
-      />
-      <div>3) Введите открытый текст, который хотите зашифровать:</div>
-      <textarea
-        rows={10}
-        cols={50}
-        value={props.plainText}
-        placeholder="Ваш открытый текст"
-        onChange={onChangeText}
-      />
-      <button onClick={onSubmit}>Зашифровать!</button>
+      <ContentBox title="Шифрование">
+        <span>1) Выберите метод для шифрования:</span>
+        <select value={props.method.type} onChange={onChangeMethod}>
+          {encryptionMethods.map((method, index) => (
+            <option value={method.type} key={index}>
+              {method.name}
+            </option>
+          ))}
+        </select>
+        <span>2) Введите ключ:</span>
+        <input
+          value={props.encryptionKey}
+          type="text"
+          placeholder="Ваш ключ"
+          onChange={onChangeKey}
+        />
+        <span>3) Введите открытый текст, который хотите зашифровать:</span>
+        <textarea
+          value={props.plainText}
+          placeholder="Ваш открытый текст"
+          onChange={onChangeText}
+        />
+        {props.errorMessage && <Alarm type="error" text={`Ошибка! ${props.errorMessage}`} />}
+        <button onClick={onSubmit}>Зашифровать!</button>
+      </ContentBox>
 
-      {props.errorMessage ? (
-        <div>Ошибка! {props.errorMessage}</div>
-      ) : (
-        props.encryptedData.text && (
-          <>
-            <h3>Ваш результат</h3>
-            <div>1) Закрытый текст:</div>
-            <output>
-              <pre>{props.encryptedData.text}</pre>
-            </output>
-            <div>2) JSON для отправки на сервер для расшифрования:</div>
-            <output>
-              <pre>
-                {getJSON(props.method.name, props.encryptedData.code, props.encryptedData.text)}
-              </pre>
-            </output>
-          </>
-        )
+      {!props.errorMessage && props.encryptedData.text && (
+        <ContentBox title="Ваш результат">
+          <span>1) Закрытый текст:</span>
+          <output>
+            <pre>{props.encryptedData.text}</pre>
+          </output>
+          <span>2) JSON для отправки на сервер для расшифрования:</span>
+          <output>
+            <pre>
+              {getJSON(props.method.name, props.encryptedData.code, props.encryptedData.text)}
+            </pre>
+          </output>
+        </ContentBox>
       )}
     </>
   );

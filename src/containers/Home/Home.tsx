@@ -14,7 +14,7 @@ export default function() {
         text="Теперь у нас вы можете использовать Emoji в качестве ключей шифрования &#128522;!"
       />
       <br />
-      <div className={styles['text']}>
+      <span className={styles['text']}>
         Сейчас вы можете
         <div className={styles['tag']}>
           <Tag link={{ title: 'зашифровать', href: '/encrypt/', isActive: true }} />
@@ -30,15 +30,15 @@ export default function() {
           />
         </div>
         для него.
-      </div>
+      </span>
       <br />
-      <div className={styles['text']}>
+      <span className={styles['text']}>
         Скоро появится
         <div className={styles['tag']}>
           <Tag link={{ title: 'хеширование', href: '/hash/', isActive: false }} />
         </div>
         .
-      </div>
+      </span>
     </ContentBox>
   );
 }

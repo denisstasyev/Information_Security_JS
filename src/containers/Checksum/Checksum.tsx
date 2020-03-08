@@ -27,7 +27,7 @@ export default function() {
   return (
     <>
       <ContentBox title="Контрольная сумма">
-        <div>1) Выберите метод нахождения контрольной суммы:</div>
+        <span>1) Выберите метод нахождения контрольной суммы:</span>
         <select
           value={method.type}
           onChange={(event: any) =>
@@ -43,10 +43,8 @@ export default function() {
             </option>
           ))}
         </select>
-        <div>2) Введите текст для которого требуется найти контрольную сумму:</div>
+        <span>2) Введите текст для которого требуется найти контрольную сумму:</span>
         <textarea
-          rows={10}
-          cols={50}
           value={text}
           placeholder="Ваш текст"
           onChange={(event: any) => setText(event.target.value)}
@@ -57,7 +55,7 @@ export default function() {
 
       {!error && checksum && (
         <ContentBox title="Ваш результат">
-          <div>1) Контрольные суммы:</div>
+          <span>1) Контрольные суммы:</span>
           <table>
             <thead>
               <tr>

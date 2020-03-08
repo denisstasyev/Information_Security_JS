@@ -25,6 +25,14 @@ a:active {
   color: inherit;
 }
 
+span,
+select,
+input,
+textarea,
+output {
+  margin-top: $x2;
+}
+
 select {
   width: 100%;
   // height: $x8;

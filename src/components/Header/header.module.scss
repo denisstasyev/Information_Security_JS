@@ -11,22 +11,22 @@ $header-height: $x20;
   }
 }
 
-@-webkit-keyframes slide-in {
-  0% {
-    -webkit-transform: translateY(-100%);
-  }
-  100% {
-    -webkit-transform: translateY(0%);
-  }
-}
+// @-webkit-keyframes slide-in {
+//   0% {
+//     -webkit-transform: translateY(-100%);
+//   }
+//   100% {
+//     -webkit-transform: translateY(0%);
+//   }
+// }
 
 .header {
   // position: fixed;
   // top: 0;
   background-color: $color-background;
 
-  animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.24) 0.5s forwards;
-  -webkit-animation: slide-in cubic-bezier(0.57, 0.21, 0.69, 1.24) 0.5s forwards;
+  animation: slide-in $animation 0.5s forwards;
+  // -webkit-animation: slide-in $animation 0.5s forwards;
 
   display: inline-flex;
   justify-content: space-between;
