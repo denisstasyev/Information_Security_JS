@@ -34,13 +34,12 @@ output {
 }
 
 select {
-  width: 100%;
-  // height: $x8;
+  width: 100vw;
 }
 
 textarea {
   width: auto;
-  max-width: 99%;
+  max-width: 99vw;
   height: 2 * $x20;
   border: $border-secondary;
 }

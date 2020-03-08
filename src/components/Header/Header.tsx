@@ -5,21 +5,17 @@ import styles from './header.module.scss';
 
 import { Tag } from 'components/Tag';
 
-const links = [
-  { title: 'Зашифровать', href: '/encrypt/', isActive: true },
-  { title: 'Расшифровать', href: '/decrypt/', isActive: true },
-  { title: 'Посчитать контрольную сумму', href: '/checksum/', isActive: true },
-  { title: 'Хешировать', href: '/hash/', isActive: false },
-];
+import Logo from 'assets/logo.png';
+
+import { links } from 'config';
 
 export default function() {
   return (
-    <div className={styles['header']}>
-      <h1 className={styles['header-title']}>
-        <Link className={styles['header-title__text']} to="/">
-          Спецпроект "Шифровальщик"
-        </Link>
-      </h1>
+    <div id="header" className={styles['header']}>
+      <Link className={styles['header-title']} to="/">
+        <img className={styles['logo']} alt="Information_Security_JS logo" src={Logo} />
+        <h1 className={styles['text']}>Спецпроект "Шифровальщик"</h1>
+      </Link>
 
       <div className={styles['header-links']}>
         {links.map((link, index) => (

@@ -8,7 +8,7 @@ import { Tag } from 'components/Tag';
 
 export default function() {
   return (
-    <ContentBox title="Добро пожаловать на наш сайт &#128515;!">
+    <ContentBox title={`Добро пожаловать на спецпроект "Шифровальщик"!`}>
       <Alarm
         type="news"
         text="Теперь у нас вы можете использовать Emoji в качестве ключей шифрования &#128522;!"

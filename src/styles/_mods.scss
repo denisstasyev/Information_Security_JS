@@ -28,10 +28,13 @@ $fade-gradient-white-rotated: 90deg, $color-background 0%, rgba($color-backgroun
 $depth1: 0px 4px 24px rgba(0, 0, 0, 0.04);
 $border-secondary: solid $x025 $color-background-secondary;
 
-$max-width-phone: 800px;
-$max-width-tablet: 1140px;
+$max-width-phone: 630px;
+$max-width-tablet: 1040px;
 
-$margin-context-small: $x5;
+$margin-context-small: $x4;
+$margin-context-medium: 10vw;
 $margin-context-big: 20vw;
 
 $animation: cubic-bezier(0.57, 0.21, 0.69, 1.24);
+
+$z-index-header: 1;

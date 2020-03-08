@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ContentBox } from 'components/ContentBox';
 import { Alarm } from 'components/Alarm';
 
-import { CIPHER_ALGORITHM, ENCRYPTED_DATA_CODES, ENCRYPTED_DATA } from 'config';
+import { CIPHER_ALGORITHM, ENCRYPTED_DATA } from 'config';
 
 import { AppState, Method } from 'store';
 import { EncryptState } from 'store/encrypt/types';
@@ -78,7 +78,7 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
   const getJSON = (methodName: string, encryptedCode: number[], encryptedText: string) => {
     let json = {
       [CIPHER_ALGORITHM]: methodName,
-      [ENCRYPTED_DATA_CODES]: encryptedCode,
+      // [ENCRYPTED_DATA_CODES]: encryptedCode,
       [ENCRYPTED_DATA]: encryptedText,
     };
     return JSON.stringify(json, undefined, 2);

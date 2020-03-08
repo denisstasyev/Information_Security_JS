@@ -21,9 +21,10 @@ $header-height: $x20;
 // }
 
 .header {
-  // position: fixed;
-  // top: 0;
+  position: fixed;
+  top: 0;
   background-color: $color-background;
+  z-index: $z-index-header;
 
   animation: slide-in $animation 0.5s forwards;
   // -webkit-animation: slide-in $animation 0.5s forwards;
@@ -34,26 +35,24 @@ $header-height: $x20;
   align-content: stretch;
 
   height: $header-height;
-  width: 100%;
+  width: 100vw;
 
   border-bottom: $border-secondary;
   box-shadow: $depth1;
 }
 
 .header-title {
+  display: inline-flex;
+  align-items: center;
+
   flex-grow: 1;
   flex-shrink: 1;
 
   margin: 0 $x4;
 
-  overflow: hidden;
-  white-space: nowrap;
-
   position: relative;
 
-  &__text {
-    vertical-align: super;
-  }
+  overflow: hidden;
 
   &:after {
     position: absolute;
@@ -67,6 +66,19 @@ $header-height: $x20;
     background: linear-gradient($fade-gradient-white);
     content: '';
   }
+}
+
+.logo {
+  position: relative;
+  bottom: $x1;
+  height: $x8;
+}
+
+.text {
+  margin-left: $x3;
+  height: 52px;
+
+  white-space: nowrap;
 }
 
 .header-links {
@@ -90,22 +102,27 @@ $header-height: $x20;
   }
 
   .header-title {
-    margin: $x4 $x2 $x2;
+    margin: $x2;
 
     overflow-x: visible;
-    white-space: normal;
 
     text-align: center;
 
     position: relative;
 
-    &__text {
-      vertical-align: baseline;
-    }
-
     &:after {
       display: none;
     }
+  }
+
+  .logo {
+    bottom: 0;
+  }
+
+  .text {
+    height: auto;
+
+    white-space: normal;
   }
 
   .header-links {
@@ -120,5 +137,24 @@ $header-height: $x20;
 
   .link {
     margin: $x1;
+  }
+}
+
+@media screen and (max-width: $max-width-phone) {
+  .header-title {
+    margin: $x3;
+  }
+
+  .logo {
+    position: relative;
+    height: $x8;
+  }
+
+  .text {
+    display: none;
+  }
+
+  .header-links {
+    display: none;
   }
 }

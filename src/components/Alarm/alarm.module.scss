@@ -9,19 +9,19 @@
   }
 }
 
-@-webkit-keyframes appear {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+// @-webkit-keyframes appear {
+//   0% {
+//     opacity: 0;
+//   }
+//   100% {
+//     opacity: 1;
+//   }
+// }
 
 .alarm {
   margin-top: $x2;
   border-radius: $x2;
-  padding: $x2;
+  padding: $x1 $x2;
 
   background-color: $color-background;
 

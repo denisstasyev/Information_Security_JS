@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Information_Security_JS logo" src="assets/logo.png" width="100px" />
+  <img alt="Information_Security_JS logo" src="src/assets/logo.png" width="100px" />
   <h1 align="center">Information_Security_JS</h1>
 </p>
 
