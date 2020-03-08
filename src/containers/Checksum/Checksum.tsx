@@ -1,5 +1,8 @@
 import * as React from 'react';
 
+import { ContentBox } from 'components/ContentBox';
+import { Alarm } from 'components/Alarm';
+
 import { checksumMethods } from 'libmethods';
 import { countChecksum, TypesCheckSum } from 'libmethods/checksum';
 
@@ -23,58 +26,53 @@ export default function() {
 
   return (
     <>
-      <h2>Контрольная сумма</h2>
-      <div>1) Выберите метод нахождения контрольной суммы:</div>
-      <select
-        value={method.type}
-        onChange={(event: any) =>
-          setMethod(
-            checksumMethods.find(method => method.type === event.target.value) ||
-              checksumMethods[0],
-          )
-        }
-      >
-        {checksumMethods.map((method, index) => (
-          <option value={method.type} key={index}>
-            {method.name}
-          </option>
-        ))}
-      </select>
-      <div>2) Введите текст для которого требуется найти контрольную сумму:</div>
-      <textarea
-        rows={10}
-        cols={50}
-        value={text}
-        placeholder="Ваш текст"
-        onChange={(event: any) => setText(event.target.value)}
-      />
-      <button onClick={onSubmit}>Посчитать контрольную сумму!</button>
+      <ContentBox title="Контрольная сумма">
+        <span>1) Выберите метод нахождения контрольной суммы:</span>
+        <select
+          value={method.type}
+          onChange={(event: any) =>
+            setMethod(
+              checksumMethods.find(method => method.type === event.target.value) ||
+                checksumMethods[0],
+            )
+          }
+        >
+          {checksumMethods.map((method, index) => (
+            <option value={method.type} key={index}>
+              {method.name}
+            </option>
+          ))}
+        </select>
+        <span>2) Введите текст для которого требуется найти контрольную сумму:</span>
+        <textarea
+          value={text}
+          placeholder="Ваш текст"
+          onChange={(event: any) => setText(event.target.value)}
+        />
+        {error && <Alarm type="error" text={`Ошибка! ${error}`} />}
+        <button onClick={onSubmit}>Посчитать контрольную сумму!</button>
+      </ContentBox>
 
-      {error ? (
-        <div>Ошибка! {error}</div>
-      ) : (
-        checksum && (
-          <>
-            <h3>Ваш результат</h3>
-            <div>1) Контрольные суммы:</div>
-            <table>
-              <thead>
-                <tr>
-                  <th>Алгоритм</th>
-                  <th>Результат</th>
+      {!error && checksum && (
+        <ContentBox title="Ваш результат">
+          <span>1) Контрольные суммы:</span>
+          <table>
+            <thead>
+              <tr>
+                <th>Алгоритм</th>
+                <th>Результат</th>
+              </tr>
+            </thead>
+            <tbody>
+              {checksum.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.value}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {checksum.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.name}</td>
-                    <td>{item.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        )
+              ))}
+            </tbody>
+          </table>
+        </ContentBox>
       )}
     </>
   );

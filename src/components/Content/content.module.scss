@@ -2,9 +2,16 @@
 
 .content {
   margin: 0 $margin-context-big;
+  position: relative;
 }
 
 @media screen and (max-width: $max-width-tablet) {
+  .content {
+    margin: 0 $margin-context-medium;
+  }
+}
+
+@media screen and (max-width: $max-width-phone) {
   .content {
     margin: 0 $margin-context-small;
   }

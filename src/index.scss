@@ -1,9 +1,20 @@
+@import 'styles/_mods.scss';
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: $color-background;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Playfair Display', serif;
+  font-weight: normal;
+  margin: 0;
 }
 
 a,
@@ -12,4 +23,49 @@ a:hover,
 a:active {
   text-decoration: none;
   color: inherit;
+}
+
+span,
+select,
+input,
+textarea,
+output {
+  margin-top: $x2;
+}
+
+select {
+  width: 100vw;
+}
+
+textarea {
+  width: auto;
+  max-width: 99vw;
+  height: 2 * $x20;
+  border: $border-secondary;
+}
+
+button {
+  white-space: nowrap;
+
+  font: inherit;
+
+  border: none;
+  border-radius: $x2;
+  padding: $x1;
+
+  box-shadow: $depth1;
+
+  background-color: $color-main;
+  color: $color-text-light;
+
+  margin-top: $x3;
+
+  outline: none;
+
+  filter: none;
+  transition: filter 0.1s ease-in-out;
+
+  &:active {
+    filter: brightness(0.8);
+  }
 }

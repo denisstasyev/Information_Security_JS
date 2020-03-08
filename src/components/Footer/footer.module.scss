@@ -1,0 +1,47 @@
+@import 'styles/_mods.scss';
+
+$header-height: $x20;
+
+.footer {
+  position: relative;
+
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  width: 100vw;
+
+  border-top: $border-secondary;
+  box-shadow: $depth1;
+
+  padding: $x2 0;
+}
+
+.footer-links {
+  display: inline-flex;
+  align-items: center;
+
+  &:last-child {
+    margin-right: $x4;
+  }
+}
+
+.link {
+  margin: $x1;
+}
+
+.copyright {
+  margin: $x2 $x4;
+}
+
+@media screen and (max-width: $max-width-phone) {
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

@@ -1,6 +1,8 @@
 @import 'styles/_mods.scss';
 
 .header-link {
+  white-space: nowrap;
+
   border-radius: $x2;
   padding: $x1;
 
@@ -8,19 +10,22 @@
 }
 
 .header-link-active {
+  @extend .header-link;
+
   background-color: $color-main;
   color: $color-text-light;
 
-  composes: header-link;
+  filter: none;
+  transition: filter 0.1s ease-in-out;
 
-  // &:hover {
-  //   filter: brightness(80%);
-  // }
+  &:active {
+    filter: brightness(0.8);
+  }
 }
 
 .header-link-inactive {
+  @extend .header-link;
+
   background-color: $color-inactive;
   color: $color-text-inactive;
-
-  composes: header-link;
 }
