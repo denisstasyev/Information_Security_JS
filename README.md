@@ -68,6 +68,14 @@ Also, the project is configured to automatically deploy using Travis CI when pus
 
 This command will remove the single build dependency from your project, but _this is a one-way operation_.
 
+#### `npm run storybook`
+
+Runs local [Storybook](https://storybook.js.org/) server with all available components.
+
+#### `npm run build-storybook`
+
+Builds [Storybook](https://storybook.js.org/) project with all available components.
+
 ## Creators
 
 This project was created by MIPT students: [Denis Stasyev](https://github.com/denisstasyev) and [Mikhail Pakhomov](https://github.com/mikhan333).
