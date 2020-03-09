@@ -17,7 +17,19 @@ export default function(props: any) {
   React.useEffect(() => {
     setContentPosition();
 
-    // window.addEventListener('resize', setContentPosition);
+    window.addEventListener('change-orientation', setContentPosition);
+
+    let isLandscape = window.innerHeight < window.innerWidth;
+
+    // Due to iOS viewport height change (because of Safari's interface)
+    // we need custom event to detect orientation change
+    window.addEventListener('resize', () => {
+      const currentIsLandscape = window.innerHeight < window.innerWidth;
+      if (currentIsLandscape !== isLandscape) {
+        isLandscape = window.innerHeight < window.innerWidth;
+        window.dispatchEvent(new CustomEvent('change-orientation'));
+      }
+    });
   }, []);
 
   return (
