@@ -10,7 +10,7 @@ export default function() {
   const [method, setMethod] = React.useState(hashingMethods[0]);
   const [text, setText] = React.useState('');
   const [error, setError] = React.useState('');
-  const [hash, setHash] = React.useState([]);
+  const [hash, setHash] = React.useState<number[]>([]);
 
   const onSubmit = (event: any) => {
     event.preventDefault();
@@ -43,44 +43,22 @@ export default function() {
             </option>
           ))}
         </select>
-        {/* <span>2) Введите текст для которого требуется найти контрольную сумму:</span>
-        <textarea
-          value={text}
-          placeholder="Ваш текст"
-          onChange={(event: any) => setText(event.target.value)}
-        /> */}
-        <span>2) Введите текст для которого требуется найти контрольную сумму:</span>
+        <span>2) Введите текст для которого требуется найти хеш:</span>
         <textarea
           value={text}
           placeholder="Ваш текст"
           onChange={(event: any) => setText(event.target.value)}
         />
         {error && <Alarm type="error" text={`Ошибка! ${error}`} />}
-        <button onClick={onSubmit}>Посчитать контрольную сумму!</button>
+        <button onClick={onSubmit}>Посчитать хеш!</button>
       </ContentBox>
 
-      {!error && checksum && (
+      {!error && hash.length !== 0 && (
         <ContentBox title="Ваш результат">
-          <span>1) Контрольные суммы:</span>
-          <table>
-            <thead>
-              <tr>
-                <th>Алгоритм</th>
-                <th>Результат</th>
-              </tr>
-            </thead>
-            <tbody>
-              {checksum.map((item, index) => (
-                <tr key={index}>
-                  <td>
-                    {item.name}
-                    {'version' in item ? '/' + item.version : ''}
-                  </td>
-                  <td>{item.value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <span>1) Вычисленный хеш:</span>
+          <output>
+            <pre>[{hash.join(',\n')}]</pre>
+          </output>
         </ContentBox>
       )}
     </>
