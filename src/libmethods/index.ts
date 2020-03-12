@@ -1,5 +1,8 @@
 import { Method } from 'store';
 
+/**
+ * Basic encryption types and methods
+ */
 export const encryptionTypes = {
   caesar: 'caesar',
   monoalphabetic: 'monoalphabetic',
@@ -14,6 +17,20 @@ export const encryptionMethods: Method[] = [
   { type: encryptionTypes.bigram, name: 'Биграммный шифр' },
 ];
 
+/**
+ * Block encryption types and methods
+ */
+export const blockEncryptionTypes = {
+  aes256ecb: 'aes256ecb',
+};
+
+export const blockEncryptionMethods: Method[] = [
+  { type: blockEncryptionTypes.aes256ecb, name: 'AES-256/ECB' },
+];
+
+/**
+ * Checksum types and methods
+ */
 export const checksumTypes = {
   crc16: 'crc16',
   crc24: 'crc24',
@@ -22,12 +39,15 @@ export const checksumTypes = {
 };
 
 export const checksumMethods: Method[] = [
-  { type: checksumTypes.crc16, name: 'CRC16' },
-  { type: checksumTypes.crc24, name: 'CRC24' },
-  { type: checksumTypes.crc32, name: 'CRC32' },
+  { type: checksumTypes.crc16, name: 'CRC-16' },
+  { type: checksumTypes.crc24, name: 'CRC-24' },
+  { type: checksumTypes.crc32, name: 'CRC-32' },
   { type: checksumTypes.fletcher, name: 'Флетчер' },
 ];
 
+/**
+ * Hashing types and methods
+ */
 export const hashingTypes = {
   sha256: 'sha256',
   sha512: 'sha512',
@@ -35,9 +55,9 @@ export const hashingTypes = {
 };
 
 export const hashingMethods: Method[] = [
-  { type: hashingTypes.sha256, name: 'SHA256' },
-  { type: hashingTypes.sha512, name: 'SHA512' },
-  { type: hashingTypes.sha3, name: 'SHA3' },
+  { type: hashingTypes.sha256, name: 'SHA-256' },
+  { type: hashingTypes.sha512, name: 'SHA-512' },
+  { type: hashingTypes.sha3, name: 'SHA-3' },
 ];
 
 /**
