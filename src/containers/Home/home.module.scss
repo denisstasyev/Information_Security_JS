@@ -1,12 +1,6 @@
 @import 'styles/_mods.scss';
 
-.text {
-  display: inline-flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
 .tag {
+  display: inline-block;
   margin: $x1;
 }
