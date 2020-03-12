@@ -1,12 +1,14 @@
 @import 'styles/_mods.scss';
 
 .header-link {
-  white-space: nowrap;
+  // white-space: nowrap;
 
   border-radius: $x2;
   padding: $x1;
 
   box-shadow: $depth1;
+
+  display: inline-block;
 }
 
 .header-link-active {

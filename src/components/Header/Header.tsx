@@ -7,7 +7,7 @@ import { Tag } from 'components/Tag';
 
 import Logo from 'assets/logo.png';
 
-import { links } from 'config';
+import { mainLinks } from 'config';
 
 export default function() {
   return (
@@ -18,7 +18,7 @@ export default function() {
       </Link>
 
       <div className={styles['header-links']}>
-        {links.map((link, index) => (
+        {mainLinks.map((link, index) => (
           <div className={styles['link']} key={index}>
             <Tag link={link} />
           </div>

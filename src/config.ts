@@ -11,9 +11,18 @@ export const HASH_METHOD = 'hash_method';
 export const HASH_VALUE = 'hash_value';
 export const HASH_VALUE_BASE64 = 'hash_value_base64';
 
-export const links = [
+export const mainLinks = [
   { title: 'Зашифровать', href: '/encrypt/', isActive: true },
   { title: 'Расшифровать', href: '/decrypt/', isActive: true },
   { title: 'Посчитать контрольную сумму', href: '/checksum/', isActive: true },
   { title: 'Хешировать', href: '/hash/', isActive: true },
+];
+
+export const allLinks = [
+  { title: 'Простое шифрование', href: '/encrypt/basic/', isActive: true },
+  { title: 'Расшифрование простого', href: '/decrypt/basic/', isActive: true },
+  { title: 'Блочное шифрование', href: '/encrypt/block/', isActive: true },
+  { title: 'Расшифрование блочного', href: '/decrypt/block/', isActive: true },
+  { title: 'Контрольная сумма', href: '/checksum/', isActive: true },
+  { title: 'Хеширование', href: '/hash/', isActive: true },
 ];

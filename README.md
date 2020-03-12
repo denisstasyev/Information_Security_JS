@@ -19,10 +19,16 @@ You can find the implementation of methods for the backend part in [this reposit
 
 The following encryption and decryption methods are now available:
 
-- Cesar
-- Monoalphabetic
-- Polyalphabetic (Vigenère)
-- Bigram (Porta's with an additional shift)
+- Basic methods
+
+  - Cesar
+  - Monoalphabetic
+  - Polyalphabetic (Vigenère)
+  - Bigram (Porta's with an additional shift)
+
+- Block methods
+  - AES
+  - GOST
 
 More information about encryption and decryption methods are available in [`src/libmethods/encryption` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/encryption).
 
@@ -36,6 +42,16 @@ The following checksum methods are now available:
 - Fletcher16
 
 More information about checksum methods are available in [`src/libmethods/checksum` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/checksum).
+
+## Available Hash functions
+
+The following hash functions are now available:
+
+- SHA256
+- SHA512
+- SHA3
+
+More information about checksum methods are available in [`src/libmethods/hashing` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/hashing).
 
 ## Available Scripts
 
