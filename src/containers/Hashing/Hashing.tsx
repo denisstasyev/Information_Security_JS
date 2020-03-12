@@ -5,10 +5,12 @@ import { Alarm } from 'components/Alarm';
 
 import { Method } from 'store';
 
-import { HASH_METHOD, HASH_VALUE } from 'config';
+import { HASH_METHOD, HASH_VALUE, HASH_VALUE_BASE64 } from 'config';
 
 import { hashingMethods } from 'libmethods';
 import { calculateHash } from 'libmethods/hashing';
+
+import Base64 from 'utils/base64';
 
 export default function() {
   const [method, setMethod] = React.useState<Method>(hashingMethods[0]);
@@ -32,6 +34,7 @@ export default function() {
     let json = {
       [HASH_METHOD]: method.name,
       [HASH_VALUE]: hash,
+      [HASH_VALUE_BASE64]: Base64.encode(hash),
     };
     return JSON.stringify(json, undefined, 2);
   };

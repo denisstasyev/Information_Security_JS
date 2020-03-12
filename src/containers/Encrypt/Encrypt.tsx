@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { ContentBox } from 'components/ContentBox';
 import { Alarm } from 'components/Alarm';
 
-import { CIPHER_METHOD, ENCRYPTED_DATA } from 'config';
+import { CIPHER_METHOD, ENCRYPTED_DATA, ENCRYPTED_DATA_BASE64 } from 'config';
 
 import { AppState, Method } from 'store';
 import { EncryptState } from 'store/encrypt/types';
 import { setMethod, setKey, setText, setError, encryptData } from 'store/encrypt/actions';
 
 import { encryptionMethods, encryptionTypes } from 'libmethods';
+
+import Base64 from 'utils/base64';
 
 interface EncryptStateProps extends EncryptState {
   setMethod: typeof setMethod;
@@ -80,6 +82,7 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
       [CIPHER_METHOD]: methodName,
       // [ENCRYPTED_DATA_CODES]: encryptedCode,
       [ENCRYPTED_DATA]: encryptedText,
+      [ENCRYPTED_DATA_BASE64]: Base64.encode(encryptedText),
     };
     return JSON.stringify(json, undefined, 2);
   };
