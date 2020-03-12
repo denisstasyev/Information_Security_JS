@@ -6,8 +6,6 @@ import { getSHA256 } from 'libmethods/hashing/sha256';
 import { getSHA512 } from 'libmethods/hashing/sha512';
 import { getSHA3 } from 'libmethods/hashing/sha3';
 
-// let hash: string = sha256(text).words.map((elem: number) => ((2**32 - elem) % 2**32).toString(16)).concat();
-
 const LENGTH_OF_ELEMENT_HASHING = 2 ** 32;
 export function toPositiveNumbers(mas: number[]): number[] {
   return mas.map((elem: number) => (LENGTH_OF_ELEMENT_HASHING + elem) % LENGTH_OF_ELEMENT_HASHING);
