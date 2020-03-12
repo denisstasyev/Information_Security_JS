@@ -11,6 +11,7 @@ import { DecryptState } from 'store/decrypt/types';
 import { setMethod, setKey, setText, setError, decryptData } from 'store/decrypt/actions';
 
 import { encryptionMethods, encryptionTypes } from 'libmethods';
+import { getSHA256 } from 'libmethods/hashing/sha256';
 
 import Base64 from 'utils/base64';
 
@@ -24,6 +25,7 @@ interface DecryptStateProps extends DecryptState {
 
 const Decrypt: React.SFC<DecryptStateProps> = props => {
   const [isJSONMode, setIsJSONMode] = React.useState(false);
+  const [caesarVariant, setCaesarVariant] = React.useState(false);
 
   const onChangeMethod = (event: any) => {
     event.preventDefault();
@@ -53,7 +55,11 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
   const onChangeKey = (event: any) => {
     event.preventDefault();
 
-    if (props.method.type === encryptionTypes.caesar && event.target.value !== '') {
+    if (
+      props.method.type === encryptionTypes.caesar &&
+      event.target.value !== '' &&
+      caesarVariant
+    ) {
       if (event.target.value === parseInt(event.target.value).toString()) {
         props.setKey(event.target.value);
         clearError();
@@ -76,7 +82,16 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
       props.setError('Введите текст, который необходимо расшифровать!');
       return;
     }
-    props.decryptData(props.method, props.encryptedText, props.decryptionKey);
+
+    if (props.method.type === encryptionTypes.caesar && !caesarVariant) {
+      props.decryptData(
+        props.method,
+        props.encryptedText,
+        getSHA256(props.decryptionKey)[0].toString(),
+      );
+    } else {
+      props.decryptData(props.method, props.encryptedText, props.decryptionKey);
+    }
   };
 
   const onChangeJSON = (event: any) => {
@@ -134,14 +149,26 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
       return;
     }
 
-    props.decryptData(props.method, props.encryptedText, props.decryptionKey);
+    if (props.method.type === encryptionTypes.caesar) {
+      props.decryptData(
+        props.method,
+        props.encryptedText,
+        getSHA256(props.decryptionKey)[0].toString(),
+      );
+    } else {
+      props.decryptData(props.method, props.encryptedText, props.decryptionKey);
+    }
   };
 
   return (
     <>
       <ContentBox title="Расшифрование">
         <span>0) Выберите режим расшифрования:</span>
-        <button onClick={() => setIsJSONMode(!isJSONMode)}>
+        <button
+          onClick={() => {
+            setIsJSONMode(!isJSONMode);
+          }}
+        >
           {isJSONMode ? 'Перейти в обычный режим' : 'Расшифровать JSON'}
         </button>
         {isJSONMode ? (
@@ -168,6 +195,21 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
                 </option>
               ))}
             </select>
+            <span>
+              {props.method.type === encryptionTypes.caesar && (
+                <div>
+                  1.1) Использовать обычный сдвиг (без хеширования)
+                  <input
+                    type="checkbox"
+                    checked={caesarVariant}
+                    onChange={() => {
+                      setCaesarVariant(!caesarVariant);
+                      props.setKey('');
+                    }}
+                  />
+                </div>
+              )}
+            </span>
             <span>2) Введите ключ:</span>
             <input
               value={props.decryptionKey}

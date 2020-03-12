@@ -37,6 +37,9 @@ export function encryptCesar(text: string, key: number): EncryptedData {
  * @returns    Clear data
  */
 export function decryptCesar(text: string, key: number): EncryptedData {
-  const plainData: EncryptedData = encryptCesar(text, UNICODE_RING_SIZE - key);
+  const plainData: EncryptedData = encryptCesar(
+    text,
+    (-key % UNICODE_RING_SIZE) + UNICODE_RING_SIZE,
+  );
   return plainData;
 }

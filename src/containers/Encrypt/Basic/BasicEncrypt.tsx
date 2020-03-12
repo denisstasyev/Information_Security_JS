@@ -11,6 +11,7 @@ import { EncryptState } from 'store/encrypt/types';
 import { setMethod, setKey, setText, setError, encryptData } from 'store/encrypt/actions';
 
 import { encryptionMethods, encryptionTypes } from 'libmethods';
+import { getSHA256 } from 'libmethods/hashing/sha256';
 
 import Base64 from 'utils/base64';
 
@@ -23,6 +24,8 @@ interface EncryptStateProps extends EncryptState {
 }
 
 const Encrypt: React.SFC<EncryptStateProps> = props => {
+  const [caesarVariant, setCaesarVariant] = React.useState(false);
+
   const onChangeMethod = (event: any) => {
     event.preventDefault();
     const method: Method =
@@ -51,7 +54,11 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
   const onChangeKey = (event: any) => {
     event.preventDefault();
 
-    if (props.method.type === encryptionTypes.caesar && event.target.value !== '') {
+    if (
+      props.method.type === encryptionTypes.caesar &&
+      event.target.value !== '' &&
+      caesarVariant
+    ) {
       if (event.target.value === parseInt(event.target.value).toString()) {
         props.setKey(event.target.value);
         clearError();
@@ -74,7 +81,16 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
       props.setError('Введите текст, который необходимо зашифровать!');
       return;
     }
-    props.encryptData(props.method, props.plainText, props.encryptionKey);
+
+    if (props.method.type === encryptionTypes.caesar && !caesarVariant) {
+      props.encryptData(
+        props.method,
+        props.plainText,
+        getSHA256(props.encryptionKey)[0].toString(),
+      );
+    } else {
+      props.encryptData(props.method, props.plainText, props.encryptionKey);
+    }
   };
 
   const getJSON = (methodName: string, encryptedCode: number[], encryptedText: string) => {
@@ -90,7 +106,7 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
   return (
     <>
       <ContentBox title="Шифрование">
-        <span>1) Выберите метод для шифрования:</span>
+        <span>1) Выберите метод для шифрования: </span>
         <select value={props.method.type} onChange={onChangeMethod}>
           {encryptionMethods.map((method, index) => (
             <option value={method.type} key={index}>
@@ -98,6 +114,21 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
             </option>
           ))}
         </select>
+        <span>
+          {props.method.type === encryptionTypes.caesar && (
+            <div>
+              1.1) Использовать обычный сдвиг (без хеширования)
+              <input
+                type="checkbox"
+                checked={caesarVariant}
+                onChange={() => {
+                  setCaesarVariant(!caesarVariant);
+                  props.setKey('');
+                }}
+              />
+            </div>
+          )}
+        </span>
         <span>2) Введите ключ:</span>
         <input
           value={props.encryptionKey}
