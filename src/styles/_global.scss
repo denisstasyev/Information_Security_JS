@@ -28,9 +28,9 @@ a:active {
 span,
 select,
 input,
-textarea,
-output {
+textarea {
   margin-top: $x2;
+  font-size: 1em;
 }
 
 select {

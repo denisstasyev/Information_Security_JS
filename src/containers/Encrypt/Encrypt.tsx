@@ -115,15 +115,12 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
       {!props.errorMessage && props.encryptedData.text && (
         <ContentBox title="Ваш результат">
           <span>1) Закрытый текст:</span>
-          <output>
-            <pre>{props.encryptedData.text}</pre>
-          </output>
+          <textarea value={props.encryptedData.text} onChange={() => {}} />
           <span>2) JSON для отправки на сервер для расшифрования:</span>
-          <output>
-            <pre>
-              {getJSON(props.method.name, props.encryptedData.code, props.encryptedData.text)}
-            </pre>
-          </output>
+          <textarea
+            value={getJSON(props.method.name, props.encryptedData.code, props.encryptedData.text)}
+            onChange={() => {}}
+          />
         </ContentBox>
       )}
     </>

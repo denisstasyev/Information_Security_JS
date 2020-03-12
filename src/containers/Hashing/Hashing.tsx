@@ -3,11 +3,15 @@ import * as React from 'react';
 import { ContentBox } from 'components/ContentBox';
 import { Alarm } from 'components/Alarm';
 
+import { Method } from 'store';
+
+import { HASH_METHOD, HASH_VALUE } from 'config';
+
 import { hashingMethods } from 'libmethods';
 import { calculateHash } from 'libmethods/hashing';
 
 export default function() {
-  const [method, setMethod] = React.useState(hashingMethods[0]);
+  const [method, setMethod] = React.useState<Method>(hashingMethods[0]);
   const [text, setText] = React.useState('');
   const [error, setError] = React.useState('');
   const [hash, setHash] = React.useState('');
@@ -22,6 +26,14 @@ export default function() {
     }
 
     setHash(calculateHash(method, text));
+  };
+
+  const getJSON = (method: Method, hash: string) => {
+    let json = {
+      [HASH_METHOD]: method.name,
+      [HASH_VALUE]: hash,
+    };
+    return JSON.stringify(json, undefined, 2);
   };
 
   return (
@@ -56,9 +68,9 @@ export default function() {
       {!error && hash.length !== 0 && (
         <ContentBox title="Ваш результат">
           <span>1) Вычисленный хеш:</span>
-          <output>
-            <pre>{hash}</pre>
-          </output>
+          <textarea value={hash} onChange={() => {}} />
+          <span>2) JSON для отправки хешей на сервер:</span>
+          <textarea value={getJSON(method, hash)} onChange={() => {}} />
         </ContentBox>
       )}
     </>

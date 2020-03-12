@@ -181,9 +181,7 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
       {!props.errorMessage && props.decryptedData.text && (
         <ContentBox title="Ваш результат">
           <span>1) Открытый текст:</span>
-          <output>
-            <pre>{props.decryptedData.text}</pre>
-          </output>
+          <textarea value={props.decryptedData.text} onChange={() => {}} />
         </ContentBox>
       )}
     </>

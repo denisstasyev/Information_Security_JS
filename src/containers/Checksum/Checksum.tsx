@@ -88,9 +88,7 @@ export default function() {
             </tbody>
           </table>
           <span>2) JSON для отправки на сервер контрольных сумм:</span>
-          <output>
-            <pre>{getJSON(checksum[0], text)}</pre>
-          </output>
+          <textarea value={getJSON(checksum[0], text)} onChange={() => {}} />
         </ContentBox>
       )}
     </>
