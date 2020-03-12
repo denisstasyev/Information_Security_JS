@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ContentBox } from 'components/ContentBox';
 import { Alarm } from 'components/Alarm';
 
-import { CIPHER_ALGORITHM, ENCRYPTED_DATA } from 'config';
+import { CIPHER_METHOD, ENCRYPTED_DATA } from 'config';
 
 import { AppState, Method } from 'store';
 import { DecryptState } from 'store/decrypt/types';
@@ -92,7 +92,7 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
 
     const methodName =
       // @ts-ignore
-      objectJSON[CIPHER_ALGORITHM] === undefined ? '' : objectJSON[CIPHER_ALGORITHM];
+      objectJSON[CIPHER_METHOD] === undefined ? '' : objectJSON[CIPHER_METHOD];
     const method: Method = encryptionMethods.find(method => method.name === methodName) || {
       name: '',
       type: '',
@@ -114,7 +114,7 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
     }
 
     if (props.method.name === '') {
-      props.setError(`Введите метод шифрования в JSON (свойство: ${CIPHER_ALGORITHM})!`);
+      props.setError(`Введите метод шифрования в JSON (свойство: ${CIPHER_METHOD})!`);
       return;
     }
 

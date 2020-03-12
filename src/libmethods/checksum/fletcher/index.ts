@@ -5,7 +5,7 @@ import { getUnicodeCode } from 'libmethods';
 export function getFletcher(text: string): TypesCheckSum[] {
   return [
     {
-      name: 'Fletcher',
+      name: 'Флетчер',
       value: fletcher16(Buffer.from(Array.from(text).map(value => getUnicodeCode(value)))),
     },
   ];

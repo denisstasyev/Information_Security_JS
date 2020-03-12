@@ -3,6 +3,8 @@ import * as React from 'react';
 import { ContentBox } from 'components/ContentBox';
 import { Alarm } from 'components/Alarm';
 
+import { CHECKSUM_METHOD, CHECKSUM_TEXT, CHECKSUM_VALUE } from 'config';
+
 import { checksumMethods } from 'libmethods';
 import { countChecksum, TypesCheckSum } from 'libmethods/checksum';
 
@@ -22,6 +24,16 @@ export default function() {
     }
 
     setChecksum(countChecksum(method, text));
+  };
+
+  const getJSON = (method: TypesCheckSum, text: string) => {
+    const methodName = `${method.name}${'version' in method ? '/' + method.version : ''}`;
+    let json = {
+      [CHECKSUM_METHOD]: methodName,
+      [CHECKSUM_TEXT]: text,
+      [CHECKSUM_VALUE]: method.value,
+    };
+    return JSON.stringify(json, undefined, 2);
   };
 
   return (
@@ -75,6 +87,10 @@ export default function() {
               ))}
             </tbody>
           </table>
+          <span>2) JSON для отправки на сервер контрольных сумм:</span>
+          <output>
+            <pre>{getJSON(checksum[0], text)}</pre>
+          </output>
         </ContentBox>
       )}
     </>
