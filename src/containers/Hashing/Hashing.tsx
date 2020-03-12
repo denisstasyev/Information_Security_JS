@@ -10,7 +10,7 @@ export default function() {
   const [method, setMethod] = React.useState(hashingMethods[0]);
   const [text, setText] = React.useState('');
   const [error, setError] = React.useState('');
-  const [hash, setHash] = React.useState<number[]>([]);
+  const [hash, setHash] = React.useState('');
 
   const onSubmit = (event: any) => {
     event.preventDefault();
@@ -57,7 +57,7 @@ export default function() {
         <ContentBox title="Ваш результат">
           <span>1) Вычисленный хеш:</span>
           <output>
-            <pre>[{hash.join(',\n')}]</pre>
+            <pre>{hash}</pre>
           </output>
         </ContentBox>
       )}

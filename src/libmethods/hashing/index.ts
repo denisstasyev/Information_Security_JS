@@ -6,7 +6,18 @@ import { getSHA256 } from 'libmethods/hashing/sha256';
 import { getSHA512 } from 'libmethods/hashing/sha512';
 import { getSHA3 } from 'libmethods/hashing/sha3';
 
-export function calculateHash(method: Method, text: string): number[] {
+// let hash: string = sha256(text).words.map((elem: number) => ((2**32 - elem) % 2**32).toString(16)).concat();
+
+const LENGTH_OF_ELEMENT_HASHING = 2 ** 32;
+export function toPositiveNumbers(mas: number[]): number[] {
+  return mas.map((elem: number) => (LENGTH_OF_ELEMENT_HASHING + elem) % LENGTH_OF_ELEMENT_HASHING);
+}
+
+export function toHexFormat(mas: number[]): string {
+  return mas.reduce((hexString: string, elem: number) => hexString + elem.toString(16), '');
+}
+
+export function calculateHash(method: Method, text: string): string {
   let hash: number[];
 
   switch (method.type) {
@@ -23,5 +34,5 @@ export function calculateHash(method: Method, text: string): number[] {
       hash = [];
   }
 
-  return hash;
+  return toHexFormat(hash);
 }
