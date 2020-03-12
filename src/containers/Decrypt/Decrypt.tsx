@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { ContentBox } from 'components/ContentBox';
 import { Alarm } from 'components/Alarm';
 
-import { CIPHER_METHOD, ENCRYPTED_DATA } from 'config';
+import { CIPHER_METHOD, ENCRYPTED_DATA, ENCRYPTED_DATA_BASE64 } from 'config';
 
 import { AppState, Method } from 'store';
 import { DecryptState } from 'store/decrypt/types';
 import { setMethod, setKey, setText, setError, decryptData } from 'store/decrypt/actions';
 
 import { encryptionMethods, encryptionTypes } from 'libmethods';
+
+import Base64 from 'utils/base64';
 
 interface DecryptStateProps extends DecryptState {
   setMethod: typeof setMethod;
@@ -99,9 +101,16 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
     };
     props.setMethod(method);
 
-    const encryptedText =
+    let encryptedText: string = '';
+    // @ts-ignore
+    if (objectJSON[ENCRYPTED_DATA_BASE64] === undefined) {
+      encryptedText =
+        // @ts-ignore
+        objectJSON[ENCRYPTED_DATA] === undefined ? '' : objectJSON[ENCRYPTED_DATA];
+    } else {
       // @ts-ignore
-      objectJSON[ENCRYPTED_DATA] === undefined ? '' : objectJSON[ENCRYPTED_DATA];
+      encryptedText = Base64.decode(objectJSON[ENCRYPTED_DATA_BASE64]);
+    }
     props.setText(encryptedText);
   };
 
