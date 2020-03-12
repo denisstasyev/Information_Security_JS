@@ -9,6 +9,7 @@ import { getFletcher } from 'libmethods/checksum/fletcher';
 
 export interface TypesCheckSum {
   name: string;
+  version?: string;
   value: number;
 }
 

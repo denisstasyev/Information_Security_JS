@@ -6,5 +6,5 @@ export const links = [
   { title: 'Зашифровать', href: '/encrypt/', isActive: true },
   { title: 'Расшифровать', href: '/decrypt/', isActive: true },
   { title: 'Посчитать контрольную сумму', href: '/checksum/', isActive: true },
-  { title: 'Хешировать', href: '/hash/', isActive: false },
+  { title: 'Хешировать', href: '/hash/', isActive: true },
 ];

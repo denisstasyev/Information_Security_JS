@@ -9,6 +9,7 @@ import { Home } from 'containers/Home';
 import { Encrypt } from 'containers/Encrypt';
 import { Decrypt } from 'containers/Decrypt';
 import { Checksum } from 'containers/Checksum';
+import { Hashing } from 'containers/Hashing';
 import { NotFound } from 'containers/NotFound';
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/encrypt/" component={Encrypt} />
           <Route path="/decrypt/" component={Decrypt} />
           <Route path="/checksum/" component={Checksum} />
+          <Route path="/hash/" component={Hashing} />
           <Route path="*" component={NotFound} />
         </Switch>
       </Content>

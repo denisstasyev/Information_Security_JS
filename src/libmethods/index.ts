@@ -28,6 +28,18 @@ export const checksumMethods: Method[] = [
   { type: checksumTypes.fletcher, name: 'Флетчер' },
 ];
 
+export const hashingTypes = {
+  sha256: 'sha256',
+  sha512: 'sha512',
+  sha3: 'sha3',
+};
+
+export const hashingMethods: Method[] = [
+  { type: hashingTypes.sha256, name: 'SHA256' },
+  { type: hashingTypes.sha512, name: 'SHA512' },
+  { type: hashingTypes.sha3, name: 'SHA3' },
+];
+
 /**
  * Since Javascript has two-character representation for Emoji
  * then a method for obtaining real unicode codes is needed

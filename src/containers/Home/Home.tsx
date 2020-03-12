@@ -35,7 +35,7 @@ export default function() {
       <span className={styles['text']}>
         Скоро появится
         <div className={styles['tag']}>
-          <Tag link={{ title: 'хеширование', href: '/hash/', isActive: false }} />
+          <Tag link={{ title: 'хеширование', href: '/hash/', isActive: true }} />
         </div>
         .
       </span>
