@@ -27,8 +27,6 @@
 
   animation: appear $animation 0.5s forwards;
   //   -webkit-animation: appear $animation 0.5s forwards;
-
-  text-align: center;
 }
 
 .alarm-news {
@@ -41,4 +39,5 @@
   @extend .alarm;
 
   background-color: lightpink;
+  text-align: center;
 }
