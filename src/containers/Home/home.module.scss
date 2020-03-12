@@ -1,5 +1,5 @@
-@import 'styles/_mods.scss';
+@import 'styles/_mixins.scss';
 
 .tag {
-  margin: $x1;
+  @include tag-space;
 }

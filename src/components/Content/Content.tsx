@@ -11,7 +11,8 @@ export default function(props: any) {
           .offsetHeight + 10}px`),
     );
     document.getElementById('content')!.style.minHeight = `${window.innerHeight -
-      document.getElementById('header')!.offsetHeight}px`;
+      document.getElementById('header')!.offsetHeight -
+      50}px`;
   };
 
   React.useEffect(() => {

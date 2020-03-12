@@ -13,7 +13,7 @@ const encryptLinks = [
 
 export default function() {
   return (
-    <ContentBox title="Блочное шифрование">
+    <ContentBox title="Шифрование">
       <Alarm type="news" text="Новинка: блочные шифры &#128522;!" />
       <br />
       <span>Доступные методы шифрования:</span>
