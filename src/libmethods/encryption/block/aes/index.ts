@@ -18,6 +18,9 @@ export function encryptAES256_ECB(key: number[], plainText: string): string {
   return encryptedHex;
 }
 
+export function decryptAES256_ECB(key: number[], encryptedText: string): string {
+  return 'hello';
+}
 // // To print or store the binary data, you may convert it to hex
 // var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
 // console.log(encryptedHex);

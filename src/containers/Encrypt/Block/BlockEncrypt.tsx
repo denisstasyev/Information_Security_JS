@@ -71,7 +71,7 @@ export default function() {
           placeholder="Ваш ключ"
           onChange={(event: any) => setKey(event.target.value)}
         />
-        <span>2) Введите открытый текст, который хотите зашифровать:</span>
+        <span>3) Введите открытый текст, который хотите зашифровать:</span>
         <textarea
           value={plainText}
           placeholder="Ваш открытый текст"
