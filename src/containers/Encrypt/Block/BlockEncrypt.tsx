@@ -5,14 +5,17 @@ import { Alarm } from 'components/Alarm';
 
 import { Method } from 'store';
 
-import { CIPHER_METHOD, ENCRYPTED_DATA } from 'config';
+import { CIPHER_METHOD, ENCRYPTED_DATA, ENCRYPTED_DATA_BASE64 } from 'config';
 
 import { blockEncryptionMethods } from 'libmethods';
 import { getEncryptedText } from 'libmethods/encryption/block';
 
+import Base64 from 'utils/base64';
+
 export default function() {
   const [method, setMethod] = React.useState<Method>(blockEncryptionMethods[0]);
   const [key, setKey] = React.useState('');
+  // const [iv, set] = React.useState('');
   const [plainText, setPlainText] = React.useState('');
   const [error, setError] = React.useState('');
   const [encryptedText, setEncryptedText] = React.useState('');
@@ -31,13 +34,14 @@ export default function() {
       return;
     }
 
-    setEncryptedText(getEncryptedText(method, key, plainText));
+    setEncryptedText(getEncryptedText(method, key, plainText, ''));
   };
 
   const getJSON = (method: Method, encryptedText: string) => {
     let json = {
       [CIPHER_METHOD]: method.name,
       [ENCRYPTED_DATA]: encryptedText,
+      [ENCRYPTED_DATA_BASE64]: Base64.encode(encryptedText),
     };
     return JSON.stringify(json, undefined, 2);
   };
@@ -62,7 +66,7 @@ export default function() {
           ))}
         </select>
         <span>2) Введите ключ для шифрования:</span>
-        <textarea
+        <input
           value={key}
           placeholder="Ваш ключ"
           onChange={(event: any) => setKey(event.target.value)}
@@ -79,7 +83,7 @@ export default function() {
 
       {!error && encryptedText && (
         <ContentBox title="Ваш результат">
-          <span>1) Закрытый ключ:</span>
+          <span>1) Закрытый текст:</span>
           <textarea value={encryptedText} onChange={() => {}} />
           <span>2) JSON для отправки закрытого текста на сервер:</span>
           <textarea value={getJSON(method, encryptedText)} onChange={() => {}} />

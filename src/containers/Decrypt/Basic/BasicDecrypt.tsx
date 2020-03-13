@@ -166,6 +166,7 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
         <span>0) Выберите режим расшифрования:</span>
         <button
           onClick={() => {
+            clearError();
             setIsJSONMode(!isJSONMode);
           }}
         >
