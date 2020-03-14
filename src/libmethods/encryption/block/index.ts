@@ -46,7 +46,7 @@ export function getDecryptedText(
 
   switch (method.type) {
     case blockEncryptionTypes.aes256ecb:
-      encryptedText = decryptAES256_ECB(getNormalizedKey(key), encryptedText);
+      decryptedText = decryptAES256_ECB(getNormalizedKey(key), encryptedText);
       break;
   }
 

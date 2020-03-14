@@ -1,4 +1,5 @@
 @import 'styles/_mods.scss';
+@import 'styles/_mixins.scss';
 
 body {
   margin: 0;
@@ -33,6 +34,14 @@ textarea {
   font-size: 1em;
 }
 
+select,
+input,
+textarea {
+  border: $border-secondary;
+  border-radius: $x2;
+  padding: $x1;
+}
+
 select {
   width: auto;
 }
@@ -42,10 +51,12 @@ textarea {
   max-width: 99vw;
   height: 2 * $x20;
   border: $border-secondary;
+
+  resize: vertical;
 }
 
 button {
-  white-space: nowrap;
+  @include text-ellipsis;
 
   font: inherit;
 

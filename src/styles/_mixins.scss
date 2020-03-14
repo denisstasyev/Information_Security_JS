@@ -1,5 +1,11 @@
 @import 'styles/_mods.scss';
 
-@mixin tag-space {
+@mixin tag-space() {
   margin: $x1;
+}
+
+@mixin text-ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
