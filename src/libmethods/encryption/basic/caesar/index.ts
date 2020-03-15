@@ -1,5 +1,5 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE } from 'libmethods/encryption';
+import { UNICODE_RING_SIZE } from 'libmethods/encryption/basic';
 import { getUnicodeCode } from 'libmethods';
 
 /**
@@ -37,6 +37,9 @@ export function encryptCesar(text: string, key: number): EncryptedData {
  * @returns    Clear data
  */
 export function decryptCesar(text: string, key: number): EncryptedData {
-  const plainData: EncryptedData = encryptCesar(text, UNICODE_RING_SIZE - key);
+  const plainData: EncryptedData = encryptCesar(
+    text,
+    (-key % UNICODE_RING_SIZE) + UNICODE_RING_SIZE,
+  );
   return plainData;
 }

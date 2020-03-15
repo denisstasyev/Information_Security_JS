@@ -1,5 +1,5 @@
 import { EncryptedData } from 'store';
-import { UNICODE_RING_SIZE } from 'libmethods/encryption';
+import { UNICODE_RING_SIZE } from 'libmethods/encryption/basic';
 import { getUnicodeCode } from 'libmethods';
 
 /**
