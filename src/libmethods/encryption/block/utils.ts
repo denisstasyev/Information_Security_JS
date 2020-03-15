@@ -20,7 +20,15 @@ export function getNormalizedKey(key: string): number[] {
 /**
  * The initialization vector must be 16 bytes (like Array of 16 Numbers)
  */
-export const getNormalizedIv = getNormalizedKey;
+export function getNormalizedIv(iv: string): number[] | undefined {
+  const re = /\s*,\s*/;
+  const ivArray = iv.split(re).map(Number);
+  return ivArray.includes(NaN) || ivArray.length !== 16 ? undefined : ivArray;
+}
+
+export function generateIv(): number[] {
+  return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+}
 
 /**
  * Convert plain text into filled with spaced at the end (to be multiple of 16) UTF-8 Array

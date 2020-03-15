@@ -1,51 +1,70 @@
-import { Method } from 'store';
+import { BlockMethod } from 'libmethods';
 
 import { blockEncryptionTypes } from 'libmethods';
 
-import { getNormalizedKey, getNormalizedIv } from 'libmethods/encryption/block/utils';
+import { getNormalizedKey, generateIv } from 'libmethods/encryption/block/utils';
 
 import { encryptAES256_ECB, decryptAES256_ECB } from 'libmethods/encryption/block/aes/ecb';
 import { encryptAES256_CBC, decryptAES256_CBC } from 'libmethods/encryption/block/aes/cbc';
 
+export interface BlockEncryptionResult {
+  encryptedText: string;
+  iv?: number[];
+}
+
 export function getEncryptedText(
-  method: Method,
+  method: BlockMethod,
   key: string,
   plainText: string,
-  iv: string, // iv - initialization vector
-): string {
-  let encryptedText: string = '';
+  iv?: number[],
+): BlockEncryptionResult {
+  let encryptionResult: BlockEncryptionResult = { encryptedText: '' };
+
+  if (method.withIv) {
+    encryptionResult.iv = iv ? iv : generateIv();
+  }
 
   switch (method.type) {
     case blockEncryptionTypes.aes256ecb:
-      encryptedText = encryptAES256_ECB(getNormalizedKey(key), plainText);
+      encryptionResult.encryptedText = encryptAES256_ECB(getNormalizedKey(key), plainText);
       break;
     case blockEncryptionTypes.aes256cbc:
-      encryptedText = encryptAES256_CBC(getNormalizedKey(key), plainText, getNormalizedIv(iv));
+      encryptionResult.encryptedText = encryptAES256_CBC(
+        getNormalizedKey(key),
+        plainText,
+        encryptionResult.iv || [],
+      );
       break;
   }
 
-  return encryptedText;
+  return encryptionResult;
 }
 
 export interface DecryptionResult {
+  decryptedText: string;
   error: string;
-  text: string;
 }
 
 export function getDecryptedText(
-  method: Method,
+  method: BlockMethod,
   key: string,
   encryptedText: string,
-  iv: number[], // iv - initialization vector
+  iv?: number[],
 ): DecryptionResult {
-  const decryptionResult: DecryptionResult = { error: '', text: '' };
+  const decryptionResult: DecryptionResult = { decryptedText: '', error: '' };
+  const zeroIv = Array(16).fill(0);
+
   try {
     switch (method.type) {
       case blockEncryptionTypes.aes256ecb:
-        decryptionResult.text = decryptAES256_ECB(getNormalizedKey(key), encryptedText);
+        decryptionResult.decryptedText = decryptAES256_ECB(getNormalizedKey(key), encryptedText);
         break;
       case blockEncryptionTypes.aes256cbc:
-        decryptionResult.text = decryptAES256_CBC(getNormalizedKey(key), encryptedText, iv);
+        decryptionResult.decryptedText = decryptAES256_CBC(
+          getNormalizedKey(key),
+          encryptedText,
+          iv || zeroIv,
+        );
         break;
     }
   } catch {

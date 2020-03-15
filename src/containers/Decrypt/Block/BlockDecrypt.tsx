@@ -23,7 +23,6 @@ export default function() {
   const [method, setMethod] = React.useState<BlockMethod>(blockEncryptionMethods[0]);
   const [key, setKey] = React.useState('');
   const [iv, setIv] = React.useState('');
-  const [ivJson, setIvJson] = React.useState([]);
   const [encryptedText, setEncryptedText] = React.useState('');
   const [error, setError] = React.useState('');
   const [decryptedText, setDecryptedText] = React.useState('');
@@ -63,10 +62,12 @@ export default function() {
     }
     setEncryptedText(encryptedText);
 
-    const ivJson =
-      // @ts-ignore
-      objectJson[INITIALIZATION_VECTOR] === undefined ? [] : objectJson[INITIALIZATION_VECTOR];
-    setIvJson(ivJson);
+    // @ts-ignore
+    setIv(
+      objectJson[INITIALIZATION_VECTOR] === undefined
+        ? ''
+        : objectJson[INITIALIZATION_VECTOR].toString(),
+    );
   }
 
   const setResult = () => {
@@ -74,18 +75,18 @@ export default function() {
       method,
       key,
       encryptedText,
-      isJsonMode ? ivJson : getNormalizedIv(iv),
+      getNormalizedIv(iv),
     );
     setError(decryptionResult.error);
-    !decryptionResult.error && setDecryptedText(decryptionResult.text);
+    !decryptionResult.error && setDecryptedText(decryptionResult.decryptedText);
   };
 
   const onSubmit = (event: any) => {
     event.preventDefault();
     setError('');
 
-    if (method.withIv && iv === '') {
-      setError('Введите вектор инициализации!');
+    if (method.withIv && getNormalizedIv(iv) === undefined) {
+      setError('Введите корректный вектор инициализации!');
       return;
     }
 
@@ -122,7 +123,7 @@ export default function() {
       return;
     }
 
-    if (method.withIv && ivJson === []) {
+    if (method.withIv && getNormalizedIv(iv) === undefined) {
       setError(`Введите вектор инициализации в JSON (свойство: ${INITIALIZATION_VECTOR})!`);
       return;
     }
@@ -182,7 +183,7 @@ export default function() {
             </select>
             {method.withIv && (
               <>
-                <span>1.1) Введите вектор инициализации:</span>
+                <span>2) Введите вектор инициализации:</span>
                 <input
                   value={iv}
                   placeholder="Ваш вектор инициализации"
@@ -190,13 +191,13 @@ export default function() {
                 />
               </>
             )}
-            <span>2) Введите ключ для расшифрования:</span>
+            <span>3) Введите ключ для расшифрования:</span>
             <input
               value={key}
               placeholder="Ваш ключ"
               onChange={(event: any) => setKey(event.target.value)}
             />
-            <span>3) Введите закрытый текст, который хотите расшифровать:</span>
+            <span>4) Введите закрытый текст, который хотите расшифровать:</span>
             <textarea
               value={encryptedText}
               placeholder="Ваш закрытый текст"

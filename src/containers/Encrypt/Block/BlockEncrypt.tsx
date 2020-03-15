@@ -11,7 +11,7 @@ import {
 } from 'config';
 
 import { BlockMethod, blockEncryptionMethods } from 'libmethods';
-import { getEncryptedText } from 'libmethods/encryption/block';
+import { getEncryptedText, BlockEncryptionResult } from 'libmethods/encryption/block';
 import { getNormalizedIv } from 'libmethods/encryption/block/utils';
 
 import Base64 from 'utils/base64';
@@ -19,6 +19,8 @@ import Base64 from 'utils/base64';
 export default function() {
   const [method, setMethod] = React.useState<BlockMethod>(blockEncryptionMethods[0]);
   const [iv, setIv] = React.useState('');
+  const [ivOutput, setIvOutput] = React.useState<number[] | undefined>(undefined);
+  const [IvInputBool, setIvInputBool] = React.useState(false);
   const [key, setKey] = React.useState('');
   const [plainText, setPlainText] = React.useState('');
   const [error, setError] = React.useState('');
@@ -28,8 +30,8 @@ export default function() {
     event.preventDefault();
     setError('');
 
-    if (method.withIv && iv === '') {
-      setError('Введите вектор инициализации!');
+    if (method.withIv && IvInputBool && getNormalizedIv(iv) === undefined) {
+      setError('Введите корректный вектор инициализации (массив из 16 чисел)!');
       return;
     }
 
@@ -43,7 +45,16 @@ export default function() {
       return;
     }
 
-    setEncryptedText(getEncryptedText(method, key, plainText, iv));
+    let encryptedData: BlockEncryptionResult = getEncryptedText(
+      method,
+      key,
+      plainText,
+      getNormalizedIv(iv),
+    );
+    setEncryptedText(encryptedData.encryptedText);
+    if (method.withIv) {
+      setIvOutput(encryptedData.iv);
+    }
   };
 
   const getJSON = (method: BlockMethod, encryptedText: string) => {
@@ -54,7 +65,7 @@ export default function() {
     };
     if (method.withIv) {
       // @ts-ignore
-      json[INITIALIZATION_VECTOR] = getNormalizedIv(iv);
+      json[INITIALIZATION_VECTOR] = ivOutput;
     }
     return JSON.stringify(json, undefined, 2);
   };
@@ -80,7 +91,17 @@ export default function() {
         </select>
         {method.withIv && (
           <>
-            <span>1.1) Введите вектор инициализации:</span>
+            <span>2) Ввести вектор инициализации вручную:</span>
+            <input
+              type="checkbox"
+              checked={IvInputBool}
+              onChange={() => setIvInputBool(!IvInputBool)}
+            />
+          </>
+        )}
+        {IvInputBool && (
+          <>
+            <span>2.1) Введите вектор инициализации:</span>
             <input
               value={iv}
               placeholder="Ваш вектор инициализации"
@@ -88,13 +109,13 @@ export default function() {
             />
           </>
         )}
-        <span>2) Введите ключ для шифрования:</span>
+        <span>3) Введите ключ для шифрования:</span>
         <input
           value={key}
           placeholder="Ваш ключ"
           onChange={(event: any) => setKey(event.target.value)}
         />
-        <span>3) Введите открытый текст, который хотите зашифровать:</span>
+        <span>4) Введите открытый текст, который хотите зашифровать:</span>
         <textarea
           value={plainText}
           placeholder="Ваш открытый текст"
