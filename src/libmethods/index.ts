@@ -20,14 +20,18 @@ export const encryptionMethods: Method[] = [
 /**
  * Block encryption types and methods
  */
+export interface BlockMethod extends Method {
+  withIv: boolean;
+}
+
 export const blockEncryptionTypes = {
   aes256ecb: 'aes256ecb',
   aes256cbc: 'aes256cbc',
 };
 
-export const blockEncryptionMethods: Method[] = [
-  { type: blockEncryptionTypes.aes256ecb, name: 'AES-256/ECB' },
-  { type: blockEncryptionTypes.aes256cbc, name: 'AES-256/CBC' },
+export const blockEncryptionMethods: BlockMethod[] = [
+  { type: blockEncryptionTypes.aes256ecb, name: 'AES-256/ECB', withIv: false },
+  { type: blockEncryptionTypes.aes256cbc, name: 'AES-256/CBC', withIv: true },
 ];
 
 /**

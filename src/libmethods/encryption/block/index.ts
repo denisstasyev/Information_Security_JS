@@ -2,7 +2,7 @@ import { Method } from 'store';
 
 import { blockEncryptionTypes } from 'libmethods';
 
-import { getNormalizedKey } from 'libmethods/encryption/block/utils';
+import { getNormalizedKey, getNormalizedIv } from 'libmethods/encryption/block/utils';
 
 import { encryptAES256_ECB, decryptAES256_ECB } from 'libmethods/encryption/block/aes/ecb';
 import { encryptAES256_CBC, decryptAES256_CBC } from 'libmethods/encryption/block/aes/cbc';
@@ -11,7 +11,7 @@ export function getEncryptedText(
   method: Method,
   key: string,
   plainText: string,
-  iv: number[], // iv - initialization vector
+  iv: string, // iv - initialization vector
 ): string {
   let encryptedText: string = '';
 
@@ -20,7 +20,7 @@ export function getEncryptedText(
       encryptedText = encryptAES256_ECB(getNormalizedKey(key), plainText);
       break;
     case blockEncryptionTypes.aes256cbc:
-      encryptedText = encryptAES256_CBC(getNormalizedKey(key), plainText, iv);
+      encryptedText = encryptAES256_CBC(getNormalizedKey(key), plainText, getNormalizedIv(iv));
       break;
   }
 

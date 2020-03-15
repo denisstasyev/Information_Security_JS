@@ -40,6 +40,8 @@ textarea {
   border: $border-secondary;
   border-radius: $x2;
   padding: $x1;
+
+  box-shadow: none;
 }
 
 select {

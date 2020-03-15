@@ -18,6 +18,11 @@ export function getNormalizedKey(key: string): number[] {
 }
 
 /**
+ * The initialization vector must be 16 bytes (like Array of 16 Numbers)
+ */
+export const getNormalizedIv = getNormalizedKey;
+
+/**
  * Convert plain text into filled with spaced at the end (to be multiple of 16) UTF-8 Array
  *
  * @param  {string} plainText

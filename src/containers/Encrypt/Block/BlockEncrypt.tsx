@@ -3,25 +3,23 @@ import * as React from 'react';
 import { ContentBox } from 'components/ContentBox';
 import { Alarm } from 'components/Alarm';
 
-import { Method } from 'store';
-
 import {
   CIPHER_METHOD,
   ENCRYPTED_DATA,
   ENCRYPTED_DATA_BASE64,
   INITIALIZATION_VECTOR,
-  iv,
 } from 'config';
 
-import { blockEncryptionMethods, blockEncryptionTypes } from 'libmethods';
+import { BlockMethod, blockEncryptionMethods } from 'libmethods';
 import { getEncryptedText } from 'libmethods/encryption/block';
+import { getNormalizedIv } from 'libmethods/encryption/block/utils';
 
 import Base64 from 'utils/base64';
 
 export default function() {
-  const [method, setMethod] = React.useState<Method>(blockEncryptionMethods[0]);
+  const [method, setMethod] = React.useState<BlockMethod>(blockEncryptionMethods[0]);
+  const [iv, setIv] = React.useState('');
   const [key, setKey] = React.useState('');
-  // const [iv, set] = React.useState('');
   const [plainText, setPlainText] = React.useState('');
   const [error, setError] = React.useState('');
   const [encryptedText, setEncryptedText] = React.useState('');
@@ -29,6 +27,11 @@ export default function() {
   const onSubmit = (event: any) => {
     event.preventDefault();
     setError('');
+
+    if (method.withIv && iv === '') {
+      setError('Введите вектор инициализации!');
+      return;
+    }
 
     if (key === '') {
       setError('Введите ключ шифрования!');
@@ -43,15 +46,15 @@ export default function() {
     setEncryptedText(getEncryptedText(method, key, plainText, iv));
   };
 
-  const getJSON = (method: Method, encryptedText: string) => {
+  const getJSON = (method: BlockMethod, encryptedText: string) => {
     let json = {
       [CIPHER_METHOD]: method.name,
       [ENCRYPTED_DATA]: encryptedText,
       [ENCRYPTED_DATA_BASE64]: Base64.encode(encryptedText),
     };
-    if (method.type !== blockEncryptionTypes.aes256ecb) {
+    if (method.withIv) {
       // @ts-ignore
-      json[INITIALIZATION_VECTOR] = iv;
+      json[INITIALIZATION_VECTOR] = getNormalizedIv(iv);
     }
     return JSON.stringify(json, undefined, 2);
   };
@@ -75,6 +78,16 @@ export default function() {
             </option>
           ))}
         </select>
+        {method.withIv && (
+          <>
+            <span>1.1) Введите вектор инициализации:</span>
+            <input
+              value={iv}
+              placeholder="Ваш вектор инициализации"
+              onChange={(event: any) => setIv(event.target.value)}
+            />
+          </>
+        )}
         <span>2) Введите ключ для шифрования:</span>
         <input
           value={key}
