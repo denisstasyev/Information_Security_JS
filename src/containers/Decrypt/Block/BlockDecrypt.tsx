@@ -59,7 +59,7 @@ export default function() {
   const setResult = () => {
     const decryptionResult: DecryptionResult = getDecryptedText(method, key, encryptedText, '');
     setError(decryptionResult.error);
-    !decryptionResult.error && setDecryptedText(decryptionResult.decryptedText);
+    !decryptionResult.error && setDecryptedText(decryptionResult.text);
   };
 
   const onSubmit = (event: any) => {

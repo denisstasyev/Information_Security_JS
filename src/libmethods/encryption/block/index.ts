@@ -38,7 +38,7 @@ export function getEncryptedText(
 
 export interface DecryptionResult {
   error: string;
-  decryptedText: string;
+  text: string;
 }
 
 export function getDecryptedText(
@@ -47,12 +47,15 @@ export function getDecryptedText(
   encryptedText: string,
   iv: string, // iv - initialization vector
 ): DecryptionResult {
-  let decryptionResult: DecryptionResult = { error: '', decryptedText: '' };
-
-  switch (method.type) {
-    case blockEncryptionTypes.aes256ecb:
-      decryptionResult = decryptAES256_ECB(getNormalizedKey(key), encryptedText);
-      break;
+  const decryptionResult: DecryptionResult = { error: '', text: '' };
+  try {
+    switch (method.type) {
+      case blockEncryptionTypes.aes256ecb:
+        decryptionResult.text = decryptAES256_ECB(getNormalizedKey(key), encryptedText);
+        break;
+    }
+  } catch {
+    decryptionResult.error = 'Невалидный закрытый текст!';
   }
 
   return decryptionResult;
