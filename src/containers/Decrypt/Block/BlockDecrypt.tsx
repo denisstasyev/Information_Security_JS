@@ -5,11 +5,15 @@ import { Alarm } from 'components/Alarm';
 
 import { Method } from 'store';
 
+import { CIPHER_METHOD, ENCRYPTED_DATA, ENCRYPTED_DATA_BASE64 } from 'config';
+
 import { blockEncryptionMethods } from 'libmethods';
 import { getDecryptedText } from 'libmethods/encryption/block';
 
+import Base64 from 'utils/base64';
+
 export default function() {
-  const [jsonMode, setJsonMode] = React.useState(false);
+  const [isJsonMode, setIsJsonMode] = React.useState(false);
   const [json, setJson] = React.useState('');
 
   const [method, setMethod] = React.useState<Method>(blockEncryptionMethods[0]);
@@ -36,7 +40,60 @@ export default function() {
     setDecryptedText(getDecryptedText(method, key, encryptedText, ''));
   };
 
-  const onSubmitJson = (event: any) => {};
+  const parseJson = (json: string) => {
+    let objectJson = {};
+
+    try {
+      objectJson = JSON.parse(json);
+    } catch (e) {
+      setError('JSON не валидный!');
+    }
+
+    // @ts-ignore
+    const methodName = objectJson[CIPHER_METHOD] === undefined ? '' : objectJson[CIPHER_METHOD];
+    const method: Method = blockEncryptionMethods.find(method => method.name === methodName) || {
+      name: '',
+      type: '',
+    };
+    setMethod(method);
+
+    let encryptedText: string = '';
+    // @ts-ignore
+    if (objectJson[ENCRYPTED_DATA_BASE64] === undefined) {
+      // @ts-ignore
+      encryptedText = objectJson[ENCRYPTED_DATA] === undefined ? '' : objectJson[ENCRYPTED_DATA];
+    } else {
+      // @ts-ignore
+      encryptedText = Base64.decode(objectJson[ENCRYPTED_DATA_BASE64]);
+    }
+    setEncryptedText(encryptedText);
+  };
+
+  const onSubmitJson = (event: any) => {
+    event.preventDefault();
+    setError('');
+
+    parseJson(json);
+
+    if (key === '') {
+      setError('Введите ключ расшифрования!');
+      return;
+    }
+
+    if (method.name === '') {
+      setError(`Введите метод шифрования в JSON (свойство: ${CIPHER_METHOD})!`);
+      return;
+    }
+
+    if (encryptedText === '') {
+      setError(
+        `Введите текст в JSON, который необходимо расшифровать (свойство: ${ENCRYPTED_DATA})!`,
+      );
+      return;
+    }
+
+    setDecryptedText(getDecryptedText(method, key, encryptedText, ''));
+  };
 
   return (
     <>
@@ -44,16 +101,16 @@ export default function() {
         <span>0) Выберите решим расшифрования:</span>
         <button
           onClick={() => {
-            setJsonMode(!jsonMode);
+            setIsJsonMode(!isJsonMode);
             setError('');
             setDecryptedText('');
           }}
         >
-          {jsonMode
+          {isJsonMode
             ? 'Перейти в режим обычного расшифрования'
             : 'Перейти в режим расшифрования JSON'}
         </button>
-        {jsonMode ? (
+        {isJsonMode ? (
           <>
             <span>1) Введите JSON для блочного расшифрования:</span>
             <textarea

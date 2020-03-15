@@ -53,6 +53,7 @@ textarea {
   border: $border-secondary;
 
   resize: vertical;
+  overflow: auto;
 }
 
 button {

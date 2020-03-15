@@ -107,9 +107,8 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
       props.setError('JSON не валидный!');
     }
 
-    const methodName =
-      // @ts-ignore
-      objectJSON[CIPHER_METHOD] === undefined ? '' : objectJSON[CIPHER_METHOD];
+    // @ts-ignore
+    const methodName = objectJSON[CIPHER_METHOD] === undefined ? '' : objectJSON[CIPHER_METHOD];
     const method: Method = encryptionMethods.find(method => method.name === methodName) || {
       name: '',
       type: '',
@@ -119,9 +118,8 @@ const Decrypt: React.SFC<DecryptStateProps> = props => {
     let encryptedText: string = '';
     // @ts-ignore
     if (objectJSON[ENCRYPTED_DATA_BASE64] === undefined) {
-      encryptedText =
-        // @ts-ignore
-        objectJSON[ENCRYPTED_DATA] === undefined ? '' : objectJSON[ENCRYPTED_DATA];
+      // @ts-ignore
+      encryptedText = objectJSON[ENCRYPTED_DATA] === undefined ? '' : objectJSON[ENCRYPTED_DATA];
     } else {
       // @ts-ignore
       encryptedText = Base64.decode(objectJSON[ENCRYPTED_DATA_BASE64]);
