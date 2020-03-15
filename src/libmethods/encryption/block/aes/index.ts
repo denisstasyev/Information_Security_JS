@@ -13,28 +13,20 @@ export function encryptAES256_ECB(key: number[], plainText: string): string {
 
   const aesEcb = new aesjs.ModeOfOperation.ecb(key);
   const encryptedBytes = aesEcb.encrypt(textBytes);
+
+  // The binary data converted to hex
   const encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
 
   return encryptedHex;
 }
 
 export function decryptAES256_ECB(key: number[], encryptedText: string): string {
-  return 'hello';
+  // Convert hex string back to bytes
+  const encryptedBytes = aesjs.utils.hex.toBytes(encryptedText);
+
+  const aesEcb = new aesjs.ModeOfOperation.ecb(key);
+  const decryptedTextBytes = aesEcb.decrypt(encryptedBytes);
+  const decryptedText = aesjs.utils.utf8.fromBytes(decryptedTextBytes);
+
+  return decryptedText;
 }
-// // To print or store the binary data, you may convert it to hex
-// var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
-// console.log(encryptedHex);
-// // "a7d93b35368519fac347498dec18b458"
-
-// // When ready to decrypt the hex string, convert it back to bytes
-// var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
-
-// // Since electronic codebook does not store state, we can
-// // reuse the same instance.
-// //var aesEcb = new aesjs.ModeOfOperation.ecb(key);
-// var decryptedBytes = aesEcb.decrypt(encryptedBytes);
-
-// // Convert our bytes back into text
-// var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
-// console.log(decryptedText);
-// // "TextMustBe16Byte"

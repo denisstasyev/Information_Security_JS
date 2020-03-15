@@ -69,8 +69,7 @@ export default function() {
     setEncryptedText(encryptedText);
   };
 
-  const onSubmitJson = (event: any) => {
-    event.preventDefault();
+  const onSubmitJson = (json: string) => {
     setError('');
 
     parseJson(json);
@@ -125,7 +124,7 @@ export default function() {
               onChange={(event: any) => setKey(event.target.value)}
             />
             {error && <Alarm type="error" text={`Ошибка! ${error}`} />}
-            <button onClick={onSubmitJson}>Расшифровать!</button>
+            <button onClick={() => onSubmitJson(json)}>Расшифровать!</button>
           </>
         ) : (
           <>
