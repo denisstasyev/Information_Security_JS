@@ -27,11 +27,17 @@ export interface BlockMethod extends Method {
 export const blockEncryptionTypes = {
   aes256ecb: 'aes256ecb',
   aes256cbc: 'aes256cbc',
+  aes256ctr: 'aes256ctr',
+  aes256cfb: 'aes256cfb',
+  aes256ofb: 'aes256ofb',
 };
 
 export const blockEncryptionMethods: BlockMethod[] = [
   { type: blockEncryptionTypes.aes256ecb, name: 'AES-256/ECB', withIv: false },
   { type: blockEncryptionTypes.aes256cbc, name: 'AES-256/CBC', withIv: true },
+  { type: blockEncryptionTypes.aes256ctr, name: 'AES-256/CTR', withIv: false },
+  { type: blockEncryptionTypes.aes256cfb, name: 'AES-256/CFB', withIv: true },
+  { type: blockEncryptionTypes.aes256ofb, name: 'AES-256/OFB', withIv: true },
 ];
 
 /**
