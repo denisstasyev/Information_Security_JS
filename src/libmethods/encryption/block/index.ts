@@ -9,7 +9,7 @@ import { encryptAES256_CBC, decryptAES256_CBC } from 'libmethods/encryption/bloc
 import { encryptAES256_CTR, decryptAES256_CTR } from 'libmethods/encryption/block/aes/ctr';
 import { encryptAES256_CFB, decryptAES256_CFB } from 'libmethods/encryption/block/aes/cfb';
 import { encryptAES256_OFB, decryptAES256_OFB } from 'libmethods/encryption/block/aes/ofb';
-
+import { encryptGOST89_ECB /*decryptGOST89_ECB*/ } from 'libmethods/encryption/block/gost/ecb';
 export interface BlockEncryptionResult {
   encryptedText: string;
   iv?: number[];
@@ -54,6 +54,9 @@ export function getEncryptedText(
         plainText,
         encryptionResult.iv || DEFAULT_IV,
       );
+      break;
+    case blockEncryptionTypes.gost89ecb:
+      encryptionResult.encryptedText = encryptGOST89_ECB(getNormalizedKey(key, 256), plainText);
       break;
   }
 
