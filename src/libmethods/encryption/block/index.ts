@@ -39,13 +39,21 @@ export function getEncryptedText(
       );
       break;
     case blockEncryptionTypes.aes256ctr:
-      encryptedText = encryptAES256_CTR(getNormalizedKey(key), plainText);
+      encryptionResult.encryptedText = encryptAES256_CTR(getNormalizedKey(key), plainText);
       break;
     case blockEncryptionTypes.aes256cfb:
-      encryptedText = encryptAES256_CFB(getNormalizedKey(key), plainText, getNormalizedIv(iv));
+      encryptionResult.encryptedText = encryptAES256_CFB(
+        getNormalizedKey(key),
+        plainText,
+        encryptionResult.iv || [],
+      );
       break;
     case blockEncryptionTypes.aes256ofb:
-      encryptedText = encryptAES256_OFB(getNormalizedKey(key), plainText, getNormalizedIv(iv));
+      encryptionResult.encryptedText = encryptAES256_OFB(
+        getNormalizedKey(key),
+        plainText,
+        encryptionResult.iv || [],
+      );
       break;
   }
 
