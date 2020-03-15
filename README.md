@@ -13,7 +13,7 @@ In this repository you will find the implementation of encryption and decryption
 
 You can find the implementation of methods for the backend part in [this repository](https://github.com/GRISHNOV/Information_Security_Web_Service).
 
-## Available Ciphers
+## Ciphers
 
 > All implemented ciphers can work with Unicode characters.
 
@@ -32,7 +32,7 @@ The following encryption and decryption methods are now available:
 
 More information about encryption and decryption methods are available in [`src/libmethods/encryption` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/encryption).
 
-## Available Checksums
+## Checksums
 
 The following checksum methods are now available:
 
@@ -43,7 +43,7 @@ The following checksum methods are now available:
 
 More information about checksum methods are available in [`src/libmethods/checksum` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/checksum).
 
-## Available Hash functions
+## Hash functions
 
 The following hash functions are now available:
 
@@ -53,7 +53,7 @@ The following hash functions are now available:
 
 More information about checksum methods are available in [`src/libmethods/hashing` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/hashing).
 
-## Available Scripts
+## Scripts
 
 > This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
