@@ -11,13 +11,26 @@ export default function(props: any) {
           .offsetHeight + 10}px`),
     );
     document.getElementById('content')!.style.minHeight = `${window.innerHeight -
-      document.getElementById('header')!.offsetHeight}px`;
+      document.getElementById('header')!.offsetHeight -
+      50}px`;
   };
 
   React.useEffect(() => {
     setContentPosition();
 
-    // window.addEventListener('resize', setContentPosition);
+    window.addEventListener('change-orientation', setContentPosition);
+
+    let isLandscape = window.innerHeight < window.innerWidth;
+
+    // Due to iOS viewport height change (because of Safari's interface)
+    // we need custom event to detect orientation change
+    window.addEventListener('resize', () => {
+      const currentIsLandscape = window.innerHeight < window.innerWidth;
+      if (currentIsLandscape !== isLandscape) {
+        isLandscape = window.innerHeight < window.innerWidth;
+        window.dispatchEvent(new CustomEvent('change-orientation'));
+      }
+    });
   }, []);
 
   return (

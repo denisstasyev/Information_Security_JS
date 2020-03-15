@@ -2,11 +2,11 @@ import { Method, EncryptedData } from 'store';
 import * as types from './types';
 
 import { encryptionTypes } from 'libmethods';
-import { outputData } from 'libmethods/encryption';
-import { decryptCesar } from 'libmethods/encryption/caesar';
-import { decryptMonoAlphabeticCode } from 'libmethods/encryption/monoalphabetic';
-import { decryptPolyAlphabeticCode } from 'libmethods/encryption/polyalphabetic';
-import { decryptBigram } from 'libmethods/encryption/bigram';
+import { outputData } from 'libmethods/encryption/basic';
+import { decryptCesar } from 'libmethods/encryption/basic/caesar';
+import { decryptMonoAlphabeticCode } from 'libmethods/encryption/basic/monoalphabetic';
+import { decryptPolyAlphabeticCode } from 'libmethods/encryption/basic/polyalphabetic';
+import { decryptBigram } from 'libmethods/encryption/basic/bigram';
 
 export function setMethod(method: Method) {
   return {

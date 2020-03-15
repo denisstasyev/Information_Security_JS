@@ -3,7 +3,7 @@ import {
   UNICODE_RING_SIZE,
   UNICODE_RING_SIZE_SQUARE,
   UNICODE_RING_SIZE_SQUARE_LENGTH,
-} from 'libmethods/encryption';
+} from 'libmethods/encryption/basic';
 import { getUnicodeCode } from 'libmethods';
 
 /**

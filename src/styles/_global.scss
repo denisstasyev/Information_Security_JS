@@ -1,4 +1,5 @@
 @import 'styles/_mods.scss';
+@import 'styles/_mixins.scss';
 
 body {
   margin: 0;
@@ -28,9 +29,19 @@ a:active {
 span,
 select,
 input,
-textarea,
-output {
+textarea {
   margin-top: $x2;
+  font-size: 1em;
+}
+
+select,
+input,
+textarea {
+  border: $border-secondary;
+  border-radius: $x2;
+  padding: $x1;
+
+  box-shadow: none;
 }
 
 select {
@@ -42,10 +53,13 @@ textarea {
   max-width: 99vw;
   height: 2 * $x20;
   border: $border-secondary;
+
+  resize: vertical;
+  overflow: auto;
 }
 
 button {
-  white-space: nowrap;
+  @include text-ellipsis;
 
   font: inherit;
 
