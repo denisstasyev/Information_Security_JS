@@ -12,7 +12,7 @@ import {
 
 import { BlockMethod, blockEncryptionMethods } from 'libmethods';
 import { getDecryptedText, DecryptionResult } from 'libmethods/encryption/block';
-import { getNormalizedIv } from 'libmethods/encryption/block/utils';
+import { getNormalizedIv, DEFAULT_IV } from 'libmethods/encryption/block/utils';
 
 import Base64 from 'utils/base64';
 
@@ -22,7 +22,7 @@ export default function() {
 
   const [method, setMethod] = React.useState<BlockMethod>(blockEncryptionMethods[0]);
   const [key, setKey] = React.useState('');
-  const [iv, setIv] = React.useState('');
+  const [iv, setIv] = React.useState(DEFAULT_IV.join(', '));
   const [encryptedText, setEncryptedText] = React.useState('');
   const [error, setError] = React.useState('');
   const [decryptedText, setDecryptedText] = React.useState('');

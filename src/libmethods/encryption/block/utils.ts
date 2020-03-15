@@ -31,6 +31,8 @@ export function generateIv(): number[] {
   return Array.from(getRandomBytes(16));
 }
 
+export const DEFAULT_IV = Array(16).fill(0);
+
 /**
  * Convert plain text into filled with spaced at the end (to be multiple of 16) UTF-8 Array
  *

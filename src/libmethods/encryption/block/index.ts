@@ -2,7 +2,7 @@ import { BlockMethod } from 'libmethods';
 
 import { blockEncryptionTypes } from 'libmethods';
 
-import { getNormalizedKey, generateIv } from 'libmethods/encryption/block/utils';
+import { getNormalizedKey, generateIv, DEFAULT_IV } from 'libmethods/encryption/block/utils';
 
 import { encryptAES256_ECB, decryptAES256_ECB } from 'libmethods/encryption/block/aes/ecb';
 import { encryptAES256_CBC, decryptAES256_CBC } from 'libmethods/encryption/block/aes/cbc';
@@ -35,7 +35,7 @@ export function getEncryptedText(
       encryptionResult.encryptedText = encryptAES256_CBC(
         getNormalizedKey(key),
         plainText,
-        encryptionResult.iv || [],
+        encryptionResult.iv || DEFAULT_IV,
       );
       break;
     case blockEncryptionTypes.aes256ctr:
@@ -45,14 +45,14 @@ export function getEncryptedText(
       encryptionResult.encryptedText = encryptAES256_CFB(
         getNormalizedKey(key),
         plainText,
-        encryptionResult.iv || [],
+        encryptionResult.iv || DEFAULT_IV,
       );
       break;
     case blockEncryptionTypes.aes256ofb:
       encryptionResult.encryptedText = encryptAES256_OFB(
         getNormalizedKey(key),
         plainText,
-        encryptionResult.iv || [],
+        encryptionResult.iv || DEFAULT_IV,
       );
       break;
   }
@@ -72,7 +72,6 @@ export function getDecryptedText(
   iv?: number[],
 ): DecryptionResult {
   const decryptionResult: DecryptionResult = { decryptedText: '', error: '' };
-  const zeroIv = Array(16).fill(0);
 
   try {
     switch (method.type) {
@@ -83,7 +82,7 @@ export function getDecryptedText(
         decryptionResult.decryptedText = decryptAES256_CBC(
           getNormalizedKey(key),
           encryptedText,
-          iv || zeroIv,
+          iv || DEFAULT_IV,
         );
         break;
       case blockEncryptionTypes.aes256ctr:
@@ -93,14 +92,14 @@ export function getDecryptedText(
         decryptionResult.decryptedText = decryptAES256_CFB(
           getNormalizedKey(key),
           encryptedText,
-          iv || zeroIv,
+          iv || DEFAULT_IV,
         );
         break;
       case blockEncryptionTypes.aes256ofb:
         decryptionResult.decryptedText = decryptAES256_OFB(
           getNormalizedKey(key),
           encryptedText,
-          iv || zeroIv,
+          iv || DEFAULT_IV,
         );
         break;
     }
