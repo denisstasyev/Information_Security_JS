@@ -88,7 +88,7 @@ export default function() {
     event.preventDefault();
     setError('');
 
-    if (method.withIv && getNormalizedIv(iv) === undefined) {
+    if (method.withIv && !getNormalizedIv(iv).length) {
       setError('Введите корректный вектор инициализации!');
       return;
     }
@@ -126,7 +126,7 @@ export default function() {
       return;
     }
 
-    if (method.withIv && getNormalizedIv(iv) === undefined) {
+    if (method.withIv && !getNormalizedIv(iv).length) {
       setError(`Введите вектор инициализации в JSON (свойство: ${INITIALIZATION_VECTOR})!`);
       return;
     }

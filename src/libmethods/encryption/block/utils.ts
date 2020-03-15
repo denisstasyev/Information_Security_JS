@@ -21,10 +21,10 @@ export function getNormalizedKey(key: string): number[] {
 /**
  * The initialization vector must be 16 bytes (like Array of 16 Numbers)
  */
-export function getNormalizedIv(iv: string): number[] | undefined {
+export function getNormalizedIv(iv: string): number[] {
   const re = /\s*,\s*/;
   const ivArray = iv.split(re).map(Number);
-  return ivArray.includes(NaN) || ivArray.length !== 16 ? undefined : ivArray;
+  return ivArray.includes(NaN) || ivArray.length !== 16 ? [] : ivArray;
 }
 
 export function generateIv(): number[] {
