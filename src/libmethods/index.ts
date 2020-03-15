@@ -22,10 +22,12 @@ export const encryptionMethods: Method[] = [
  */
 export const blockEncryptionTypes = {
   aes256ecb: 'aes256ecb',
+  aes256cbc: 'aes256cbc',
 };
 
 export const blockEncryptionMethods: Method[] = [
   { type: blockEncryptionTypes.aes256ecb, name: 'AES-256/ECB' },
+  { type: blockEncryptionTypes.aes256cbc, name: 'AES-256/CBC' },
 ];
 
 /**

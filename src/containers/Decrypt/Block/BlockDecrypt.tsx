@@ -5,7 +5,7 @@ import { Alarm } from 'components/Alarm';
 
 import { Method } from 'store';
 
-import { CIPHER_METHOD, ENCRYPTED_DATA, ENCRYPTED_DATA_BASE64 } from 'config';
+import { CIPHER_METHOD, ENCRYPTED_DATA, ENCRYPTED_DATA_BASE64, iv } from 'config';
 
 import { blockEncryptionMethods } from 'libmethods';
 import { getDecryptedText, DecryptionResult } from 'libmethods/encryption/block';
@@ -57,7 +57,7 @@ export default function() {
   }
 
   const setResult = () => {
-    const decryptionResult: DecryptionResult = getDecryptedText(method, key, encryptedText, '');
+    const decryptionResult: DecryptionResult = getDecryptedText(method, key, encryptedText, iv);
     setError(decryptionResult.error);
     !decryptionResult.error && setDecryptedText(decryptionResult.text);
   };

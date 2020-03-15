@@ -36,10 +36,10 @@ More information about encryption and decryption methods are available in [`src/
 
 The following checksum methods are now available:
 
-- CRC16
-- CRC24
-- CRC32
-- Fletcher16
+- CRC-16
+- CRC-24
+- CRC-32
+- Fletcher-16
 
 More information about checksum methods are available in [`src/libmethods/checksum` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/checksum).
 
@@ -47,9 +47,9 @@ More information about checksum methods are available in [`src/libmethods/checks
 
 The following hash functions are now available:
 
-- SHA256
-- SHA512
-- SHA3
+- SHA-256
+- SHA-512
+- SHA-3
 
 More information about checksum methods are available in [`src/libmethods/hashing` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/hashing).
 

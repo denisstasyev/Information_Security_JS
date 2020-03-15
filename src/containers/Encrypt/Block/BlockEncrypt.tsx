@@ -5,9 +5,15 @@ import { Alarm } from 'components/Alarm';
 
 import { Method } from 'store';
 
-import { CIPHER_METHOD, ENCRYPTED_DATA, ENCRYPTED_DATA_BASE64 } from 'config';
+import {
+  CIPHER_METHOD,
+  ENCRYPTED_DATA,
+  ENCRYPTED_DATA_BASE64,
+  INITIALIZATION_VECTOR,
+  iv,
+} from 'config';
 
-import { blockEncryptionMethods } from 'libmethods';
+import { blockEncryptionMethods, blockEncryptionTypes } from 'libmethods';
 import { getEncryptedText } from 'libmethods/encryption/block';
 
 import Base64 from 'utils/base64';
@@ -34,7 +40,7 @@ export default function() {
       return;
     }
 
-    setEncryptedText(getEncryptedText(method, key, plainText, ''));
+    setEncryptedText(getEncryptedText(method, key, plainText, iv));
   };
 
   const getJSON = (method: Method, encryptedText: string) => {
@@ -43,6 +49,10 @@ export default function() {
       [ENCRYPTED_DATA]: encryptedText,
       [ENCRYPTED_DATA_BASE64]: Base64.encode(encryptedText),
     };
+    if (method.type !== blockEncryptionTypes.aes256ecb) {
+      // @ts-ignore
+      json[INITIALIZATION_VECTOR] = iv;
+    }
     return JSON.stringify(json, undefined, 2);
   };
 
