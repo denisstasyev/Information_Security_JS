@@ -45,7 +45,6 @@ export default function() {
       return;
     }
 
-    console.log(IvInputBool && getNormalizedIv(iv) !== [] ? getNormalizedIv(iv) : undefined);
     let encryptedData: BlockEncryptionResult = getEncryptedText(
       method,
       key,

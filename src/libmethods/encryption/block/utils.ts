@@ -10,10 +10,15 @@ import { getRandomBytes } from 'js-crypto-random';
  * @param  {string} key
  * @returns number
  */
-export function getNormalizedKey(key: string): number[] {
-  const key_128bit_4elements: number[] = getSHA256(key).slice(0, 4);
+export function getNormalizedKey(key: string, length: number = 128): number[] {
+  let key_bit_in_4elements: number[];
+  if (length === 256) {
+    key_bit_in_4elements = getSHA256(key).slice(0, 8);
+  } else {
+    key_bit_in_4elements = getSHA256(key).slice(0, 4);
+  }
   // @ts-ignore
-  const keyNormalizedHexes: string[] = toHexFormat(key_128bit_4elements).match(/.{1,2}/g) || [];
+  const keyNormalizedHexes: string[] = toHexFormat(key_bit_in_4elements).match(/.{1,2}/g) || [];
   const keyNormalized: number[] = keyNormalizedHexes.map(keyHex => parseInt(keyHex, 16));
   return keyNormalized;
 }
