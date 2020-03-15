@@ -89,16 +89,18 @@ export default function() {
             </option>
           ))}
         </select>
-        {method.withIv && (
-          <>
-            <span>2) Ввести вектор инициализации вручную:</span>
-            <input
-              type="checkbox"
-              checked={IvInputBool}
-              onChange={() => setIvInputBool(!IvInputBool)}
-            />
-          </>
-        )}
+        <span>
+          {method.withIv && (
+            <>
+              <span>2) Ввести вектор инициализации вручную:</span>
+              <input
+                type="checkbox"
+                checked={IvInputBool}
+                onChange={() => setIvInputBool(!IvInputBool)}
+              />
+            </>
+          )}
+        </span>
         {IvInputBool && (
           <>
             <span>2.1) Введите вектор инициализации:</span>
