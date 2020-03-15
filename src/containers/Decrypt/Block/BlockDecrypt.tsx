@@ -182,9 +182,21 @@ export default function() {
                 </option>
               ))}
             </select>
+            <span>2) Введите ключ для расшифрования:</span>
+            <input
+              value={key}
+              placeholder="Ваш ключ"
+              onChange={(event: any) => setKey(event.target.value)}
+            />
+            <span>3) Введите закрытый текст, который хотите расшифровать:</span>
+            <textarea
+              value={encryptedText}
+              placeholder="Ваш закрытый текст"
+              onChange={(event: any) => setEncryptedText(event.target.value)}
+            />
             {method.withIv && (
               <>
-                <span>2) Введите вектор инициализации:</span>
+                <span>4) Введите вектор инициализации:</span>
                 <input
                   value={iv}
                   placeholder="Ваш вектор инициализации"
@@ -192,18 +204,6 @@ export default function() {
                 />
               </>
             )}
-            <span>3) Введите ключ для расшифрования:</span>
-            <input
-              value={key}
-              placeholder="Ваш ключ"
-              onChange={(event: any) => setKey(event.target.value)}
-            />
-            <span>4) Введите закрытый текст, который хотите расшифровать:</span>
-            <textarea
-              value={encryptedText}
-              placeholder="Ваш закрытый текст"
-              onChange={(event: any) => setEncryptedText(event.target.value)}
-            />
             {error && <Alarm type="error" text={`Ошибка! ${error}`} />}
             <button onClick={onSubmit}>Расшифровать!</button>
           </>

@@ -1,5 +1,6 @@
 import { getSHA256 } from 'libmethods/hashing/sha256';
 import { toHexFormat } from 'libmethods/hashing';
+import { getRandomBytes } from 'js-crypto-random';
 
 /**
  * Convert string key into Array of 4 elements with 128 bit size.
@@ -27,7 +28,7 @@ export function getNormalizedIv(iv: string): number[] | undefined {
 }
 
 export function generateIv(): number[] {
-  return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  return Array.from(getRandomBytes(16));
 }
 
 /**

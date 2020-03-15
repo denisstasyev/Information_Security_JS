@@ -117,7 +117,7 @@ const Encrypt: React.SFC<EncryptStateProps> = props => {
         <span>
           {props.method.type === encryptionTypes.caesar && (
             <div>
-              1.1) Использовать обычный сдвиг (без хеширования)
+              1.1) Использовать обычный сдвиг (без хеширования):
               <input
                 type="checkbox"
                 checked={caesarVariant}

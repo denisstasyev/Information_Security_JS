@@ -89,10 +89,22 @@ export default function() {
             </option>
           ))}
         </select>
+        <span>2) Введите ключ для шифрования:</span>
+        <input
+          value={key}
+          placeholder="Ваш ключ"
+          onChange={(event: any) => setKey(event.target.value)}
+        />
+        <span>3) Введите открытый текст, который хотите зашифровать:</span>
+        <textarea
+          value={plainText}
+          placeholder="Ваш открытый текст"
+          onChange={(event: any) => setPlainText(event.target.value)}
+        />
         <span>
           {method.withIv && (
             <>
-              <span>2) Ввести вектор инициализации вручную:</span>
+              <span>4) Введите вектор инициализации вручную:</span>
               <input
                 type="checkbox"
                 checked={IvInputBool}
@@ -103,7 +115,7 @@ export default function() {
         </span>
         {IvInputBool && (
           <>
-            <span>2.1) Введите вектор инициализации:</span>
+            <span>4.1) Введите вектор инициализации:</span>
             <input
               value={iv}
               placeholder="Ваш вектор инициализации"
@@ -111,18 +123,6 @@ export default function() {
             />
           </>
         )}
-        <span>3) Введите ключ для шифрования:</span>
-        <input
-          value={key}
-          placeholder="Ваш ключ"
-          onChange={(event: any) => setKey(event.target.value)}
-        />
-        <span>4) Введите открытый текст, который хотите зашифровать:</span>
-        <textarea
-          value={plainText}
-          placeholder="Ваш открытый текст"
-          onChange={(event: any) => setPlainText(event.target.value)}
-        />
         {error && <Alarm type="error" text={`Ошибка! ${error}`} />}
         <button onClick={onSubmit}>Зашифровать!</button>
       </ContentBox>
