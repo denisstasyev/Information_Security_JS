@@ -62,10 +62,14 @@ export default function() {
     }
     setEncryptedText(encryptedText);
 
-    // @ts-ignore
     const ivJson =
       // @ts-ignore
-      objectJson[INITIALIZATION_VECTOR] === undefined ? '' : objectJson[INITIALIZATION_VECTOR].toString();
+      objectJson[INITIALIZATION_VECTOR] === undefined
+        ? ''
+        : //prettier-ignore
+          // @ts-ignore
+          objectJson[INITIALIZATION_VECTOR].toString();
+
     setIv(ivJson);
   }
 
