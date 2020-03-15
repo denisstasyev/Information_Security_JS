@@ -20,6 +20,7 @@ export function decryptAES256_ECB(key: number[], encryptedText: string): string 
   const encryptedBytes = aesjs.utils.hex.toBytes(encryptedText);
 
   const aesEcb = new aesjs.ModeOfOperation.ecb(key);
+
   const decryptedTextBytes = aesEcb.decrypt(encryptedBytes);
 
   const decryptedText = new TextDecoder().decode(decryptedTextBytes);
