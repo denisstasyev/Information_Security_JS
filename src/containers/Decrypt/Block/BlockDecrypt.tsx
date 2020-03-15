@@ -11,7 +11,7 @@ import {
 } from 'config';
 
 import { BlockMethod, blockEncryptionMethods } from 'libmethods';
-import { getDecryptedText, DecryptionResult } from 'libmethods/encryption/block';
+import { getDecryptedText, BlockDecryptionResult } from 'libmethods/encryption/block';
 import { getNormalizedIv, DEFAULT_IV } from 'libmethods/encryption/block/utils';
 
 import Base64 from 'utils/base64';
@@ -70,7 +70,7 @@ export default function() {
   }
 
   const setResult = () => {
-    const decryptionResult: DecryptionResult = getDecryptedText(
+    const decryptionResult: BlockDecryptionResult = getDecryptedText(
       method,
       key,
       encryptedText,

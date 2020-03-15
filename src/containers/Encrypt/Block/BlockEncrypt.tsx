@@ -104,7 +104,7 @@ export default function() {
         <span>
           {method.withIv && (
             <>
-              <span>4) Введите вектор инициализации вручную:</span>
+              <span>4) Ввести вектор инициализации вручную:</span>
               <input
                 type="checkbox"
                 checked={IvInputBool}

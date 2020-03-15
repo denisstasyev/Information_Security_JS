@@ -60,7 +60,7 @@ export function getEncryptedText(
   return encryptionResult;
 }
 
-export interface DecryptionResult {
+export interface BlockDecryptionResult {
   decryptedText: string;
   error: string;
 }
@@ -70,8 +70,8 @@ export function getDecryptedText(
   key: string,
   encryptedText: string,
   iv?: number[],
-): DecryptionResult {
-  const decryptionResult: DecryptionResult = { decryptedText: '', error: '' };
+): BlockDecryptionResult {
+  const decryptionResult: BlockDecryptionResult = { decryptedText: '', error: '' };
 
   try {
     switch (method.type) {
