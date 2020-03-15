@@ -1,32 +1,27 @@
 import aesjs from 'aes-js';
 
 export function encryptAES256_ECB(key: number[], plainText: string): string {
-  // Test convert text to bytes to detect rest
-  const testTextBytes = aesjs.utils.utf8.toBytes(plainText);
+  let textUint8Array = new TextEncoder().encode(plainText);
 
-  // Create text with length is a multiple of 16 Byte (with spaces at the end)
-  const rest16bytesLength: number = 16 - (testTextBytes.length % 16);
-  const fixedText = plainText + new Array(rest16bytesLength + 1).join(' ');
-
-  // Main convert text to bytes
-  const textBytes = aesjs.utils.utf8.toBytes(fixedText);
+  const rest16bytesLength: number = 16 - (textUint8Array.length % 16 || 16);
+  const textUint8ArrayFill = new Uint8Array([
+    ...Array.from(textUint8Array),
+    ...Array.from({ length: rest16bytesLength }, () => 32),
+  ]);
 
   const aesEcb = new aesjs.ModeOfOperation.ecb(key);
-  const encryptedBytes = aesEcb.encrypt(textBytes);
+  const encryptedBytes = aesEcb.encrypt(textUint8ArrayFill);
 
-  // The binary data converted to hex
   const encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
-
   return encryptedHex;
 }
 
 export function decryptAES256_ECB(key: number[], encryptedText: string): string {
-  // Convert hex string back to bytes
   const encryptedBytes = aesjs.utils.hex.toBytes(encryptedText);
 
   const aesEcb = new aesjs.ModeOfOperation.ecb(key);
   const decryptedTextBytes = aesEcb.decrypt(encryptedBytes);
-  const decryptedText = aesjs.utils.utf8.fromBytes(decryptedTextBytes);
 
+  const decryptedText = new TextDecoder().decode(decryptedTextBytes);
   return decryptedText;
 }
