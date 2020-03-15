@@ -8,6 +8,7 @@ This project includes some versions of AES-256, such as:
 - CBC
 - CTR
 - CFB
+- OFB
 
 ### ECB - Electronic Codebook (NOT recommended)
 
@@ -18,3 +19,5 @@ This mode is **not** recommended. Since, for a given key, the same plaintext blo
 ### CTR - Counter (recommended)
 
 ### CFB - Cipher Feedback
+
+### OFB - Output Feedback

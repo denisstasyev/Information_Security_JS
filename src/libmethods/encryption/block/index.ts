@@ -8,6 +8,7 @@ import { encryptAES256_ECB, decryptAES256_ECB } from 'libmethods/encryption/bloc
 import { encryptAES256_CBC, decryptAES256_CBC } from 'libmethods/encryption/block/aes/cbc';
 import { encryptAES256_CTR, decryptAES256_CTR } from 'libmethods/encryption/block/aes/ctr';
 import { encryptAES256_CFB, decryptAES256_CFB } from 'libmethods/encryption/block/aes/cfb';
+import { encryptAES256_OFB, decryptAES256_OFB } from 'libmethods/encryption/block/aes/ofb';
 
 export function getEncryptedText(
   method: Method,
@@ -29,6 +30,9 @@ export function getEncryptedText(
       break;
     case blockEncryptionTypes.aes256cfb:
       encryptedText = encryptAES256_CFB(getNormalizedKey(key), plainText, getNormalizedIv(iv));
+      break;
+    case blockEncryptionTypes.aes256ofb:
+      encryptedText = encryptAES256_OFB(getNormalizedKey(key), plainText, getNormalizedIv(iv));
       break;
   }
 
@@ -60,6 +64,9 @@ export function getDecryptedText(
         break;
       case blockEncryptionTypes.aes256cfb:
         decryptionResult.text = decryptAES256_CFB(getNormalizedKey(key), encryptedText, iv);
+        break;
+      case blockEncryptionTypes.aes256ofb:
+        decryptionResult.text = decryptAES256_OFB(getNormalizedKey(key), encryptedText, iv);
         break;
     }
   } catch {
