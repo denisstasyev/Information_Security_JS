@@ -36,19 +36,24 @@ export function getEncryptedText(
   return encryptedText;
 }
 
+export interface DecryptionResult {
+  error: string;
+  decryptedText: string;
+}
+
 export function getDecryptedText(
   method: Method,
   key: string,
   encryptedText: string,
   iv: string, // iv - initialization vector
-): string {
-  let decryptedText: string = '';
+): DecryptionResult {
+  let decryptionResult: DecryptionResult = { error: '', decryptedText: '' };
 
   switch (method.type) {
     case blockEncryptionTypes.aes256ecb:
-      decryptedText = decryptAES256_ECB(getNormalizedKey(key), encryptedText);
+      decryptionResult = decryptAES256_ECB(getNormalizedKey(key), encryptedText);
       break;
   }
 
-  return decryptedText;
+  return decryptionResult;
 }

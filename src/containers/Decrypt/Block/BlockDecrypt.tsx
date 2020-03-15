@@ -8,7 +8,7 @@ import { Method } from 'store';
 import { CIPHER_METHOD, ENCRYPTED_DATA, ENCRYPTED_DATA_BASE64 } from 'config';
 
 import { blockEncryptionMethods } from 'libmethods';
-import { getDecryptedText } from 'libmethods/encryption/block';
+import { getDecryptedText, DecryptionResult } from 'libmethods/encryption/block';
 
 import Base64 from 'utils/base64';
 
@@ -23,24 +23,11 @@ export default function() {
   const [error, setError] = React.useState('');
   const [decryptedText, setDecryptedText] = React.useState('');
 
-  const onSubmit = (event: any) => {
-    event.preventDefault();
-    setError('');
+  React.useEffect(() => {
+    json !== '' && parseJson(json);
+  }, [json]);
 
-    if (key === '') {
-      setError('Введите ключ расшифрования!');
-      return;
-    }
-
-    if (encryptedText === '') {
-      setError('Введите закрытый текст!');
-      return;
-    }
-
-    setDecryptedText(getDecryptedText(method, key, encryptedText, ''));
-  };
-
-  const parseJson = (json: string) => {
+  function parseJson(json: string) {
     let objectJson = {};
 
     try {
@@ -67,12 +54,34 @@ export default function() {
       encryptedText = Base64.decode(objectJson[ENCRYPTED_DATA_BASE64]);
     }
     setEncryptedText(encryptedText);
+  }
+
+  const setResult = () => {
+    const decryptionResult: DecryptionResult = getDecryptedText(method, key, encryptedText, '');
+    setError(decryptionResult.error);
+    !decryptionResult.error && setDecryptedText(decryptionResult.decryptedText);
+  };
+
+  const onSubmit = (event: any) => {
+    event.preventDefault();
+    setError('');
+
+    if (key === '') {
+      setError('Введите ключ расшифрования!');
+      return;
+    }
+
+    if (encryptedText === '') {
+      setError('Введите закрытый текст!');
+      return;
+    }
+
+    setResult();
   };
 
   const onSubmitJson = (json: string) => {
+    console.log(json);
     setError('');
-
-    parseJson(json);
 
     if (key === '') {
       setError('Введите ключ расшифрования!');
@@ -91,7 +100,7 @@ export default function() {
       return;
     }
 
-    setDecryptedText(getDecryptedText(method, key, encryptedText, ''));
+    setResult();
   };
 
   return (
