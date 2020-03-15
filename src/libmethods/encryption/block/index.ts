@@ -69,7 +69,7 @@ export function getDecryptedText(
   method: BlockMethod,
   key: string,
   encryptedText: string,
-  iv?: number[],
+  iv: number[],
 ): BlockDecryptionResult {
   const decryptionResult: BlockDecryptionResult = { decryptedText: '', error: '' };
 
@@ -82,7 +82,7 @@ export function getDecryptedText(
         decryptionResult.decryptedText = decryptAES256_CBC(
           getNormalizedKey(key),
           encryptedText,
-          iv || DEFAULT_IV,
+          iv,
         );
         break;
       case blockEncryptionTypes.aes256ctr:
@@ -92,14 +92,14 @@ export function getDecryptedText(
         decryptionResult.decryptedText = decryptAES256_CFB(
           getNormalizedKey(key),
           encryptedText,
-          iv || DEFAULT_IV,
+          iv,
         );
         break;
       case blockEncryptionTypes.aes256ofb:
         decryptionResult.decryptedText = decryptAES256_OFB(
           getNormalizedKey(key),
           encryptedText,
-          iv || DEFAULT_IV,
+          iv,
         );
         break;
     }

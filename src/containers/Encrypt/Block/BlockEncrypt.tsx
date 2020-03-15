@@ -30,7 +30,7 @@ export default function() {
     event.preventDefault();
     setError('');
 
-    if (method.withIv && IvInputBool && getNormalizedIv(iv) === undefined) {
+    if (method.withIv && IvInputBool && !getNormalizedIv(iv).length) {
       setError('Введите корректный вектор инициализации (массив из 16 чисел)!');
       return;
     }
@@ -45,11 +45,12 @@ export default function() {
       return;
     }
 
+    console.log(IvInputBool && getNormalizedIv(iv) !== [] ? getNormalizedIv(iv) : undefined);
     let encryptedData: BlockEncryptionResult = getEncryptedText(
       method,
       key,
       plainText,
-      getNormalizedIv(iv),
+      IvInputBool && getNormalizedIv(iv).length ? getNormalizedIv(iv) : undefined,
     );
     setEncryptedText(encryptedData.encryptedText);
     if (method.withIv) {
