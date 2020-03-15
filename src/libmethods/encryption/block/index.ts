@@ -6,6 +6,7 @@ import { getNormalizedKey, getNormalizedIv } from 'libmethods/encryption/block/u
 
 import { encryptAES256_ECB, decryptAES256_ECB } from 'libmethods/encryption/block/aes/ecb';
 import { encryptAES256_CBC, decryptAES256_CBC } from 'libmethods/encryption/block/aes/cbc';
+import { encryptAES256_CTR, decryptAES256_CTR } from 'libmethods/encryption/block/aes/ctr';
 
 export function getEncryptedText(
   method: Method,
@@ -21,6 +22,9 @@ export function getEncryptedText(
       break;
     case blockEncryptionTypes.aes256cbc:
       encryptedText = encryptAES256_CBC(getNormalizedKey(key), plainText, getNormalizedIv(iv));
+      break;
+    case blockEncryptionTypes.aes256ctr:
+      encryptedText = encryptAES256_CTR(getNormalizedKey(key), plainText);
       break;
   }
 
@@ -46,6 +50,9 @@ export function getDecryptedText(
         break;
       case blockEncryptionTypes.aes256cbc:
         decryptionResult.text = decryptAES256_CBC(getNormalizedKey(key), encryptedText, iv);
+        break;
+      case blockEncryptionTypes.aes256ctr:
+        decryptionResult.text = decryptAES256_CTR(getNormalizedKey(key), encryptedText);
         break;
     }
   } catch {
