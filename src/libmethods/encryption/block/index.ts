@@ -87,13 +87,21 @@ export function getDecryptedText(
         );
         break;
       case blockEncryptionTypes.aes256ctr:
-        decryptionResult.text = decryptAES256_CTR(getNormalizedKey(key), encryptedText);
+        decryptionResult.decryptedText = decryptAES256_CTR(getNormalizedKey(key), encryptedText);
         break;
       case blockEncryptionTypes.aes256cfb:
-        decryptionResult.text = decryptAES256_CFB(getNormalizedKey(key), encryptedText, iv);
+        decryptionResult.decryptedText = decryptAES256_CFB(
+          getNormalizedKey(key),
+          encryptedText,
+          iv || zeroIv,
+        );
         break;
       case blockEncryptionTypes.aes256ofb:
-        decryptionResult.text = decryptAES256_OFB(getNormalizedKey(key), encryptedText, iv);
+        decryptionResult.decryptedText = decryptAES256_OFB(
+          getNormalizedKey(key),
+          encryptedText,
+          iv || zeroIv,
+        );
         break;
     }
   } catch {
