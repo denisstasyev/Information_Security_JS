@@ -9,6 +9,7 @@ import { Tag } from 'components/Tag';
 const encryptLinks = [
   { title: 'Простое шифрование', href: '/encrypt/basic/', isActive: true },
   { title: 'Блочное шифрование', href: '/encrypt/block/', isActive: true },
+  { title: 'Ассиметричное шифрование', href: '/encrypt/asymmetric/', isActive: true },
 ];
 
 export default function() {

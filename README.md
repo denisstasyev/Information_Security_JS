@@ -49,7 +49,7 @@ The following hash functions are now available:
 
 - SHA-256
 - SHA-512
-- ~~SHA-3~~
+- SHA-3
 
 More information about checksum methods are available in [`src/libmethods/hashing` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/hashing).
 
