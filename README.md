@@ -28,7 +28,7 @@ The following encryption and decryption methods are now available:
 
 - Block methods
   - AES
-  - GOST
+  - ~~GOST~~
 
 More information about encryption and decryption methods are available in [`src/libmethods/encryption` folder](https://github.com/denisstasyev/Information_Security_JS/tree/master/src/libmethods/encryption).
 

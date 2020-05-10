@@ -41,6 +41,25 @@ export const blockEncryptionMethods: BlockMethod[] = [
 ];
 
 /**
+ * Asymmetric encryption types and methods
+ */
+export const asymmetricEncryptionTypes = {
+  rsa512: 'rsa512',
+  rsa1024: 'rsa1024',
+  // rsa2048: 'rsa2048',
+  // rsa4096: 'rsa4096',
+  // rsa8192: 'rsa8192',
+};
+
+export const asymmetricEncryptionMethods: Method[] = [
+  { type: asymmetricEncryptionTypes.rsa512, name: 'RSA-512' },
+  { type: asymmetricEncryptionTypes.rsa1024, name: 'RSA-1024' },
+  // { type: asymmetricEncryptionTypes.rsa2048, name: 'RSA-2048' },
+  // { type: asymmetricEncryptionTypes.rsa4096, name: 'RSA-4096' },
+  // { type: asymmetricEncryptionTypes.rsa8192, name: 'RSA-8192' },
+];
+
+/**
  * Checksum types and methods
  */
 export const checksumTypes = {

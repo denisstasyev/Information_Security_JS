@@ -16,6 +16,9 @@ import { BasicDecrypt } from 'containers/Decrypt/Basic';
 import { BlockEncrypt } from 'containers/Encrypt/Block';
 import { BlockDecrypt } from 'containers/Decrypt/Block';
 
+import { AsymmetricEncrypt } from 'containers/Encrypt/Asymmetric';
+import { AsymmetricDecrypt } from 'containers/Decrypt/Asymmetric';
+
 import { Checksum } from 'containers/Checksum';
 import { Hashing } from 'containers/Hashing';
 import { NotFound } from 'containers/NotFound';
@@ -36,6 +39,9 @@ const App = () => {
 
           <Route path="/encrypt/block" component={BlockEncrypt} />
           <Route path="/decrypt/block" component={BlockDecrypt} />
+
+          <Route path="/encrypt/asymmetric" component={AsymmetricEncrypt} />
+          <Route path="/decrypt/asymmetric" component={AsymmetricDecrypt} />
 
           <Route path="/checksum/" component={Checksum} />
           <Route path="/hash/" component={Hashing} />
