@@ -21,7 +21,7 @@
     "fletcher": "0.0.3",
     "gost89": "^0.1.11",
     "js-crypto-random": "^0.4.3",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
